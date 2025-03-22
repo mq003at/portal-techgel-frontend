@@ -9,7 +9,7 @@ export default function LoginPage() {
     >
       <div>
         <ImageWrapper
-          src={'assets/logo-main-250.png'}
+          src={'assets/logo-main-600-150-transparent.png'}
           alt="Logo-Techgel"
           title="Logo Techgel"
           height={60}

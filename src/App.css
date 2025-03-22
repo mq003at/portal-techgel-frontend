@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.input:focus,
+.input.input-bordered:focus {
+  border-color: #ef4444; /* Tailwind's red-500 */
+}
