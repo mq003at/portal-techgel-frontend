@@ -57,7 +57,7 @@ export default function ServiceBar() {
   return (
     <div className="w-64 bg-base-200 p-4 h-screen shadow-md">
       <ImageWrapper
-        src={"../assets/logo-main-250.png"}
+        src={"../assets/logo-main-600-150-transparent.png"}
         alt="Logo-Techgel"
         title="Logo Techgel"
         height={60}

@@ -107,7 +107,7 @@ export default function LoginBox() {
       </div>
       <p className="text-xs text-gray-500 mt-1">Copyright© 2025 by Techgel</p>
       <p className="absolute bottom-[2px] right-4 text-[11px] text-gray-400">
-        version 25.03.22
+        version 20250402-1.0.1-beta
       </p>
     </div>
   );
