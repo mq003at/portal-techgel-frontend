@@ -30,7 +30,7 @@ export default function LoginBox() {
   };
 
   return (
-    <div className="card w-[400px] p-6 text-center text-black shadow-lg relative">
+    <div className="transparent w-[400px] p-6 text-center text-black relative">
       {showHelp && <NeedHelpLoginPopover onClose={() => setShowHelp(false)} />}
       <h2 className="text-2xl font-bold tracking-wide text-center">
         CỔNG DỊCH VỤ TECHGEL{" "}
@@ -64,6 +64,7 @@ export default function LoginBox() {
             />
           </label>
         </div>
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
         <div className="flex justify-center mt-2">
           <label className="flex items-center gap-2">
@@ -71,8 +72,6 @@ export default function LoginBox() {
             Nhớ tên tài khoản
           </label>
         </div>
-
-        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
         <button
           type="submit"
