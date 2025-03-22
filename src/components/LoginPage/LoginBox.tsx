@@ -92,7 +92,7 @@ export default function LoginBox() {
 
         <button
           type="submit"
-          className="btn bg-white text-black w-full mt-4 card-actions content-center"
+          className="btn bg-white text-black w-[300px] mt-4 card-actions content-center"
         >
           <i className="icon-check"></i> Đăng nhập
         </button>

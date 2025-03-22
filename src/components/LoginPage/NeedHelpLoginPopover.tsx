@@ -56,10 +56,10 @@ export default function NeedHelpLoginPopover({
 
             <button
               type="submit"
-              className="btn btn-primary w-full"
+              className="btn text-white bg-red-600 w-full hover:bg-red-700 focus:bg-red-900"
               onClick={(e) => e.preventDefault()}
             >
-              Submit Request
+              Đổi Mật Khẩu
             </button>
           </form>
         </div>
