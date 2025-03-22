@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html",'./src/**/*.{js,ts,jsx,tsx}', './node_modules/flyonui/flyonui.js'],
-  plugins: [require('flyonui'), require('flyonui/plugin')],
+  plugins: [require('daisyui'), require('flyonui/plugin')],
   theme: {
     extend: {
       fontFamily: {
@@ -11,7 +11,8 @@ export default {
       },
     },
   },
-  flyonui: {
-    themes: ['light', 'dark', 'gourmet', 'corporate', 'luxury', 'soft'],
+  daisyui: {
+    themes: ["light", "dark"], // or your own custom theme
   },
+
 };

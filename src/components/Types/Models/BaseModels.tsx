@@ -1,8 +1,8 @@
 export interface BaseModel {
   id: number;
   mainID: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export type Gender = "Male" | "Female" | "Other";
@@ -34,9 +34,10 @@ export interface Employee extends BaseModel {
   managerId?: number;
   manager?: Employee;
   salary: number;
-  divisionIds: [number];
-  teamIds: [number];
-  sectionIds: [number];
-  departmentIds: [number];
-  unitIds: [number];
+  divisionIds?: [number];
+  teamIds?: [number];
+  sectionIds?: [number];
+  departmentIds?: [number];
+  unitIds?: [number];
+  password: string;
 }

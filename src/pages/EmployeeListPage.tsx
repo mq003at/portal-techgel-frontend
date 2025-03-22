@@ -14,6 +14,8 @@ import EmployeeAddForm from "../components/EmployeeSection/EmployeeAddForm";
 import EmployeeEditForm from "../components/EmployeeSection/EmployeeEditForm";
 import { formatDateToDDMMYYYY } from "../components/misc/conversion";
 import { EmployeeDTO } from "../DTOs/EmployeeDTO";
+import { EmployeeMockData } from "../data/employeeData";
+import { employmentStatusOptions } from "../components/EmployeeSection/sharedTypes";
 
 export default function EmployeeListPage() {
   const [employeeData, setEmployeeData] = useState<EmployeeDTO[]>([]);
@@ -23,22 +25,27 @@ export default function EmployeeListPage() {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const fetchEmployees = async () => {
-    try {
-      const response = await fetch("https://localhost:7188/api/employees");
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data: Employee[] = await response.json();
-      console.log("Employees Data:", data);
+    // try {
+    //   const response = await fetch("https://localhost:7188/api/employees");
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! Status: ${response.status}`);
+    //   }
+    //   const data: Employee[] = await response.json();
+    //   console.log("Employees Data:", data);
 
-      const dataDTO = data.map((employee) => new EmployeeDTO(employee));
+    //   const dataDTO = data.map((employee) => new EmployeeDTO(employee));
 
-      console.log("EmployeeDTO:", dataDTO);
+    //   console.log("EmployeeDTO:", dataDTO);
 
-      setEmployeeData(dataDTO);
-    } catch (error) {
-      console.error("Error fetching employees:", error);
-    }
+    //   setEmployeeData(dataDTO);
+    // } catch (error) {
+    //   console.error("Error fetching employees:", error);
+    // }
+
+    const data: Employee[] = EmployeeMockData;
+    console.log(data)
+    const dataDTO = data.map((employee) => new EmployeeDTO(employee));
+    setEmployeeData(dataDTO);
   };
 
   useEffect(() => {
@@ -74,9 +81,21 @@ export default function EmployeeListPage() {
       accessorKey: "status",
       header: "Trạng thái",
       enableSorting: true,
-      cell: ({ getValue }) => (
-        <span className="badge badge-success">{getValue()}</span>
-      ),
+      cell: ({ getValue }) => {
+        const statusValue = getValue();
+        const statusMeta = employmentStatusOptions.find(
+          (opt) => opt.value === statusValue
+        );
+    
+        const label = statusMeta?.label || statusValue;
+        const color = statusMeta?.color || "neutral";
+    
+        return (
+          <span className={`badge badge-${color}`}>
+            {label}
+          </span>
+        );
+      },
     },
     {
       accessorKey: "phoneNumber",

@@ -1,9 +1,9 @@
 export const employmentStatusOptions = [
-  { value: "Active", label: "Đang làm việc" },
-  { value: "Inactive", label: "Không hoạt động" },
-  { value: "OnLeave", label: "Đang nghỉ phép" },
-  { value: "Terminated", label: "Đã thôi việc" },
-  { value: "Retired", label: "Đã nghỉ hưu" },
+  { value: "Active", label: "Đang làm việc", color: "success" },
+  { value: "Inactive", label: "Không hoạt động", color: "neutral" },
+  { value: "OnLeave", label: "Đang nghỉ phép", color: "warning" },
+  { value: "Terminated", label: "Đã thôi việc", color: "error" },
+  { value: "Retired", label: "Đã nghỉ hưu", color: "info" },
 ];
 
 export const genderOptions = [
