@@ -115,6 +115,7 @@ export default function EmployeeListPage() {
 
   return (
     <div className="p-6">
+
       {isFormOpen && <EmployeeAddForm onClose={() => setIsFormOpen(false)} />}
       {isEditFormOpen && selectedEmployee && (
         <EmployeeEditForm
