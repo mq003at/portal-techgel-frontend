@@ -5,8 +5,9 @@ import {
   Tooltip,
   Legend,
   ChartOptions,
+  ChartData,
 } from "chart.js";
-import { useMemo } from "react";
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -17,36 +18,50 @@ interface Props {
 export default function AnnouncementCircleChart({ categoryData }: Props) {
   const total = categoryData.reduce((sum, c) => sum + c.count, 0);
 
-  const chartData = useMemo(() => {
-    return {
-      labels: categoryData.map((c) => c.name),
-      datasets: [
-        {
-          data: categoryData.map((c) => c.count),
-          backgroundColor: [
-            "blue", "red", "#34d399", "#facc15", "#a78bfa", "#fb923c",
-          ],
-          borderWidth: 2,
-        },
-      ],
-    };
-  }, [categoryData]);
+  const chartData: ChartData<"doughnut", number[], string> = {
+    labels: categoryData.map((c) => c.name),
+    datasets: [
+      {
+        data: categoryData.map((c) => c.count),
+        backgroundColor: [
+          "#60a5fa", "#f87171", "#34d399", "#facc15", "#a78bfa", "#fb923c",
+        ],
+        borderWidth: 2,
+      },
+    ],
+  };
 
   const options: ChartOptions<"doughnut"> = {
-    cutout: "70%",
+    cutout: "75%",
     plugins: {
       legend: {
-        position: "bottom",
+        display: true,
+        position: "right",
+        labels: {
+          boxWidth: 14,
+          padding: 10,
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const label = ctx.label || "";
+            const value = ctx.raw || 0;
+            return `${label}: ${value} thông báo`;
+          },
+        },
       },
     },
   };
 
   return (
-    <div className="relative w-72 h-72 mx-auto">
-      <Doughnut data={chartData} options={options} />
-      <div className="absolute inset-0 flex items-center justify-center flex-col">
-        <p className="text-2xl font-bold">{total}</p>
-        <p className="text-gray-500 text-sm">Thông báo</p>
+    <div className="flex items-center justify-center gap-4">
+      {/* Smaller chart */}
+      <div className="relative w-44 h-44">
+        <Doughnut data={chartData} options={options} />
+        <div className="absolute inset-0 flex items-center justify-center mr-[85px]">
+          <p className="text-xl font-bold">{total}</p>
+        </div>
       </div>
     </div>
   );

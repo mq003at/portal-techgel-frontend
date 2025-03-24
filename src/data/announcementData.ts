@@ -9,6 +9,7 @@ export const announcementMockData: AnnouncementCategory[] = [
       "name": "Hệ thống",
       "description": "Thông báo chính về hệ thống công ty Techgel",
       "level": 1,
+      "color": "#60a5fa",
       "announcements": [
         {
           "id": 101,
@@ -38,6 +39,7 @@ export const announcementMockData: AnnouncementCategory[] = [
       "name": "Quy trình",
       "description": "Ban bổ Quy trình công việc",
       "level": 2,
+      "color": "#f87171",
       "announcements": [
         {
           "id": 201,
@@ -45,7 +47,7 @@ export const announcementMockData: AnnouncementCategory[] = [
           "createdAt": "2025-03-08T13:00:00Z",
           "updatedAt": "2025-03-08T13:00:00Z",
           "name": "Quy trình Họp Xem xét của Lãnh đạo",
-          "content": "Kính gửi Anh Chị,\n Phòng HC-NS gửi Thông báo Ban hành Quy trình Họp xem xét Lãnh đạo. \nAnh Chị truy cập mục Quy trình hoặc nhấp vào đường dẫn dưới đây để xem thông tin chi tiết.",
+          "content": "Kính gửi Anh Chị,\n Phòng HC-NS gửi Thông báo Ban hành Quy trình Họp xem xét Lãnh đạo. \nAnh Chị truy cập mục Quy trình hoặc nhấp vào đường dẫn dưới đây để xem thông tin chi tiết.\n\nLink: https://google.com.vn",
           "issuer": "Phòng Hành Chính"
         },
         {
@@ -54,7 +56,7 @@ export const announcementMockData: AnnouncementCategory[] = [
             "createdAt": "2025-03-08T13:00:00Z",
             "updatedAt": "2025-03-08T13:00:00Z",
             "name": "Quy trình Quản lý sự thay đổi",
-            "content": "Kính gửi Anh Chị,\n Phòng HC-NS gửi Thông báo Ban hànhQuản lý sự thay đổi. \nAnh Chị truy cập mục Quy trình hoặc nhấp vào đường dẫn dưới đây để xem thông tin chi tiết.",
+            "content": "Kính gửi Anh Chị,\n Phòng HC-NS gửi Thông báo Ban hànhQuản lý sự thay đổi. \nAnh Chị truy cập mục Quy trình hoặc nhấp vào đường dẫn dưới đây để xem thông tin chi tiết. \n\nLink: https://google.com.vn",
             "issuer": "Phòng Hành Chính"
           },
           {
@@ -63,7 +65,7 @@ export const announcementMockData: AnnouncementCategory[] = [
             "createdAt": "2025-03-08T13:00:00Z",
             "updatedAt": "2025-03-08T13:00:00Z",
             "name": "Quy trình Trao đổi thông tin",
-            "content": "Kính gửi Anh Chị,\n Phòng HC-NS gửi Thông báo Ban hành Trao đổi thông tin. \nAnh Chị truy cập mục Quy trình hoặc nhấp vào đường dẫn dưới đây để xem thông tin chi tiết.",
+            "content": "Kính gửi Anh Chị,\n Phòng HC-NS gửi Thông báo Ban hành Trao đổi thông tin. \nAnh Chị truy cập mục Quy trình hoặc nhấp vào đường dẫn dưới đây để xem thông tin chi tiết.\n\nLink: https://google.com.vn",
             "issuer": "Phòng Hành Chính"
           }
       ]
@@ -76,6 +78,7 @@ export const announcementMockData: AnnouncementCategory[] = [
       "name": "Sự kiện",
       "description": "Các sự kiện mừng lễ và sinh nhật",
       "level": 3,
+      "color": "#34d399",
       "announcements": [
         {
           "id": 301,
@@ -96,6 +99,7 @@ export const announcementMockData: AnnouncementCategory[] = [
       "name": "Công việc",
       "description": "Gửi Hồ sơ Quy trình Khảo sát cho Dự án T3",
       "level": 4,
+      "color": "#facc15",
       "announcements": [
         {
           "id": 401,

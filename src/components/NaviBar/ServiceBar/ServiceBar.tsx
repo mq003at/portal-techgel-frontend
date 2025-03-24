@@ -1,9 +1,15 @@
 import IconWrapper from "../../Wrapper/IconWrapper";
 import { Link, useNavigate } from "react-router";
 import ImageWrapper from "../../Wrapper/ImageWrapper";
-import { useState } from "react";
 
 const services = [
+  {
+    title: "Tổng Quan",
+    icon: (
+      <IconWrapper src="../assets/icon/general.svg" title="Thông báo" />
+    ),
+    navigateTo: "/main/general",
+  },
   {
     title: "Thông Báo",
     icon: (
@@ -24,16 +30,12 @@ const services = [
   // },
   {
     title: "Phòng Ban",
-    icon: (
-      <IconWrapper src="../assets/icon/department.svg" title="Phòng Ban" />
-    ),
+    icon: <IconWrapper src="../assets/icon/department.svg" title="Phòng Ban" />,
     navigateTo: "/main/organization",
   },
   {
     title: "Danh Bạ",
-    icon: (
-      <IconWrapper src="../assets/icon/phonebook.svg" title="Danh Bạ" />
-    ),
+    icon: <IconWrapper src="../assets/icon/phonebook.svg" title="Danh Bạ" />,
     navigateTo: "/main/phonebook",
   },
   {
@@ -43,7 +45,7 @@ const services = [
   },
   {
     title: "Cần duyệt",
-    icon: <IconWrapper src="../assets/icon/stamp.svg" title="Cần duyệt" />,
+    icon: <IconWrapper src="../assets/icon/stamp.svg" title="Cần Duyệt" />,
     navigateTo: "/main/stamp",
   },
   {
@@ -73,12 +75,7 @@ const services = [
   },
   {
     title: "Bảng Lương",
-    icon: (
-      <IconWrapper
-        src="../assets/icon/salary.svg"
-        title="Bảng lương"
-      />
-    ),
+    icon: <IconWrapper src="../assets/icon/salary.svg" title="Bảng lương" />,
     navigateTo: "/main/announcement",
   },
   {
@@ -95,15 +92,22 @@ const services = [
   },
 ];
 
-export default function ServiceBar() {
+interface ServiceBarProps {
+  isExpanded: boolean;
+  setIsExpanded: (isExpanded: boolean) => void;
+}
+
+export default function ServiceBar({
+  isExpanded,
+  setIsExpanded,
+}: ServiceBarProps) {
   const navigate = useNavigate();
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
   return (
     <div
-      className={`${
-        isExpanded ? "w-64" : "w-20"
-      } bg-base-200 p-4 h-screen shadow-md flex flex-col transition-all duration-300`}
+      className={`fixed top-0 left-0${
+        isExpanded ? "w-50" : "w-20"
+      } bg-base-200 p-4 h-screen shadow-md flex flex-col items-center transition-all duration-300`}
     >
       {/* Logo */}
       <div
@@ -115,8 +119,8 @@ export default function ServiceBar() {
             src={"../assets/logo-main-600-150-transparent.png"}
             alt="Logo-Techgel"
             title="Logo Techgel"
-            height={60}
-            width={250}
+            height={50}
+            width={175}
           />
         ) : (
           <IconWrapper

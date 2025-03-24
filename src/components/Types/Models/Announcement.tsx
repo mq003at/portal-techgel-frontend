@@ -11,4 +11,5 @@ export interface AnnouncementCategory extends BaseModel {
   description: string;
   announcements: Announcement[];
   level: number;
+  color: string;
 }

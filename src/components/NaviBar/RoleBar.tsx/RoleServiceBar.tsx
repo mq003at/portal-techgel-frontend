@@ -2,11 +2,7 @@ import IconWrapper from "../../Wrapper/IconWrapper";
 import { useLocation, useNavigate } from "react-router";
 
 const roleServices = [
-  {
-    title: "Thông báo",
-    icon: <IconWrapper src="../assets/icon/announcement.svg" title="Thông Báo" />,
-    navigateTo: "/main/announcement",
-  },
+  
   {
     title: "Hành chính",
     icon: <IconWrapper src="../assets/icon/folder.svg" title="Hành Chính" />,

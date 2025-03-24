@@ -13,7 +13,7 @@ export default function AnnouncementPage() {
 
   return (
     <div className="p-6 space-y-6">
-      <h2 className="text-2xl font-bold">Thống kê thông báo</h2>
+      <h2 className="text-2xl font-bold">Thông kê Thông báo</h2>
 
       <AnnouncementCircleChart categoryData={categoryCounts} />
 

@@ -6,8 +6,12 @@ interface Props {
 }
 
 export default function AnnouncementBox({ category }: Props) {
+  console.log(category.color);
   return (
-    <div className="collapse collapse-arrow bg-base-200 shadow mb-4 border">
+    <div
+      className={`collapse collapse-arrow shadow mb-4 border`}
+      style={{ backgroundColor: category.color }}
+    >
       <input type="checkbox" />
       <div className="collapse-title font-semibold text-lg">
         {category.name}

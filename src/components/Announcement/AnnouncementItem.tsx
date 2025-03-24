@@ -1,39 +1,68 @@
 import { format } from "date-fns";
 import { Announcement } from "../Types/Models/Announcement";
+import { JSX } from "react";
 
 interface Props {
   announcement: Announcement;
 }
 
-function parseLinks(content: string) {
-  const urlRegex = /((https?:\/\/[^\s]+))/g;
-  return content.split(urlRegex).map((part, i) =>
-    urlRegex.test(part) ? (
+function parseLinks(content: string): (string | JSX.Element)[] {
+  const urlRegex = /https?:\/\/[^\s]+/g;
+  const result: (string | JSX.Element)[] = [];
+
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = urlRegex.exec(content)) !== null) {
+    const { index } = match;
+    const url = match[0];
+
+    // Grab text before URL
+    const textBefore = content.slice(lastIndex, index);
+    result.push(...handleNewLines(textBefore));
+
+    // Push link
+    result.push(
       <a
-        key={i}
-        href={part}
+        key={index}
+        href={url}
         target="_blank"
         rel="noopener noreferrer"
         className="text-blue-500 underline"
       >
-        {part}
+        {url}
       </a>
-    ) : (
-      part
-    )
-  );
+    );
+
+    lastIndex = index + url.length;
+  }
+
+  // Handle trailing text after last URL
+  const remainingText = content.slice(lastIndex);
+  result.push(...handleNewLines(remainingText));
+
+  return result;
+}
+
+// 👉 Helper to split on \n and insert <br />
+function handleNewLines(text: string): (string | JSX.Element)[] {
+  return text
+    .split("\n")
+    .flatMap((part, i, arr) =>
+      i < arr.length - 1 ? [part, <br key={`br-${i}`} />] : [part]
+    );
 }
 
 export default function AnnouncementItem({ announcement }: Props) {
   return (
-    <div className="collapse collapse-arrow bg-base-100 shadow border mb-2">
+    <div className="collapse collapse-arrow shadow border my-2 bg-white">
       <input type="checkbox" />
       <div className="collapse-title font-medium">{announcement.name}</div>
       <div className="collapse-content space-y-2">
         <p className="text-sm italic text-gray-500">
-          CreatedAt:{" "}
+          Ngày:{" "}
           {announcement.createdAt
-            ? format(new Date(announcement.createdAt), "dd-MM-yyyy")
+            ? format(new Date(announcement.createdAt), "dd/MM/yyyy")
             : "null"}{" "}
           — {announcement.issuer}
         </p>
