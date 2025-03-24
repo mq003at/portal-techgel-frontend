@@ -23,17 +23,35 @@ const services = [
   //   navigateTo: "/main/employees",
   // },
   {
-    title: "Phân Ban",
+    title: "Phòng Ban",
     icon: (
-      <IconWrapper src="../assets/icon/humanresources.svg" title="Phân Ban" />
+      <IconWrapper src="../assets/icon/department.svg" title="Phòng Ban" />
     ),
     navigateTo: "/main/organization",
+  },
+  {
+    title: "Danh Bạ",
+    icon: (
+      <IconWrapper src="../assets/icon/phonebook.svg" title="Danh Bạ" />
+    ),
+    navigateTo: "/main/phonebook",
   },
   {
     title: "Văn Bản",
     icon: <IconWrapper src="../assets/icon/document.svg" title="Document" />,
     navigateTo: "",
   },
+  {
+    title: "Cần duyệt",
+    icon: <IconWrapper src="../assets/icon/stamp.svg" title="Cần duyệt" />,
+    navigateTo: "/main/stamp",
+  },
+  {
+    title: "Quy Trình",
+    icon: <IconWrapper src="../assets/icon/procedure.svg" title="Quy trình" />,
+    navigateTo: "/main/procedure",
+  },
+
   {
     title: "Nghỉ Phép",
     icon: <IconWrapper src="../assets/icon/onleave.svg" title="On Leave" />,
@@ -47,13 +65,18 @@ const services = [
     navigateTo: "",
   },
   {
-    title: "Lương",
+    title: "Lịch Công Tác",
+    icon: (
+      <IconWrapper src="../assets/icon/business-trip.svg" title="Công tác" />
+    ),
+    navigateTo: "",
+  },
+  {
+    title: "Bảng Lương",
     icon: (
       <IconWrapper
-        src="../assets/icon/announcement.svg"
-        title="Thông báo"
-        width={24}
-        height={24}
+        src="../assets/icon/salary.svg"
+        title="Bảng lương"
       />
     ),
     navigateTo: "/main/announcement",
@@ -64,6 +87,11 @@ const services = [
       <IconWrapper src="../assets/icon/meeting.svg" title="Meeting Schedule" />
     ),
     navigateTo: "",
+  },
+  {
+    title: "Đặt Xe",
+    icon: <IconWrapper src="../assets/icon/companycar.svg" title="Cần xe" />,
+    navigateTo: "/main/companycar",
   },
 ];
 

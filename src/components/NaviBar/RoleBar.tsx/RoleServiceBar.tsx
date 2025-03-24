@@ -24,11 +24,7 @@ const roleServices = [
     icon: <IconWrapper src="../assets/icon/project.svg" title="Dự án" />,
     navigateTo: "/main/projects",
   },
-  {
-    title: "Cần duyệt",
-    icon: <IconWrapper src="../assets/icon/stamp.svg" title="Cần duyệt" />,
-    navigateTo: "/main/stamp",
-  },
+ 
   {
     title: "Tài chính Kế toán",
     icon: (

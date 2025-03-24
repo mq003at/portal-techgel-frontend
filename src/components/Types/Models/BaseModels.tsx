@@ -1,8 +1,8 @@
 export interface BaseModel {
   id: number;
   mainID: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type Gender = "Male" | "Female" | "Other";
