@@ -3,7 +3,7 @@ import { Field, ErrorMessage } from "formik";
 export interface InputFieldProps {
   label: string;
   name: string;
-  type?: "text" | "email" | "date" | "select" | "number";
+  type?: "text" | "email" | "date" | "select" | "number" | "password";
   placeholder?: string;
   required?: boolean;
   options?: { value: string; label: string }[]; // 🔥 Only used when type = "select"

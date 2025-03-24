@@ -7,6 +7,7 @@ export const personalInfoFields: InputFieldProps[] = [
     name: "mainID",
     placeholder: "TG00001",
   },
+  { label: "Mật khẩu", name: "password", type: "password" },
   { label: "Họ", name: "lastName", placeholder: "Nhập họ", required: true },
   { label: "Tên Đệm", name: "middleName", placeholder: "Nhập tên đệm" },
   { label: "Tên", name: "firstName", placeholder: "Nhập tên", required: true },
@@ -16,7 +17,7 @@ export const personalInfoFields: InputFieldProps[] = [
     type: "select",
     options: genderOptions,
   },
-  { label: "Ngày sinh", name: "dateOfBirth", type: "date", required: true }, 
+  { label: "Ngày sinh", name: "dateOfBirth", type: "date", required: true },
   {
     label: "Email cá nhân",
     name: "personalEmail",
@@ -32,7 +33,7 @@ export const personalInfoFields: InputFieldProps[] = [
     label: "Địa chỉ",
     name: "address",
     placeholder: "Nhập địa chỉ",
-    type: "text"
+    type: "text",
   },
 ];
 

@@ -101,6 +101,12 @@ export default function EmployeeEditForm({
               {employmentInfoFields.map((field) => (
                 <InputField key={field.name} {...field} />
               ))}
+              <div className="grid grid-cols-2 gap-4 items-center form-control h-[40px]">
+                <label className="text-right font-medium">
+                  Trạng thái kích hoạt
+                </label>
+                <label>Chưa kích hoạt</label>
+              </div>
             </div>
 
             {/* Button */}

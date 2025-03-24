@@ -20,7 +20,7 @@ export default function NeedHelpLoginPopover({
         >
           ✕
         </button>
-        <div className="items-center" style={{ justifyItems: "center" }}>
+        <div className="absolute top-0 my-6" style={{ justifyItems: "center", justifySelf: "anchor-center" }}>
           <ImageWrapper
             src={"assets/logo-main-600-150-transparent.png"}
             alt="Logo-Techgel"
@@ -60,6 +60,13 @@ export default function NeedHelpLoginPopover({
               onClick={(e) => e.preventDefault()}
             >
               Đổi Mật Khẩu
+            </button>
+            <button
+              type="submit"
+              className="btn text-white bg-blue-600 w-full hover:bg-blue-700 focus:bg-blue-900"
+              onClick={onClose}
+            >
+              Về Trang Đăng Nhập
             </button>
           </form>
         </div>

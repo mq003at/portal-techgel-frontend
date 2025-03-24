@@ -66,7 +66,9 @@ export default function EmployeeAddForm({ onClose }: { onClose: () => void }) {
           <Form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
             {/* Left Column - Personal Information */}
             <div>
-              <h3 className="text-lg font-semibold mb-2 text-center">Thông tin cá nhân</h3>
+              <h3 className="text-lg font-semibold mb-2 text-center">
+                Thông tin cá nhân
+              </h3>
               {personalInfoFields.map((field) => (
                 <InputField key={field.name} {...field} />
               ))}
@@ -80,6 +82,12 @@ export default function EmployeeAddForm({ onClose }: { onClose: () => void }) {
               {employmentInfoFields.map((field) => (
                 <InputField key={field.name} {...field} />
               ))}
+              <div className="grid grid-cols-2 gap-4 items-center form-control h-[40px]">
+                <label className="text-right font-medium">
+                  Trạng thái kích hoạt
+                </label>
+                <label>Chưa kích hoạt</label>
+              </div>
             </div>
 
             {/* Submit Button */}

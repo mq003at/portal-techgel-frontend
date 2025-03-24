@@ -1,18 +1,19 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./index.html",'./src/**/*.{js,ts,jsx,tsx}', './node_modules/flyonui/flyonui.js'],
-  plugins: [require('daisyui'), require('flyonui/plugin')],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: [
-          'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
-        ],
-      },
-    },
-  },
+// tailwind.config.js
+module.exports = {
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark"], // or your own custom theme
-  },
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/colors/themes")["[data-theme=light]"],
 
+          // 🔥 Override specific DaisyUI roles
+          success: "#22c55e",
+          primary: "#1e40af",
+          secondary: "#f43f5e",
+        },
+      },
+    ],
+  },
 };
