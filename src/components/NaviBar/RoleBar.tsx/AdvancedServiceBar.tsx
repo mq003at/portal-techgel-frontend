@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router";
 import { advancedServicesList } from "./AdvanceServiceList";
+import { useRef,  } from "react";
 
 export default function AdvancedServiceBar() {
   const navigate = useNavigate();
@@ -15,22 +16,34 @@ export default function AdvancedServiceBar() {
         const isActive = isPathActive(group.items);
         const isSingle = group.items.length === 1;
 
-        return isSingle ? (
-          <button
+        if (isSingle) {
+          const item = group.items[0];
+          return (
+            <button
+              key={index}
+              onClick={() => navigate(item.navigateTo)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-3xl border transition-all 
+                ${
+                  isActive
+                    ? "bg-orange-50 font-semibold border-orange-300"
+                    : "bg-base-200 hover:bg-base-300 border-transparent"
+                }`}
+            >
+              {item.icon}
+              <span>{item.title}</span>
+            </button>
+          );
+        }
+
+        // Multi-child group with dropdown
+        const dropdownRef = useRef<HTMLDivElement>(null);
+
+        return (
+          <div
+            className="dropdown dropdown-hover"
             key={index}
-            onClick={() => navigate(group.items[0].navigateTo)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-3xl border transition-all 
-              ${
-                isActive
-                  ? "bg-orange-50 font-semibold border-orange-300"
-                  : "bg-base-200 hover:bg-base-300 border-transparent"
-              }`}
+            ref={dropdownRef}
           >
-            {group.items[0].icon}
-            <span>{group.items[0].title}</span>
-          </button>
-        ) : (
-          <div className="dropdown dropdown-hover" key={index}>
             <div
               tabIndex={0}
               className={`flex items-center gap-2 px-4 py-2 rounded-3xl border cursor-pointer transition-all ${
@@ -49,7 +62,10 @@ export default function AdvancedServiceBar() {
               {group.items.map((item, idx) => (
                 <li key={idx}>
                   <a
-                    onClick={() => navigate(item.navigateTo)}
+                    onClick={() => {
+                      navigate(item.navigateTo);
+                      dropdownRef.current?.blur();
+                    }}
                     className="flex items-center gap-2"
                   >
                     {item.icon}
