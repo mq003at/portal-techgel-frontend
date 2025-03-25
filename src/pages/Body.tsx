@@ -4,7 +4,7 @@ import EmployeeListPage from "./EmployeeListPage";
 import { ApolloProvider } from "@apollo/client";
 import client from "../../graphql/apolloClient";
 import { OrganizationChartPage } from "./OrganizationChartPage";
-import RoleServiceBar from "../components/NaviBar/RoleBar.tsx/RoleServiceBar";
+import RoleServiceBar from "../components/NaviBar/RoleBar.tsx/AdvancedServiceBar";
 import AnnouncementPage from "./AnnouncementPage";
 import { useState } from "react";
 import GeneralPage from "./GeneralPage";
@@ -17,7 +17,7 @@ export default function Body() {
       <div className="flex h-screen">
         <ServiceBar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
         <div
-          className={`flex-1 p-6 bg-base-100 ${isExpanded ? "ml-50" : "ml-20"}`}
+          className={`flex-1 p-6 bg-base-100 ${isExpanded ? "ml-65" : "ml-20"}`}
         >
           <RoleServiceBar />
           <Routes>
