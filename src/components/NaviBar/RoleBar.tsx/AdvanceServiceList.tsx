@@ -71,6 +71,16 @@ export const advancedServicesList: ServiceGroup[] = [
         ),
         navigateTo: "/main/accountings",
       },
+      {
+        title: "Biên Bản Thầu",
+        icon: (
+          <IconWrapper
+            src="../assets/icon/project.svg"
+            title="Biên Bản Thầu"
+          />
+        ),
+        navigateTo: "/main/reports",
+      },
     ],
   },
 
