@@ -4,6 +4,7 @@ export interface Announcement extends BaseModel {
   name: string;
   content: string;
   issuer: string;
+  expiredAt?: string;
 }
 
 export interface AnnouncementCategory extends BaseModel {
@@ -13,3 +14,4 @@ export interface AnnouncementCategory extends BaseModel {
   level: number;
   color: string;
 }
+

@@ -1,5 +1,5 @@
 import { convertDateToISO } from "../components/misc/conversion";
-import { BaseModel } from "../components/Types/Models/BaseModels";
+import { BaseModel } from "../types/Models/BaseModels";
 
 export class BaseDTO {
   id: number = 0;

@@ -1,22 +1,7 @@
-import { ServiceGroup } from "../../Types/Models/Service/ServiceModal";
+import { ServiceGroup } from "../../../types/Models/Service/ServiceModal";
 import IconWrapper from "../../Wrapper/IconWrapper";
 
 export const advancedServicesList: ServiceGroup[] = [
-  {
-    group: "Hệ Thống",
-    items: [
-      {
-        title: "Hệ Thống",
-        icon: (
-          <IconWrapper
-            src="../assets/icon/serviceBarIcons/systemmanagement.svg"
-            title="Hệ Thống"
-          />
-        ),
-        navigateTo: "/main/systemmanagement",
-      },
-    ],
-  },
   {
     group: "Hành Chính",
     icon: (
@@ -74,10 +59,7 @@ export const advancedServicesList: ServiceGroup[] = [
       {
         title: "Biên Bản Thầu",
         icon: (
-          <IconWrapper
-            src="../assets/icon/project.svg"
-            title="Biên Bản Thầu"
-          />
+          <IconWrapper src="../assets/icon/project.svg" title="Biên Bản Thầu" />
         ),
         navigateTo: "/main/reports",
       },
@@ -93,6 +75,36 @@ export const advancedServicesList: ServiceGroup[] = [
           <IconWrapper src="../assets/icon/accounting.svg" title="Kế Toán" />
         ),
         navigateTo: "/main/accountings",
+      },
+    ],
+  },
+  {
+    group: "Kinh Doanh",
+    items: [
+      {
+        title: "Kinh Doanh",
+        icon: (
+          <IconWrapper
+            src="../assets/icon/serviceBarIcons/systemmanagement.svg"
+            title="Kinh Doanh"
+          />
+        ),
+        navigateTo: "/main/systemmanagement",
+      },
+    ],
+  },
+  {
+    group: "Công Nghệ",
+    items: [
+      {
+        title: "Công Nghệ",
+        icon: (
+          <IconWrapper
+            src="../assets/icon/serviceBarIcons/systemmanagement.svg"
+            title="Công Nghệ"
+          />
+        ),
+        navigateTo: "/main/systemmanagement",
       },
     ],
   },

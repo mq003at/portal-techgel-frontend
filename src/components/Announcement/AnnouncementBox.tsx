@@ -1,4 +1,4 @@
-import { AnnouncementCategory } from "../Types/Models/Announcement";
+import { AnnouncementCategory } from "../../types/Models/Announcement";
 import AnnouncementItem from "./AnnouncementItem";
 
 interface Props {
@@ -6,13 +6,12 @@ interface Props {
 }
 
 export default function AnnouncementBox({ category }: Props) {
-  console.log(category.color);
   return (
     <div
       className={`collapse collapse-arrow shadow mb-4 border`}
       style={{ backgroundColor: category.color }}
     >
-      <input type="checkbox" />
+      <input type="checkbox" defaultChecked />
       <div className="collapse-title font-semibold text-lg">
         {category.name}
       </div>

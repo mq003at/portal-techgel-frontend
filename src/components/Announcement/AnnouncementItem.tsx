@@ -1,6 +1,7 @@
 import { format } from "date-fns";
-import { Announcement } from "../Types/Models/Announcement";
+import { Announcement } from "../../types/Models/Announcement";
 import { JSX } from "react";
+import { FaXmark } from "react-icons/fa6";
 
 interface Props {
   announcement: Announcement;
@@ -70,6 +71,14 @@ export default function AnnouncementItem({ announcement }: Props) {
         <p className="text-sm text-gray-800 leading-relaxed">
           {parseLinks(announcement.content)}
         </p>
+        {announcement.expiredAt && (
+          <p className="text-sm italic text-gray-500">
+            Thông báo sẽ tự động xóa vào lúc: {announcement.expiredAt}.
+          </p>
+        )}
+        <button className="btn btn-error flex items-center gap-2">
+          <FaXmark /> Xóa Thông Báo
+        </button>
       </div>
     </div>
   );

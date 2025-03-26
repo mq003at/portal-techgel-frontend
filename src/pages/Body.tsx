@@ -26,7 +26,7 @@ export default function Body() {
             <Route path="/employees" element={<EmployeeListPage />} />{" "}
             <Route path="/general" element={<GeneralPage />} />
             <Route path="/organization" element={<OrganizationChartPage />} />
-            <Route path="*" element={<Navigate to="/general" />} />
+            <Route path="*" element={<Navigate to="/main/general" />} />
           </Routes>
         </div>
       </div>

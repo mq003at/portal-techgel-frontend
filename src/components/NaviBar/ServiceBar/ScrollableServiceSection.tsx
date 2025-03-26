@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { ServiceGroup } from "../../Types/Models/Service/ServiceModal";
+import { ServiceGroup } from "../../../types/Models/Service/ServiceModal";
 export default function ScrollableServiceSection({
   allGeneralServices,
   isExpanded,

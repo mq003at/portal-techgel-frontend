@@ -1,4 +1,4 @@
-import { Employee } from "../components/Types/Models/BaseModels";
+import { Employee } from "../types/Models/BaseModels";
 import { BaseDTO } from "./BaseDTO";
 
 export class EmployeeDTO extends BaseDTO {

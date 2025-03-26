@@ -1,5 +1,5 @@
 import IconWrapper from "../../Wrapper/IconWrapper";
-import { ServiceGroup } from "../../Types/Models/Service/ServiceModal";
+import { ServiceGroup } from "../../../types/Models/Service/ServiceModal";
 
 export const allGeneralServices: ServiceGroup[] = [
   {
@@ -64,7 +64,7 @@ export const allGeneralServices: ServiceGroup[] = [
             title="Dach Sách Công Việc"
           />
         ),
-        navigateTo: "/main/employees",
+        navigateTo: "/main/to-do-list",
       },
       {
         title: "Lịch Làm Việc",
@@ -164,7 +164,7 @@ export const allGeneralServices: ServiceGroup[] = [
             title="Bảng lương"
           />
         ),
-        navigateTo: "/main/announcement",
+        navigateTo: "/main/salary",
       },
     ],
   },

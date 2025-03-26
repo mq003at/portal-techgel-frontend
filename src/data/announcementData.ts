@@ -1,4 +1,4 @@
-import { AnnouncementCategory } from "../components/Types/Models/Announcement";
+import { AnnouncementCategory } from "../types/Models/Announcement";
 
 export const announcementMockData: AnnouncementCategory[] = [
     {

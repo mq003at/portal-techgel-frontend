@@ -9,7 +9,7 @@ import {
   flexRender,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { Employee } from "../components/Types/Models/BaseModels";
+import { Employee } from "../types/Models/BaseModels";
 import EmployeeAddForm from "../components/EmployeeSection/EmployeeAddForm";
 import EmployeeEditForm from "../components/EmployeeSection/EmployeeEditForm";
 import { formatDateToDDMMYYYY } from "../components/misc/conversion";
