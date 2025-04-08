@@ -38,6 +38,7 @@ You’ll need the following installed on your computer beforehand:
 - [npm](https://www.npmjs.com/) (usually comes with Node.js, run npm --version in terminal to check if it has been installed on your PC).
 
 ### ⚙️ Setting Up Environment Variables (If `node` or `npm` is not recognized)
+---
 
 If you get an error like:
 
@@ -54,6 +55,7 @@ or
 It means your Node.js installation path is not added to your system’s `PATH` environment variable.
 
 #### 🖥️ Windows
+---
 
 1. Open **Start Menu**, search for `Environment Variables`, and click **"Edit the system environment variables"**.
 2. In the **System Properties** window, click **Environment Variables...** at the bottom.
@@ -69,6 +71,7 @@ node -v
 npm -v
 ```
 #### 🍏 macOS / 🐧 Linux
+---
 1. Open your terminal.
 2. Add Node.js to your PATH by editing your shell config:
 
