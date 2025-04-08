@@ -1,21 +1,14 @@
-import { Field, ErrorMessage } from "formik";
-
-export interface InputFieldProps {
-  label: string;
-  name: string;
-  type?: "text" | "email" | "date" | "select" | "number" | "password";
-  placeholder?: string;
-  required?: boolean;
-  options?: { value: string; label: string }[]; // 🔥 Only used when type = "select"
-}
+import { Field, ErrorMessage } from 'formik';
+import { InputFieldProps } from './types/InputFieldProps';
 
 export default function InputField({
   label,
   name,
-  type = "text",
+  type = 'text',
   placeholder,
   required = false,
   options,
+  disabled,
 }: InputFieldProps) {
   return (
     <div className="grid grid-cols-2 gap-4 items-center form-control">
@@ -26,11 +19,12 @@ export default function InputField({
 
       {/* Input Column */}
       <div className="">
-        {type === "select" && options ? (
+        {type === 'select' && options ? (
           <Field
             as="select"
             name={name}
             className="select select-bordered w-full"
+            disabled={disabled}
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>
@@ -44,6 +38,7 @@ export default function InputField({
             type={type}
             placeholder={placeholder}
             className="input input-bordered w-full"
+            disabled={disabled}
           />
         )}
 

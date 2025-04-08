@@ -1,0 +1,1 @@
+export type OrganizationPageOptions = "VIEW" | "CREATE" | "EDIT"

@@ -1,32 +1,38 @@
-import { Routes, Route, Navigate } from "react-router";
-import ServiceBar from "../components/NaviBar/ServiceBar/ServiceBar";
-import EmployeeListPage from "./EmployeeListPage";
-import { ApolloProvider } from "@apollo/client";
-import client from "../../graphql/apolloClient";
-import { OrganizationChartPage } from "./OrganizationChartPage";
-import RoleServiceBar from "../components/NaviBar/RoleBar.tsx/AdvancedServiceBar";
-import AnnouncementPage from "./AnnouncementPage";
-import { useState } from "react";
-import GeneralPage from "./GeneralPage";
+import { Routes, Route, Navigate } from 'react-router';
+import { ApolloProvider } from '@apollo/client';
+import client from '../../graphql/apolloClient';
+import { useState } from 'react';
+
+import GeneralPage from '../features/public/General/pages/GeneralPage';
+import ServiceBar from '../features/public/NaviBar/ServiceBar/pages/ServiceBar';
+import { EmployeeListPage } from '../features/restricted/EmployeeList/pages/EmployeeListPage';
+import AdvancedServiceBar from '../features/public/NaviBar/AdvancedServiceBar/AdvancedServiceBar';
+import OrganizationPage from '../features/public/Organization/pages/OrganizationPage';
+import { EmployeeListAddPage } from '../features/restricted/EmployeeList/pages/EmployeeListAddPage';
+import { EmployeeListEditPage } from '../features/restricted/EmployeeList/pages/EmployeeListEditPage';
+import { BadgeGeneration } from '../components/badges/BadgeGeneration';
 
 export default function Body() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
   return (
     <ApolloProvider client={client}>
+      <BadgeGeneration />
+
       <div className="flex h-screen">
         <ServiceBar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-        <div
-          className={`flex-1 p-6 bg-base-100 ${isExpanded ? "ml-65" : "ml-20"}`}
-        >
-          <RoleServiceBar />
+        <div className={`flex-1 py-6 bg-base-100 ${isExpanded ? 'ml-80' : 'ml-35'}`}>
+          <AdvancedServiceBar />
           <Routes>
-            <Route path="/" element={<Navigate to="/announcement" />} />
-            <Route path="/announcement" element={<AnnouncementPage />} />
-            <Route path="/employees" element={<EmployeeListPage />} />{" "}
+            <Route path="/" element={<Navigate to="/general" />} />
+
+            <Route path="/employees" element={<EmployeeListPage />} />
+            <Route path="/employees/add" element={<EmployeeListAddPage />} />
+            <Route path="/employees/:id/edit" element={<EmployeeListEditPage />} />
+
             <Route path="/general" element={<GeneralPage />} />
-            <Route path="/organization" element={<OrganizationChartPage />} />
-            <Route path="*" element={<Navigate to="/main/general" />} />
+            <Route path="/organization" element={<OrganizationPage />} />
+            {/* <Route path="*" element={<Navigate to="/main/general" />} /> */}
           </Routes>
         </div>
       </div>

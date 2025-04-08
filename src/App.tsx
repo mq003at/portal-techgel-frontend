@@ -2,9 +2,9 @@ import { useEffect } from "react";
 
 import { IStaticMethods } from "flyonui/flyonui";
 import { Route, Routes, useLocation } from "react-router";
-import LoginPage from "./pages/LoginPage";
-import Body from "./pages/Body";
 import pkg from "../package.json";
+import LoginPage from "./features/public/LoginPage/pages/LoginPage";
+import Body from "./pages/Body";
 
 console.log("DaisyUI version:", (pkg.dependencies as any)["daisyui"]);
 

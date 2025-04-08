@@ -1,5 +1,5 @@
 import { Field, ErrorMessage } from "formik";
-import { InputFieldProps } from "./InputField";
+import {InputFieldProps} from "./types/InputFieldProps";
 
 export default function TextField({
   label,
