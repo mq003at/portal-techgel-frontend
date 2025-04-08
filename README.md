@@ -125,7 +125,7 @@ npm install
 ### 🧪  Run the Development Server
 
 ```bash
-npm install
+npm run dev
 ```
 
 ## 🔧 Mocking with MSW
