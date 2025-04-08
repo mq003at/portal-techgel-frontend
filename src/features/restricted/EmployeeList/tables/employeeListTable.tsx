@@ -33,8 +33,8 @@ export function EmployeeListTable<T>({
       </div>
 
       {/* Basic Info Table */}
-      <div className="overflow-x-auto rounded-lg border bg-white shadow">
-        <table className="table w-full">
+      <div className="overflow-x-auto w-[calc(100vw-25em)] rounded-lg border bg-white shadow">
+        <table className="tabl w-full">
           <thead className="bg-gray-100 text-sm font-medium">
             <tr>
               <th className="px-4 py-2 text-left">Mã nhân viên</th>
@@ -64,17 +64,17 @@ export function EmployeeListTable<T>({
                   onClick={() => navigate(`/main/employees/${emp.id}/edit`)}
                 >
                   {/* Basic Info */}
-                  <td className="px-4 py-2 border-t">{emp.mainId}</td>
-                  <td className="px-4 py-2 border-t">
+                  <td className="px-4 py-2 border-t min-w-25">{emp.mainId}</td>
+                  <td className="px-4 py-2 border-t min-w-25">
                     <img src={emp.avatar} alt="avatar" className="w-10 h-10 rounded-full" />
                   </td>
-                  <td className="px-4 py-2 border-t">{emp.lastName}</td>
-                  <td className="px-4 py-2 border-t">{emp.middleName}</td>
-                  <td className="px-4 py-2 border-t">{emp.firstName}</td>
+                  <td className="px-4 py-2 border-t min-w-25">{emp.lastName}</td>
+                  <td className="px-4 py-2 border-t min-w-25">{emp.middleName}</td>
+                  <td className="px-4 py-2 border-t min-w-25">{emp.firstName}</td>
 
                   {/* Nested Info */}
                   {nestedRow.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-4 py-2 border-t">
+                    <td key={cell.id} className="px-4 py-2 border-t min-w-35">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}

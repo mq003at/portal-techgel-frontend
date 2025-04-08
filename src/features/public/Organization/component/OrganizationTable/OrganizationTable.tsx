@@ -37,7 +37,7 @@ export default function OrganizationTable() {
 
   return (
     <div className="overflow-x-auto bg-white shadow rounded-lg">
-      <table className="table w-full">
+      <table className="table overflow-x-auto w-full">
         <thead className="sticky top-0 bg-gray-200 z-10">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
