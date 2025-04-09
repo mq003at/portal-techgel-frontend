@@ -1,18 +1,16 @@
-import { http, HttpResponse } from "msw";
-import { departmentMockData, employeeDepartmentMockData } from "../data/DepartmentMockList";
-import { DepartmentDTO, CreateDepartmentDTO, UpdateDepartmentDTO } from "../DTOs/DepartmentDTO";
+import { http, HttpResponse } from 'msw';
+import { departmentMockData, employeeDepartmentMockData } from '../data/DepartmentMockList';
+import { DepartmentDTO, CreateDepartmentDTO, UpdateDepartmentDTO } from '../DTOs/DepartmentDTO';
 import { v4 as uuid } from 'uuid';
 
 const departments = [...departmentMockData];
-const employeeDepartments = [... employeeDepartmentMockData];
+const employeeDepartments = [...employeeDepartmentMockData];
 
 export const departmentHandlers = [
   // 🟢 GET all departments
-  http.get<never, null, DepartmentDTO[]>("/api/departments", () => {
+  http.get<never, null, DepartmentDTO[]>('/api/departments', () => {
     const enrichedDepartments: DepartmentDTO[] = departments.map((department) => {
-      const related = employeeDepartments.filter(
-        (ed) => ed.departmentId === department.id
-      );
+      const related = employeeDepartments.filter((ed) => ed.departmentId === department.id);
       return {
         ...department,
         employeeIds: related.map((r) => r.employeeId),
@@ -25,16 +23,14 @@ export const departmentHandlers = [
 
   // 🔵 GET department by ID
   http.get<{ id: string }, null, DepartmentDTO | { message: string }>(
-    "/api/departments/:id",
+    '/api/departments/:id',
     ({ params }) => {
       const department = departments.find((d) => d.id === params.id);
       if (!department) {
-        return HttpResponse.json({ message: "Department not found" }, { status: 404 });
+        return HttpResponse.json({ message: 'Department not found' }, { status: 404 });
       }
 
-      const related = employeeDepartments.filter(
-        (ed) => ed.departmentId === params.id
-      );
+      const related = employeeDepartments.filter((ed) => ed.departmentId === params.id);
 
       return HttpResponse.json(
         {
@@ -48,11 +44,12 @@ export const departmentHandlers = [
   ),
 
   // 🟡 CREATE department
-  http.post<never, CreateDepartmentDTO, DepartmentDTO>("/api/departments", async ({ request }) => {
+  http.post<never, CreateDepartmentDTO, DepartmentDTO>('/api/departments', async ({ request }) => {
     const body = await request.json();
 
     const newDepartment: DepartmentDTO = {
       id: uuid(),
+      status: 'INACTIVE',
       name: body.name,
       mainId: body.mainId,
       divisionId: body.divisionId,
@@ -81,12 +78,12 @@ export const departmentHandlers = [
 
   // 🟠 UPDATE department
   http.put<{ id: string }, UpdateDepartmentDTO, DepartmentDTO | { message: string }>(
-    "/api/departments/:id",
+    '/api/departments/:id',
     async ({ params, request }) => {
       const body = await request.json();
       const department = departments.find((d) => d.id === params.id);
       if (!department) {
-        return HttpResponse.json({ message: "Department not found" }, { status: 404 });
+        return HttpResponse.json({ message: 'Department not found' }, { status: 404 });
       }
 
       if (body.name !== undefined) department.name = body.name;
@@ -97,9 +94,7 @@ export const departmentHandlers = [
       // Replace employee assignments
       if (body.employeeIds !== undefined) {
         // Remove old entries
-        const indexToRemove = employeeDepartments.filter(
-          (ed) => ed.departmentId === department.id
-        );
+        const indexToRemove = employeeDepartments.filter((ed) => ed.departmentId === department.id);
         indexToRemove.forEach((entry) => {
           const i = employeeDepartments.indexOf(entry);
           if (i !== -1) employeeDepartments.splice(i, 1);
@@ -116,9 +111,7 @@ export const departmentHandlers = [
         });
       }
 
-      const related = employeeDepartments.filter(
-        (ed) => ed.departmentId === department.id
-      );
+      const related = employeeDepartments.filter((ed) => ed.departmentId === department.id);
 
       return HttpResponse.json(
         {
@@ -132,24 +125,20 @@ export const departmentHandlers = [
   ),
 
   // 🔴 DELETE department
-  http.delete<{ id: string }, null, { message: string }>(
-    "/api/departments/:id",
-    ({ params }) => {
-      const index = departments.findIndex((d) => d.id === params.id);
-      if (index === -1) {
-        return HttpResponse.json({ message: "Department not found" }, { status: 404 });
-      }
-
-      // Clean up employeeDepartments
-      for (let i = employeeDepartments.length - 1; i >= 0; i--) {
-        if (employeeDepartments[i].departmentId === params.id) {
-          employeeDepartments.splice(i, 1);
-        }
-      }
-
-      departments.splice(index, 1);
-      return HttpResponse.json({ message: "Department deleted" }, { status: 200 });
+  http.delete<{ id: string }, null, { message: string }>('/api/departments/:id', ({ params }) => {
+    const index = departments.findIndex((d) => d.id === params.id);
+    if (index === -1) {
+      return HttpResponse.json({ message: 'Department not found' }, { status: 404 });
     }
-  ),
-];
 
+    // Clean up employeeDepartments
+    for (let i = employeeDepartments.length - 1; i >= 0; i--) {
+      if (employeeDepartments[i].departmentId === params.id) {
+        employeeDepartments.splice(i, 1);
+      }
+    }
+
+    departments.splice(index, 1);
+    return HttpResponse.json({ message: 'Department deleted' }, { status: 200 });
+  }),
+];
