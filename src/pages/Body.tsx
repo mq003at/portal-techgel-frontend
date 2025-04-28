@@ -31,7 +31,11 @@ export default function Body() {
             <Route path="/employees/:id/edit" element={<EmployeeListEditPage />} />
 
             <Route path="/general" element={<GeneralPage />} />
+
             <Route path="/organization" element={<OrganizationPage />} />
+            {/* <Route path="/organization/add" element={<OrganizationAddPage />} />
+            <Route path="/organization/:id/edit" element={<OrganizationEditPage />} /> */}
+
             {/* <Route path="*" element={<Navigate to="/main/general" />} /> */}
           </Routes>
         </div>

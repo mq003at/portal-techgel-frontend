@@ -10,7 +10,7 @@ export interface CreateSectionDTO {
   employeeIds?: string[];
   description?: string;
 
-  status?: OrganizationStatus;
+  status: OrganizationStatus;
 }
 export interface UpdateSectionDTO {
   name?: string;

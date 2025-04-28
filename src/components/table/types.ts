@@ -1,11 +1,3 @@
-import { ColumnDef } from '@tanstack/react-table';
-
-export interface TableColumnDef<TData> extends ColumnDef<TData> {
-  accessorKey: keyof TData;
-  header: string;
-  enableSorting?: boolean;
-}
-
 export interface TablePagination {
   pageIndex: number;
   pageSize: number;

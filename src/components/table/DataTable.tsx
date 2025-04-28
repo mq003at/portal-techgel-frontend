@@ -13,7 +13,6 @@ interface DataTableProps<TData> {
   data: TData[];
   isLoading?: boolean;
   error?: Error | null;
-  className?: string;
   onRowClick?: (row: TData) => void;
 }
 
@@ -22,7 +21,6 @@ export function DataTable<TData>({
   data,
   isLoading = false,
   error = null,
-  className,
   onRowClick,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([]);

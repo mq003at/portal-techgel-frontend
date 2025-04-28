@@ -1,18 +1,16 @@
-import { http, HttpResponse } from "msw";
-import {  employeeSectionMockData, sectionMockData } from "../data/SectionMockList";
-import { SectionDTO, CreateSectionDTO, UpdateSectionDTO } from "../DTOs/SectionDTO";
+import { http, HttpResponse } from 'msw';
+import { employeeSectionMockData, sectionMockData } from '../data/SectionMockList';
+import { SectionDTO, CreateSectionDTO, UpdateSectionDTO } from '../DTOs/SectionDTO';
 import { v4 as uuid } from 'uuid';
 
-const sections = [...sectionMockData]
+const sections = [...sectionMockData];
 const employeeSections = [...employeeSectionMockData];
 
 export const sectionHandlers = [
   // 🟢 GET all sections
-  http.get<never, null, SectionDTO[]>("/api/sections", () => {
+  http.get<never, null, SectionDTO[]>('/api/sections', () => {
     const enriched = sections.map((section) => {
-      const related = employeeSections.filter(
-        (e) => e.sectionId === section.id
-      );
+      const related = employeeSections.filter((e) => e.sectionId === section.id);
       return {
         ...section,
         employeeIds: related.map((r) => r.employeeId),
@@ -25,16 +23,14 @@ export const sectionHandlers = [
 
   // 🔵 GET section by ID
   http.get<{ id: string }, null, SectionDTO | { message: string }>(
-    "/api/sections/:id",
+    '/api/sections/:id',
     ({ params }) => {
       const section = sections.find((s) => s.id === params.id);
       if (!section) {
-        return HttpResponse.json({ message: "Section not found" }, { status: 404 });
+        return HttpResponse.json({ message: 'Section not found' }, { status: 404 });
       }
 
-      const related = employeeSections.filter(
-        (e) => e.sectionId === section.id
-      );
+      const related = employeeSections.filter((e) => e.sectionId === section.id);
 
       return HttpResponse.json(
         {
@@ -48,11 +44,12 @@ export const sectionHandlers = [
   ),
 
   // 🟡 CREATE section
-  http.post<never, CreateSectionDTO, SectionDTO>("/api/sections", async ({ request }) => {
+  http.post<never, CreateSectionDTO, SectionDTO>('/api/sections', async ({ request }) => {
     const body = await request.json();
 
     const newSection: SectionDTO = {
       id: uuid(),
+      status: body.status,
       name: body.name,
       mainId: body.mainId,
       departmentId: body.departmentId,
@@ -81,11 +78,11 @@ export const sectionHandlers = [
 
   // 🟠 UPDATE section
   http.put<{ id: string }, UpdateSectionDTO, SectionDTO | { message: string }>(
-    "/api/sections/:id",
+    '/api/sections/:id',
     async ({ params, request }) => {
       const section = sections.find((s) => s.id === params.id);
       if (!section) {
-        return HttpResponse.json({ message: "Section not found" }, { status: 404 });
+        return HttpResponse.json({ message: 'Section not found' }, { status: 404 });
       }
 
       const body = await request.json();
@@ -97,9 +94,7 @@ export const sectionHandlers = [
 
       // Replace employee assignments
       if (body.employeeIds !== undefined) {
-        const toRemove = employeeSections.filter(
-          (e) => e.sectionId === section.id
-        );
+        const toRemove = employeeSections.filter((e) => e.sectionId === section.id);
         toRemove.forEach((entry) => {
           const i = employeeSections.indexOf(entry);
           if (i !== -1) employeeSections.splice(i, 1);
@@ -115,9 +110,7 @@ export const sectionHandlers = [
         });
       }
 
-      const related = employeeSections.filter(
-        (e) => e.sectionId === section.id
-      );
+      const related = employeeSections.filter((e) => e.sectionId === section.id);
 
       return HttpResponse.json(
         {
@@ -131,23 +124,20 @@ export const sectionHandlers = [
   ),
 
   // 🔴 DELETE section
-  http.delete<{ id: string }, null, { message: string }>(
-    "/api/sections/:id",
-    ({ params }) => {
-      const index = sections.findIndex((s) => s.id === params.id);
-      if (index === -1) {
-        return HttpResponse.json({ message: "Section not found" }, { status: 404 });
-      }
-
-      // Clean up join data
-      for (let i = employeeSections.length - 1; i >= 0; i--) {
-        if (employeeSections[i].sectionId === params.id) {
-          employeeSections.splice(i, 1);
-        }
-      }
-
-      sections.splice(index, 1);
-      return HttpResponse.json({ message: "Section deleted" }, { status: 200 });
+  http.delete<{ id: string }, null, { message: string }>('/api/sections/:id', ({ params }) => {
+    const index = sections.findIndex((s) => s.id === params.id);
+    if (index === -1) {
+      return HttpResponse.json({ message: 'Section not found' }, { status: 404 });
     }
-  ),
+
+    // Clean up join data
+    for (let i = employeeSections.length - 1; i >= 0; i--) {
+      if (employeeSections[i].sectionId === params.id) {
+        employeeSections.splice(i, 1);
+      }
+    }
+
+    sections.splice(index, 1);
+    return HttpResponse.json({ message: 'Section deleted' }, { status: 200 });
+  }),
 ];
