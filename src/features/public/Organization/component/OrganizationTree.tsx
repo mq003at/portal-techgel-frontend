@@ -1,22 +1,22 @@
 import { useDispatch } from 'react-redux';
-import { useGetDivisionsQuery } from '../api/DivisionApi';
 import OrganizationTreeNode from './OrganizationTreeNode';
 import { setSelectedOrganizationEntity } from '../store/selectedOrganizationEntitySlice';
 import { useEffect } from 'react';
 
 export default function OrganizationTree() {
-  const dispatch = useDispatch();
-  const { data: divisions = [] } = useGetDivisionsQuery();
+  // const dispatch = useDispatch();
+  // const { data: divisions = [] } = useGetDivisionsQuery();
 
-  useEffect(() => {
-    if (divisions.length > 0) {
-      console.log('div', divisions);
-    }
-  }, [divisions]);
+  // useEffect(() => {
+  //   if (divisions.length > 0) {
+  //     console.log('div', divisions);
+  //   }
+  // }, [divisions]);
 
   return (
-    <div className="">
-      {divisions.map((division) => (
+    // <div className="">
+    {
+      /* {divisions.map((division) => (
         <OrganizationTreeNode
           key={division.id}
           label={division.name}
@@ -65,6 +65,7 @@ export default function OrganizationTree() {
           ))}
         </OrganizationTreeNode>
       ))}
-    </div>
+    </div> */
+    }
   );
 }
