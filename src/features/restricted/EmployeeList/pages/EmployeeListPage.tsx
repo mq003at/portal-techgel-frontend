@@ -8,6 +8,8 @@ import { EmployeeListTable } from '../tables/employeeListTable';
 import { employeeColumnMap } from '../tables/types/tableTypes';
 import { useNavigate } from 'react-router';
 import { FaPlus } from 'react-icons/fa';
+import { BasicEmployeeInfo, employeeBasicListColumns } from '../tables/columns/basicInfoColumns';
+import { ListTable } from '../../../public/Table/listTable';
 
 export function EmployeeListPage() {
   const [currentTab, setCurrentTab] = useState<EmployeeTabKey>('personalInfo');
@@ -64,11 +66,12 @@ function renderNestedTable<T extends EmployeeTabKey>(
   }));
 
   return (
-    <EmployeeListTable<TabToDTOMap[T]>
+    <ListTable<BasicEmployeeInfo, TabToDTOMap[T]>
       title={`Bảng: ${title}`}
       basicData={basicData}
+      basicListColumns={employeeBasicListColumns}
       nestedData={nestedData}
-      columns={columns}
+      nestedColumns={columns}
     />
   );
 }

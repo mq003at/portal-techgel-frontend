@@ -15,19 +15,42 @@ import RoleInfoSection from '../forms/sections/RoleInfoSection';
 import ScheduleInfoSection from '../forms/sections/ScheduleInfoSection';
 import TaxInfoSection from '../forms/sections/TaxInfoSection';
 import InputField from '../../../../components/form/InputField';
+import { useCreateEmployeeMutation } from '../api/employeeListApi';
+import { ToastContainer, toast } from 'react-toastify';
 
 export function EmployeeListAddPage() {
   const [currentTab, setCurrentTab] = useState<EmployeeTabKey>('personalInfo');
   const navigate = useNavigate();
 
+  const [createEmployee, { isLoading, isError, error, isSuccess }] = useCreateEmployeeMutation();
+
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as EmployeeTabKey);
   };
 
-  const handleAdd = (values: CreateEmployeeDTO) => {
-    console.log('Submitted employee:', values);
-    // dispatch(createEmployee(values)) or mutate via RTK Query
-  };
+  const handleSubmit = async (formData: CreateEmployeeDTO) => {
+    const promise = createEmployee(formData).unwrap();
+
+    toast.promise(promise, {
+      pending: 'Đang tạo nhân viên...',
+      success: {
+        render() {
+          return 'Tạo nhân viên thành công!';
+        },
+        onClose: () => {
+          navigate('/main/employees/');
+        },
+      },
+      error: 'Tạo nhân viên thất bại. Vui lòng thử lại!',
+    });
+
+    try {
+      const result = await promise;
+      console.log("Employee created:", result);
+    } catch (err) {
+      console.error("Failed to create employee:", err);
+    }
+  }
 
   const renderSection = (tab: EmployeeTabKey) => {
     switch (tab) {
@@ -66,7 +89,7 @@ export function EmployeeListAddPage() {
 
       <SwitchBar tabs={employeeTabs} onTabChange={handleTabChange} initialTab={currentTab} />
 
-      <Formik<CreateEmployeeDTO> initialValues={employeeFormInitialValues} onSubmit={handleAdd}>
+      <Formik<CreateEmployeeDTO> initialValues={employeeFormInitialValues} onSubmit={handleSubmit}>
         {(formik) => (
           <Form className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -77,13 +100,14 @@ export function EmployeeListAddPage() {
             </div>
             {renderSection(currentTab)}
             <div className="pt-4 text-right">
-              <button type="submit" className="btn btn-primary">
-                Lưu thông tin
+              <button type="submit" className="btn btn-primary" disabled={isLoading}>
+                {isLoading ? 'Đang lưu...' : 'Lưu thông tin'}
               </button>
             </div>
           </Form>
         )}
       </Formik>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

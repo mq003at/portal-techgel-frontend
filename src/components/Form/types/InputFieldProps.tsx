@@ -1,4 +1,4 @@
-export interface InputFieldProps {
+export default interface InputFieldProps {
   label: string;
   name: string;
   type?: 'text' | 'email' | 'date' | 'select' | 'number' | 'password' | 'tel';

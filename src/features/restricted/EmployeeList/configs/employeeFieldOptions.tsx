@@ -28,8 +28,8 @@ export const employmentStatusOptions = [
 
 export const genderOptions = [
   { value: GenderStatusEnum.MALE, label: 'Nam' },
-  { value: GenderStatusEnum.MALE, label: 'Nữ' },
-  { value: GenderStatusEnum.MALE, label: 'Khác' },
+  { value: GenderStatusEnum.FEMALE, label: 'Nữ' },
+  { value: GenderStatusEnum.OTHER, label: 'Khác' },
 ];
 
 export const maritalStatusOptions = [

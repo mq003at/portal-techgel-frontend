@@ -93,7 +93,10 @@ export const employeeListHandlers = [
   // 🔵 GET employee by id
   http.get<{ id: string }, null, EmployeeDTO | { message: string }>(
     '/api/employees/:id',
-    ({ params }) => {
+    async ({ params }) => {
+
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       const id = params.id;
       const employee = employees.find((e) => e.id === id);
 
@@ -107,6 +110,8 @@ export const employeeListHandlers = [
 
   // 🟡 POST create employee
   http.post<never, CreateEmployeeDTO, EmployeeDTO>('/api/employees', async ({ request }) => {
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
     const body = await request.json();
 
     const lastEmployee = employees[employees.length - 1];
@@ -142,6 +147,8 @@ export const employeeListHandlers = [
   http.put<{ id: string }, UpdateEmployeeDTO, EmployeeDTO | { message: string }>(
     '/api/employees/:id',
     async ({ request, params }) => {
+      await new Promise(resolve => setTimeout(resolve, 3000));
+
       const id = params.id;
       const updates = await request.json();
 

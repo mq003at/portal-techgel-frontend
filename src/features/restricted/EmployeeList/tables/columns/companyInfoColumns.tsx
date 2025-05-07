@@ -1,16 +1,28 @@
 import { TableColumnDef } from '../types/tableTypes';
 import { CompanyInfoDTO } from '../../DTOs/EmployeeDTO';
-import { StatusCell } from '../components/StatusCell';
-import { DateCell } from '../components/DateCell';
+import { employmentStatusOptions } from '../../configs/employeeFieldOptions';
+import { StatusCell } from '../../../../public/Table/components/StatusCell';
+import { DateCell } from '../../../../public/Table/components/DateCell';
 
 export const employeeCompanyInfoColumns: TableColumnDef<CompanyInfoDTO>[] = [
-  { accessorKey: 'companyEmail', header: 'Email công ty', enableSorting: true },
-  { accessorKey: 'companyPhoneNumber', header: 'SĐT công ty', enableSorting: true },
+  { 
+    accessorKey: 'companyEmail', 
+    header: 'Email công ty', 
+    enableSorting: true,
+    cell: StatusCell
+  },
+  { 
+    accessorKey: 'companyPhoneNumber',
+    header: 'SĐT công ty', 
+    enableSorting: true 
+  },
   {
     accessorKey: 'employmentStatus',
     header: 'Trạng thái',
     enableSorting: true,
-    cell: StatusCell,
+    cell: (props) => (
+      <StatusCell getValue={props.getValue} options={employmentStatusOptions} />
+    )
   },
   { accessorKey: 'position', header: 'Vị trí', enableSorting: true },
   {
