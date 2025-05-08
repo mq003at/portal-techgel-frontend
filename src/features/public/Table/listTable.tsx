@@ -1,8 +1,9 @@
-import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
+import { Column, ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { Fragment } from "react/jsx-runtime";
+import { BaseDTO } from "../../../types/DTOs/BaseDTO";
 
 interface TableProps<B, T> {
     title: string;
@@ -12,7 +13,7 @@ interface TableProps<B, T> {
     nestedColumns: ColumnDef<T, any>[];
 }
 
-export function ListTable<B, T>({title, basicData, basicListColumns, nestedData, nestedColumns}: TableProps<B, T>){
+export function ListTable<B extends BaseDTO, T>({title, basicData, basicListColumns, nestedData, nestedColumns}: TableProps<B, T>){
     const navigate = useNavigate();
 
     const [sorting, setSorting] = useState<SortingState>([])
@@ -47,11 +48,15 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
         },
     });
 
+    const allLeafColumns: (Column<B, unknown> | Column<T, unknown>)[] = [
+        ...basicTable.getAllLeafColumns(),
+        ...nestedTable.getAllLeafColumns(),
+      ];
+
     // const combinedData = basicData.map((basicItem, index) => ({
     //     ...basicItem,
     //     ...nestedData[index]
     // }));
-
     // const combinedColumns: ColumnDef<any, any>[] = [
     //     ...basicListColumns,
     //     ...nestedColumns
@@ -77,9 +82,9 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                 <h3 className="text-xl font-semibold">{title}</h3>
                 <div className="dropdown dropdown-bottom dropdown-end">
                     <div tabIndex={0} role="button" className="btn m-1"><FaEyeSlash /> Ẩn cột</div>
-                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm max-h-55 overflow-y-auto">
                         <li>
-                            {nestedTable.getAllLeafColumns().map((column) => (
+                            {allLeafColumns.map((column) => (
                                 <Fragment key={column.id}>
                                         <label className="label">
                                         <input type="checkbox" className="checkbox" 
@@ -140,9 +145,9 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                 </tr>
                 </thead>
                 <tbody>
-                {basicData.map((data, index) => {
+                {basicData.map((data: B, index) => {
                     const basicRow = basicTable.getRowModel().rows[index];
-                    const nestedRow = nestedTable.getRowModel().rows[index]; // match by index
+                    const nestedRow = nestedTable.getRowModel().rows[index];
                     return (
                     <tr
                         key={data.id}
@@ -150,7 +155,7 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                         onClick={() => navigate(`/main/employees/${data.id}/edit`)}
                     >
                         {/* Basic Info */}
-                        {basicRow.getVisibleCells().map((cell, index) => (
+                        {basicRow && basicRow.getVisibleCells().map((cell, index) => (
                         <td key={cell.id} className="px-4 py-2 min-w-25 bg-white border-t"
                         style={{
                             position: cell.column.getIsPinned() ? 'sticky' : 'relative',
@@ -162,7 +167,7 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                         ))}
 
                         {/* Nested Info */}
-                        {nestedRow.getVisibleCells().map((cell) => (
+                        {nestedRow && nestedRow.getVisibleCells().map((cell) => (
                         <td key={cell.id} className="px-4 py-2 min-w-25 position-relative bg-white border-t">
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>

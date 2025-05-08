@@ -10,6 +10,12 @@ export const employeePersonalInfoListColumns: TableColumnDef<PersonalInfoDTO>[] 
     header: 'Ngày Sinh',
     enableSorting: true,
     cell: DateCell,
+    sortingFn: (rowA, rowB, columnId) => {
+      const dateA = new Date(rowA.getValue(columnId));
+      console.log("************" + columnId);
+      const dateB = new Date(rowB.getValue(columnId));
+      return dateA.getTime() - dateB.getTime();
+    },
   },
   {
     accessorKey: 'gender',
