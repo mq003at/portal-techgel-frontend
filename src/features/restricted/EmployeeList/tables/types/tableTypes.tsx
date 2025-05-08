@@ -11,13 +11,6 @@ import {
   employeePersonalInfoListColumns,
 } from '../columns';
 
-export interface BasicEmployeeInfo {
-  mainId: string;
-  firstName: string;
-  middleName?: string;
-  lastName: string;
-}
-
 export type TableColumnDef<T> = ColumnDef<T, any>;
 
 export const employeeColumnMap: Record<EmployeeTabKey, ColumnDef<any, any>[]> = {

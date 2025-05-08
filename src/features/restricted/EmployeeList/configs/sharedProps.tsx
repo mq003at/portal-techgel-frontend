@@ -1,7 +1,6 @@
-import { InputFieldProps } from '../../../../components/form/types/InputFieldProps';
+import InputFieldProps from '../../../../components/form/types/InputFieldProps';
 import {
   employmentStatusOptions,
-  genderOptions,
   maritalStatusOptions,
 } from './employeeFieldOptions';
 

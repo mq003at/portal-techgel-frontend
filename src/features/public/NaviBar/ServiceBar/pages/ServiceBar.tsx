@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router';
 import ScrollableServiceSection from '../components/ScrollableServiceSection';
-import IconWrapper from '../../../../../components/wrapper/IconWrapper';
 import ImageWrapper from '../../../../../components/wrapper/ImageWrapper';
 import { allGeneralServices } from '../constants/generalServiceList';
+import IconWrapper from '../../../../../components/wrapper/IconWrapper';
 
 interface ServiceBarProps {
   isExpanded: boolean;
@@ -16,9 +16,9 @@ export default function ServiceBar({ isExpanded, setIsExpanded }: ServiceBarProp
 
   return (
     <div
-      className={`absolute top-0 left-0${
+      className={`fixed top-0 left-0${
         isExpanded ? 'w-60' : 'w-20'
-      } bg-base-200 p-4 h-screen shadow-md flex flex-col items-center transition-all duration-300`}
+      } h-screen bg-base-200 p-4 shadow-md flex flex-col items-center transition-all duration-300`}
     >
       {/* Logo */}
       <div onClick={() => navigate('/main/general')} className="cursor-pointer flex justify-center">

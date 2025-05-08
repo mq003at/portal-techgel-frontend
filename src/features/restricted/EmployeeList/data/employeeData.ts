@@ -159,4 +159,57 @@ export const EmployeeMockData: EmployeeDTO[] = [
     createdAt: '2023-01-01T08:00:00.000Z',
     updatedAt: '2023-01-01T08:00:00.000Z',
   },
+
+  {
+    id: '4',
+    mainId: 'TG99996',
+    firstName: 'Patricia',
+    lastName: 'Mascorro',
+    middleName: 'P.',
+    avatar: uiAvatar({ name: 'Techgel Testing' }),
+    personalInfo: {
+      gender: 'FEMALE',
+      dateOfBirth: '1996-01-11',
+      personalEmail: 'PatriciaPMascorro@dayrep.com',
+      nationality: 'American',
+      maritalStatus: 'MARRIED',
+      personalPhoneNumber: '9856259019',
+      address: '408 Lewis Street, Wheeling, Illinois(IL)',
+      idCardNumber: '164649979968',
+      idCardExpiryDate: '2030-05-06',
+    },
+
+    companyInfo: {
+      companyEmail: 'techgel.testing@techgel.com',
+      companyPhoneNumber: '0123456789',
+      startDate: '2023-01-01',
+      endDate: undefined,
+      probationStartDate: '2023-01-01',
+      probationEndDate: '2023-03-31',
+      employmentStatus: 'ACTIVE',
+      position: 'Thử Nghiệm',
+    },
+
+    careerPathInfo: {},
+
+    taxInfo: {},
+    insuranceInfo: {
+      insuranceNumber: '12356780',
+      provider: 'Hang Lam',
+    },
+
+    emergencyContactInfo: {
+      emergencyContactName: 'Nguyen Hoang Minh Quan',
+      emergencyContactPhone: '0123456789',
+    },
+    roleInfo: {
+      supervisorId: '1',
+      supervisorName: 'Techgel Testing',
+      subordinateIds: ['3'],
+      subordinateNames: ['Nguyễn Hoàng Minh Quân'],
+    },
+    scheduleInfo: {},
+    createdAt: '2023-01-01T08:00:00.000Z',
+    updatedAt: '2023-01-01T08:00:00.000Z',
+  },
 ];

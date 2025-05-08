@@ -1,12 +1,7 @@
-import { Field, ErrorMessage } from "formik";
-import {InputFieldProps} from "./types/InputFieldProps";
+import { Field, ErrorMessage } from 'formik';
+import { InputFieldProps } from './types/InputFieldProps';
 
-export default function TextField({
-  label,
-  name,
-  placeholder,
-  required = false,
-}: InputFieldProps) {
+export default function TextField({ label, name, placeholder, required = false }: InputFieldProps) {
   return (
     <div className="grid grid-cols-2 gap-4 items-start form-control">
       {/* Label Column */}

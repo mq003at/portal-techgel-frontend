@@ -1,6 +1,6 @@
 import { TableColumnDef } from '../types/tableTypes';
 import { InsuranceInfoDTO } from '../../DTOs/EmployeeDTO';
-import { DateCell } from '../components/DateCell';
+import { DateCell } from '../../../../public/Table/components/DateCell';
 
 export const employeeInsuranceColumns: TableColumnDef<InsuranceInfoDTO>[] = [
   { accessorKey: 'insuranceNumber', header: 'Mã BHXH', enableSorting: true },
