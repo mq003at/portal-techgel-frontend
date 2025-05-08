@@ -117,30 +117,18 @@ export interface ScheduleInfoDTO {
 
 export interface RoleInfoDTO {
   // Org structure
-  divisionIds?: string[];
-  departmentIds?: string[];
-  sectionIds?: string[];
-  unitIds?: string[];
-  teamIds?: string[];
+  organizationEntityIds?: string[];
+  organizationEntityNames?: string[];
 
-  divisionNames?: string[];
-  departmentNames?: string[];
-  sectionNames?: string[];
-  unitNames?: string[];
-  teamNames?: string[];
-
-  managesDivisionIds?: string[];
-  managesDepartmentIds?: string[];
-  managesSectionIds?: string[];
-  managesUnitIds?: string[];
-  managesTeamIds?: string[];
-
-  managesDivisionNames?: string[];
+  // Manager
+  managesOrganizationEntityIds?: string[];
+  managesOrganizationEntityNames?: string[];
 
   // Direct Supervisor
   supervisorId?: string;
   supervisorName?: string;
 
+  // Direct Subordinates
   subordinateIds?: string[];
   subordinateNames?: string[];
 

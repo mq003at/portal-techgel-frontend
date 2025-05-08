@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import OrganizationViewPage from './OrganizationViewPage';
 import { useNavigate, Routes, Route } from 'react-router';
-import AddOrEditOrganizationEntityPage from './AddOrEditOrganizationEntityPage';
+// import AddOrEditOrganizationEntityPage from './AddOrEditOrganizationEntityPage';
 import { FaPlus } from 'react-icons/fa';
 
 export default function OrganizationPage() {
@@ -29,7 +29,7 @@ export default function OrganizationPage() {
       {isAddModalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
-            <AddOrEditOrganizationEntityPage onClose={() => setIsAddModalOpen(false)} />
+            {/* <AddOrEditOrganizationEntityPage onClose={() => setIsAddModalOpen(false)} /> */}
           </div>
         </div>
       )}
