@@ -1,9 +1,10 @@
-import { Column, ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, RowData, SortingState, useReactTable } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { Column, ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, PaginationState, RowData, SortingState, useReactTable } from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { Fragment } from "react/jsx-runtime";
 import FunctionalityBar from "../Organization/component/OrganizationTable/FunctionalityBar";
+import { genderOptions } from "../../restricted/EmployeeList/configs/employeeFieldOptions";
 
 interface TableProps<B, T> {
     title: string;
@@ -16,18 +17,39 @@ interface TableProps<B, T> {
 declare module '@tanstack/react-table' {
     //allows us to define custom properties for our columns
     interface ColumnMeta<TData extends RowData, TValue> {
-      filterVariant?: 'text' | 'range' | 'select'
+      filterVariant?: 'text' | 'range' | 'select';
+      selectOptions?: { label: string; value: string }[];
+      isDateRange?: boolean;
     }
   }
 
 function Filter({ column }: { column: Column<any, unknown> }) {
     const columnFilterValue = column.getFilterValue()
-    const { filterVariant } = column.columnDef.meta ?? {}
+    const { filterVariant, selectOptions, isDateRange } = column.columnDef.meta ?? {}
   
     return filterVariant === 'range' ? (
+      isDateRange ?
+      <div className="flex space-x-2">
+        <DebouncedInput
+          type="date"
+          value={(columnFilterValue as [string, string])?.[0] ?? ''}
+          onChange={(value) =>
+            column.setFilterValue((old: [string, string]) => [value, old?.[1]])
+          }
+          className="w-28"
+        />
+        <DebouncedInput
+          type="date"
+          value={(columnFilterValue as [string, string])?.[1] ?? ''}
+          onChange={(value) =>
+            column.setFilterValue((old: [string, string]) => [old?.[0], value])
+          }
+          className="w-28"
+        />
+      </div>
+      : 
       <div>
         <div className="flex space-x-2">
-          {/* See faceted column filters example for min max values functionality */}
           <DebouncedInput
             type="number"
             value={(columnFilterValue as [number, number])?.[0] ?? ''}
@@ -35,7 +57,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
               column.setFilterValue((old: [number, number]) => [value, old?.[1]])
             }
             placeholder={`Min`}
-            className="w-24 border shadow rounded"
+            className="w-12"
           />
           <DebouncedInput
             type="number"
@@ -44,35 +66,32 @@ function Filter({ column }: { column: Column<any, unknown> }) {
               column.setFilterValue((old: [number, number]) => [old?.[0], value])
             }
             placeholder={`Max`}
-            className="w-24 border shadow rounded"
+            className="w-12"
           />
         </div>
         <div className="h-1" />
       </div>
-    ) : filterVariant === 'select' ? (
-      <select
+    ) : (filterVariant === 'select' && selectOptions) ? (
+      <select className="select h-8 inline-block w-auto"
         onChange={e => column.setFilterValue(e.target.value)}
         value={columnFilterValue?.toString()}
       >
-        {/* See faceted column filters example for dynamic select options */}
         <option value="">All</option>
-        <option value="complicated">complicated</option>
-        <option value="relationship">relationship</option>
-        <option value="single">single</option>
+        {selectOptions.map((op) => {
+          return <option value={op.value}>{op.label}</option>
+        })}
       </select>
     ) : (
       <DebouncedInput
-        className="w-36 border shadow rounded"
+        className="w-20"
         onChange={value => column.setFilterValue(value)}
         placeholder={`Search...`}
         type="text"
         value={(columnFilterValue ?? '') as string}
       />
-      // See faceted column filters example for datalist search suggestions
     )
   }
   
-  // A typical debounced input react component
   function DebouncedInput({
     value: initialValue,
     onChange,
@@ -98,7 +117,21 @@ function Filter({ column }: { column: Column<any, unknown> }) {
     }, [value])
   
     return (
-      <input {...props} value={value} onChange={e => setValue(e.target.value)} />
+      <label className="input h-8">
+        <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2.5"
+            fill="none"
+            stroke="currentColor"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </g>
+        </svg>
+        <input {...props} value={value} onChange={e => setValue(e.target.value)} />
+      </label>
     )
   }
 
@@ -107,60 +140,9 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
 
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0,pageSize: 1,})
 
-    const basicTable = useReactTable({
-        initialState: {
-            columnPinning: {
-                left: basicListColumns
-                .filter((column): column is ColumnDef<B, any> & { accessorKey: string } => 
-                    column.enablePinning === true)
-                .map(column => column.accessorKey),
-                right: [],
-            },
-        },
-        data: basicData,
-        columns: basicListColumns,
-        getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
-        getFilteredRowModel: getFilteredRowModel(),
-        state: {
-            sorting,
-            columnFilters,
-        },
-    });
-    const nestedTable = useReactTable({
-        data: nestedData,
-        columns: nestedColumns,
-        getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
-        getFilteredRowModel: getFilteredRowModel(),
-        state: {
-            sorting,
-            columnFilters,
-        },
-    });
-
-    const allLeafColumns: (Column<B, unknown> | Column<T, unknown>)[] = [
-        ...basicTable.getAllLeafColumns(),
-        ...nestedTable.getAllLeafColumns(),
-      ];
-
-    // const combinedData = basicData.map((basicItem, index) => ({
-    //     ...basicItem,
-    //     ...nestedData[index]
-    // }));
-    // const combinedColumns: ColumnDef<any, any>[] = [
-    //     ...basicListColumns,
-    //     ...nestedColumns
-    // ];
-    // const table = useReactTable({
-    //     data: combinedData,
-    //     columns: combinedColumns,
-    //     getCoreRowModel: getCoreRowModel(),
+    // const basicTable = useReactTable({
     //     initialState: {
     //         columnPinning: {
     //             left: basicListColumns
@@ -170,7 +152,73 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
     //             right: [],
     //         },
     //     },
+    //     data: basicData,
+    //     columns: basicListColumns,
+    //     getCoreRowModel: getCoreRowModel(),
+    //     getSortedRowModel: getSortedRowModel(),
+    //     onSortingChange: setSorting,
+    //     onColumnFiltersChange: setColumnFilters,
+    //     getFilteredRowModel: getFilteredRowModel(),
+    //     state: {
+    //         sorting,
+    //         columnFilters,
+    //     },
     // });
+    // const nestedTable = useReactTable({
+    //     data: nestedData,
+    //     columns: nestedColumns,
+    //     getCoreRowModel: getCoreRowModel(),
+    //     getSortedRowModel: getSortedRowModel(),
+    //     onSortingChange: setSorting,
+    //     onColumnFiltersChange: setColumnFilters,
+    //     getFilteredRowModel: getFilteredRowModel(),
+    //     state: {
+    //         sorting,
+    //         columnFilters,
+    //     },
+    // });
+
+    // const allLeafColumns: (Column<B, unknown> | Column<T, unknown>)[] = [
+    //     ...basicTable.getAllLeafColumns(),
+    //     ...nestedTable.getAllLeafColumns(),
+    //   ];
+    const combinedData = useMemo(() => (
+      basicData.map((basicItem, index) => ({
+        ...basicItem,
+        ...nestedData[index],
+      }))
+    ), [basicData, nestedData]);
+    
+    const combinedColumns: ColumnDef<any, any>[] = useMemo(() => (
+      [...basicListColumns, ...nestedColumns]
+    ), [basicListColumns, nestedColumns]);
+
+    const table = useReactTable({
+      data: combinedData,
+      columns: combinedColumns,
+      getCoreRowModel: getCoreRowModel(),
+      getSortedRowModel: getSortedRowModel(),
+      getFilteredRowModel: getFilteredRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+      onSortingChange: setSorting,
+      onColumnFiltersChange: setColumnFilters,
+      onPaginationChange: setPagination,
+      state: {
+        sorting,
+        columnFilters,
+        pagination,
+      },
+      initialState: {
+        columnPinning: {
+          left: basicListColumns
+            .filter((column): column is ColumnDef<any, any> & { accessorKey: string } =>
+              column.enablePinning === true)
+            .map(column => column.accessorKey),
+          right: [],
+        },
+      },
+    });
+    
 
     return (
         <section className="mt-10 space-y-6">
@@ -180,7 +228,7 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                     <div tabIndex={0} role="button" className="btn m-1"><FaEyeSlash /> Ẩn cột</div>
                     <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm max-h-55 overflow-y-auto">
                         <li>
-                            {allLeafColumns.map((column) => (
+                            {table.getAllLeafColumns().map((column) => (
                                 <Fragment key={column.id}>
                                         <label className="label">
                                         <input type="checkbox" className="checkbox" 
@@ -195,11 +243,9 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                 </div>
             </div>
 
-            <FunctionalityBar resetButtonFunction={function(){}} />
-
             {/* Basic Info Table */}
             <div className="overflow-x-auto w-[calc(100vw-25em)] rounded-lg border bg-white shadow">
-            <table className="border-separate border-spacing-0 w-full">
+            <table className="table border-separate border-spacing-0 w-full">
                 <thead className="bg-gray-100 text-sm font-medium">
                 <tr>
                     {/* {basicTable.getHeaderGroups().map((hg) => (
@@ -254,17 +300,17 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                         ))}
                     </Fragment>
                     ))} */}
-                    {[...basicTable.getHeaderGroups(), ...nestedTable.getHeaderGroups()].map((hg) => (
+
+                    {table.getHeaderGroups().map((hg) => (
                       <Fragment key={hg.id}>
                         {hg.headers.map((h, index) => (
                           <th
-                            key={h.id}
-                            className={`px-4 py-2 text-left ${h.column.getCanSort() ? 'cursor-pointer select-none' : ''}`}
+                            key={index}
+                            className={`px-4 py-2 text-left bg-base-200 ${h.column.getCanSort() ? 'cursor-pointer select-none' : ''}`}
                             style={{
                               position: h.column.getIsPinned() ? 'sticky' : 'relative',
                               left: h.column.getIsPinned() === 'left' ? `${index * 100}px` : undefined,
-                              zIndex: 2,
-                              background: '#F3F4F6',
+                              zIndex: h.column.getIsPinned() ? 2 : 1,
                             }}
                           >
                             <div onClick={h.column.getToggleSortingHandler()}>
@@ -316,41 +362,101 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                     </tr>
                     );
                 })} */}
-                {basicData.map((data: B, index) => {
-                  const basicRow = basicTable.getRowModel().rows[index];
-                  const nestedRow = nestedTable.getRowModel().rows[index];
-
-                  const allCells = [
-                    ...(basicRow?.getVisibleCells() || []),
-                    ...(nestedRow?.getVisibleCells() || []),
-                  ];
-
-                  return (
-                    <tr
-                      key={data.id}
-                      className="hover:bg-gray-50 cursor-pointer"
-                      onClick={() => navigate(`/main/employees/${data.id}/edit`)}
-                    >
-                      {allCells.map((cell, cellIndex) => (
-                        <td
-                          key={cell.id}
-                          className="px-4 py-2 min-w-25 bg-white border-t"
-                          style={{
-                            position: cell.column.getIsPinned() ? 'sticky' : 'relative',
-                            left: cell.column.getIsPinned() === 'left' ? `${cellIndex * 100}px` : undefined,
-                            zIndex: cell.column.getIsPinned() ? 2 : undefined,
-                          }}
-                        >
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-
+                {table.getRowModel().rows.map(row => (
+                  <tr key={row.id} onClick={() => navigate(`/main/employees/${row.original.id}/edit`)} className="hover:bg-gray-50 cursor-pointer">
+                    {row.getVisibleCells().map((cell, index) => (
+                      <td
+                        key={cell.id}
+                        className="px-4 py-2 min-w-25 bg-white border-t"
+                        style={{
+                          position: cell.column.getIsPinned() ? 'sticky' : 'relative',
+                          left: cell.column.getIsPinned() === 'left' ? `${index * 100}px` : undefined,
+                          zIndex: cell.column.getIsPinned() ? 2 : undefined,
+                          width: 2000,
+                        }}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
                 </tbody>
             </table>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-1">
+              <button
+                className="btn btn-xs btn-outline"
+                onClick={() => table.firstPage()}
+                disabled={!table.getCanPreviousPage()}
+              >
+                « First
+              </button>
+              <button
+                className="btn btn-xs btn-outline"
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+              >
+                ‹ Prev
+              </button>
+              <button
+                className="btn btn-xs btn-outline"
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+              >
+                Next ›
+              </button>
+              <button
+                className="btn btn-xs btn-outline"
+                onClick={() => table.lastPage()}
+                disabled={!table.getCanNextPage()}
+              >
+                Last »
+              </button>
             </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-sm">
+                Page <strong>{table.getState().pagination.pageIndex + 1}</strong> of{' '}
+                <strong>{table.getPageCount().toLocaleString()}</strong>
+              </span>
+
+              <label className="input input-sm input-bordered flex items-center gap-2 w-fit">
+                <span className="text-xs whitespace-nowrap">Go to page:</span>
+                <input
+                  type="number"
+                  min="1"
+                  max={table.getPageCount()}
+                  defaultValue={table.getState().pagination.pageIndex + 1}
+                  onChange={e => {
+                    const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                    table.setPageIndex(page);
+                  }}
+                  className="grow w-16"
+                />
+              </label>
+            </div>
+
+            <select
+              className="select select-sm select-bordered w-fit"
+              value={table.getState().pagination.pageSize}
+              onChange={e => {
+                table.setPageSize(Number(e.target.value));
+              }}
+            >
+              {[1, 5, 10, 20, 30].map(pageSize => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+
+            <div className="text-sm">
+              Showing {table.getRowModel().rows.length.toLocaleString()} of{' '}
+              {table.getRowCount().toLocaleString()} rows
+            </div>
+          </div>
+
         </section>
-        );
+      );
 }
