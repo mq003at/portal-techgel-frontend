@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import OrganizationViewPage from './OrganizationViewPage';
 import { useNavigate, Routes, Route } from 'react-router';
 // import AddOrEditOrganizationEntityPage from './AddOrEditOrganizationEntityPage';
 import { FaPlus } from 'react-icons/fa';
+import { useGetOrganizationEntitiesQuery } from '../api/OrganizationEntityApi';
 
 export default function OrganizationPage() {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
@@ -22,9 +23,7 @@ export default function OrganizationPage() {
         </button>
       </div>
 
-      <Routes>
-        <Route path="/" element={<OrganizationViewPage />} />
-      </Routes>
+      {<OrganizationViewPage />}
 
       {isAddModalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
