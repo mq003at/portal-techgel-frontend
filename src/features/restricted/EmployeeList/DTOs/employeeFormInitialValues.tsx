@@ -18,7 +18,6 @@ export const employeeFormInitialValues: EmployeeDTO = {
     nationality: '',
     personalEmail: '',
     personalPhoneNumber: '',
-    avatar: '',
     idCardNumber: '',
     idCardExpiryDate: '',
     idCardIssueDate: '',
@@ -70,20 +69,18 @@ export const employeeFormInitialValues: EmployeeDTO = {
   },
 
   roleInfo: {
-    divisionIds: [],
-    departmentIds: [],
-    sectionIds: [],
-    unitIds: [],
-    teamIds: [],
+    organizationEntityIds: [],
+    organizationEntityNames: [],
 
-    managesDivisionIds: [],
-    managesDepartmentIds: [],
-    managesSectionIds: [],
-    managesUnitIds: [],
-    managesTeamIds: [],
+    managesOrganizationEntityIds: [],
+    managesOrganizationEntityNames: [],
 
-    managerId: '',
-    subordinates: [],
+    supervisorId: '',
+    supervisorName: '',
+
+    subordinateIds: [],
+    subordinateNames: [],
+
     groupIds: [],
   },
 };
