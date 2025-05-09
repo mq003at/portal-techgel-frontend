@@ -13,17 +13,21 @@ import { ListTable } from '../../../public/Table/listTable';
 
 export function EmployeeListPage() {
   const [currentTab, setCurrentTab] = useState<EmployeeTabKey>('personalInfo');
-  const { data: employees = [] } = useGetEmployeesQuery();
-
+  const { data: employees = [], isLoading, isError } = useGetEmployeesQuery();
   const navigate = useNavigate();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-solid"></div>
+      </div>
+    );
+  }
+  if (isError) return <p>Error loading employees</p>;
 
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as EmployeeTabKey);
   };
-
-  useEffect(() => {
-    console.log('emp', employees);
-  }, [employees]);
 
   return (
     <div className="p-6 space-y-4">
