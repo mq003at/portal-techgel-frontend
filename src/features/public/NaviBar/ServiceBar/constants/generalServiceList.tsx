@@ -1,5 +1,7 @@
+import { FaSignature } from 'react-icons/fa';
 import IconWrapper from '../../../../../components/wrapper/IconWrapper';
 import { ServiceGroup } from '../../../../../types/models/Service/ServiceModal';
+import { GoWorkflow } from 'react-icons/go';
 
 export const allGeneralServices: ServiceGroup[] = [
   {
@@ -66,6 +68,38 @@ export const allGeneralServices: ServiceGroup[] = [
           <IconWrapper src="../assets/icon/serviceBarIcons/business-trip.svg" title="Công tác" />
         ),
         navigateTo: '',
+      },
+    ],
+  },
+  {
+    group: 'Quy Trình Chung',
+
+    items: [
+      {
+        title: 'Quy Trình Chung',
+        icon: (
+          <IconWrapper
+            src="../assets/icon/serviceBarIcons/workflow-general.svg"
+            title="Quy Trình Chung"
+          />
+        ),
+        navigateTo: '/main/general-workflow',
+      },
+    ],
+  },
+  {
+    group: 'Quản Lý Chữ Ký',
+
+    items: [
+      {
+        title: 'Quản Lý Chữ Ký',
+        icon: (
+          <IconWrapper
+            src="../assets/icon/serviceBarIcons/signature-manager.svg"
+            title="Document"
+          />
+        ),
+        navigateTo: '/main/signature-manager',
       },
     ],
   },

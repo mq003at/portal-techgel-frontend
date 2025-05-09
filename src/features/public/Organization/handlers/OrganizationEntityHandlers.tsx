@@ -44,14 +44,15 @@ const fetchEntityWithChildren = (
     return undefined;
   }
 
-  if (entity.managerId) {
-    const manager = employees.find((emp) => emp.id === entity.managerId);
-    entity.managerName = manager
-      ? `${manager.lastName} ${manager.middleName || ''} ${manager.firstName}`
-          .replace(/\s+/g, ' ')
-          .trim() // Construct full name, handle missing middleName, trim extra spaces
-      : `Manager ID ${entity.managerId} not found`; // Fallback if manager not found
-  }
+  // Fetch name from employee - DELETE BECAUSE BACKEND WILL DO THIS
+  // if (entity.managerId) {
+  //   const manager = employees.find((emp) => emp.id === entity.managerId);
+  //   entity.managerName = manager
+  //     ? `${manager.lastName} ${manager.middleName || ''} ${manager.firstName}`
+  //         .replace(/\s+/g, ' ')
+  //         .trim() // Construct full name, handle missing middleName, trim extra spaces
+  //     : `Manager ID ${entity.managerId} not found`; // Fallback if manager not found
+  // }
 
   // Populate employeeNames
   if (entity.employeeIds && entity.employeeIds.length > 0) {

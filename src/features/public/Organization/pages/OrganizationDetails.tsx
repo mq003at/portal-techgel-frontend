@@ -1,9 +1,7 @@
 import IconWrapper from '../../../../components/wrapper/IconWrapper';
-import { useAppDispatch } from '../../../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
+import { safeNumber, safeString } from '../../../../utils/textUtils';
 import FunctionalityBar from '../component/OrganizationTable/FunctionalityBar';
-import OrganizationTable from '../component/OrganizationTable/OrganizationTable';
-import { OrganizationEntitySummaryDTO } from '../DTOs/OrganizationEntityDTO';
-import { clearSelectedOrganizationEntity } from '../store/selectedOrganizationEntitySlice';
 
 export default function OrganizationDetails() {
   const dispatch = useAppDispatch();
@@ -16,39 +14,44 @@ export default function OrganizationDetails() {
   //   const refreshOrganizationView = () => {
   //     dispatch(clearSelectedOrganizationEntity());
   //     dispatch(divisionApi.endpoints.getDivisions.initiate());
-  //   };
+  //   };'
 
+  const { selected } = useAppSelector((state) => state.selectedOrganizationEntity);
   return (
     <div className="space-y-4">
-      {/* {selected && (
-        <div className="p-4 bg-gray-50 border rounded-md space-y-1">
-          <div className="flex items-center gap-2">
-            <h2 className="font-semibold text-lg">{selected.name}</h2>
-            <button className="text-blue-500 hover:text-blue-700">
-              <IconWrapper
-                src="..\assets\icon\globalIcons\pencilSquare.svg"
-                title="Sửa đơn vị"
-                height={20}
-                width={20}
-              />
-            </button>
-          </div>
-          <div className="flex items-center gap-6 text-gray-600">
-            <p>ID: {selected.id}</p>
-            {'mainId' in selected && <p>Mã: {selected.mainId}</p>}
-            <p>Loại: {getEntityType(selected)}</p>
-          </div>
-          <div className="flex items-center gap-6 text-gray-600">
-            <p>Trạng thái: {selected.status}. </p>
-          </div>
-          <div className="flex items-center gap-6 text-gray-600">
-            {'managerName' in selected && <p>Người quản lý: {selected.managerName} </p>}
-          </div>
-          <div className="flex items-center gap-6 text-gray-600">
-            <p>Mô tả: {selected.description ?? 'Không có mô tả.'} </p>
-          </div>
-        </div>
-      )} */}
+      <div className="p-4 bg-gray-50 border rounded-md space-y-1">
+        {selected ? (
+          <>
+            <div className="flex items-center gap-2">
+              <h2 className="font-semibold text-lg">{safeString(selected?.name)}</h2>
+              <button className="text-blue-500 hover:text-blue-700">
+                <IconWrapper
+                  src="..\assets\icon\globalIcons\pencilSquare.svg"
+                  title="Sửa đơn vị"
+                  height={20}
+                  width={20}
+                />
+              </button>
+            </div>
+            <div className="flex items-center gap-6 text-gray-600">
+              <p>ID: {safeString(selected?.id)}</p>
+              <p>Mã: {safeString(selected?.mainId)}</p>
+              <p>Cấp: {safeNumber(selected?.level)}</p>
+            </div>
+            <div className="flex items-center gap-6 text-gray-600">
+              <p>Trạng thái: {safeString(selected?.status)}. </p>
+            </div>
+            <div className="flex items-center gap-6 text-gray-600">
+              <p>Người quản lý: {safeString(selected?.managerName)} </p>
+            </div>
+            <div className="flex items-center gap-6 text-gray-600">
+              <p>Mô tả: {safeString(selected?.description)} </p>
+            </div>
+          </>
+        ) : (
+          <p>Vui lòng chọn đơn vị tổ chức bên trái</p>
+        )}
+      </div>
 
       <FunctionalityBar resetButtonFunction={() => {}} />
       {/* <OrganizationTable /> */}
