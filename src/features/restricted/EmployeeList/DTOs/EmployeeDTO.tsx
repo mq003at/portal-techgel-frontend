@@ -116,22 +116,39 @@ export interface ScheduleInfoDTO {
 }
 
 export interface RoleInfoDTO {
-  // Org structure
-  organizationEntityIds?: string[];
-  organizationEntityNames?: string[];
+  // // Org structure
+  // organizationEntityIds?: string[];
+  // organizationEntityNames?: string[];
 
-  // Manager
-  managesOrganizationEntityIds?: string[];
-  managesOrganizationEntityNames?: string[];
+  // // Manager
+  // managesOrganizationEntityIds?: string[];
+  // managesOrganizationEntityNames?: string[];
+
+  // // Direct Subordinates
+  // subordinateIds?: string[];
+  // subordinateNames?: string[];
+
+  // // Special Permission
+  // groupIds?: string[];
 
   // Direct Supervisor
   supervisorId?: string;
   supervisorName?: string;
 
+  roleDetailsInfo?: RoleDetailsInfoDTO[]
+}
+
+export interface RoleDetailsInfoDTO {
+  organizationEntityId: string,
+  organizationEntityName: string,
+
+  managesOrganizationEntityId: string,
+  managesOrganizationEntityName: string,
+
   // Direct Subordinates
-  subordinateIds?: string[];
-  subordinateNames?: string[];
+  subordinateId: string,
+  subordinateName: string,
 
   // Special Permission
-  groupIds?: string[];
+  groupId: string
 }

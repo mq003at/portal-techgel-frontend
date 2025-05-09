@@ -97,8 +97,15 @@ export const EmployeeMockData: EmployeeDTO[] = [
     roleInfo: {
       supervisorId: '1',
       supervisorName: 'Techgel Testing',
-      subordinateIds: ['3'],
-      subordinateNames: ['Nguyễn Hoàng Minh Quân'],
+      roleDetailsInfo: [{
+        organizationEntityId: '1',
+        organizationEntityName: 'abc',
+        managesOrganizationEntityId: '1',
+        managesOrganizationEntityName: 'abc',
+        subordinateId: '3',
+        subordinateName: 'Nguyễn Hoàng Minh Quân',
+        groupId: '1'
+      }]
     },
     scheduleInfo: {},
     createdAt: '2023-01-01T08:00:00.000Z',
@@ -205,8 +212,15 @@ export const EmployeeMockData: EmployeeDTO[] = [
     roleInfo: {
       supervisorId: '1',
       supervisorName: 'Techgel Testing',
-      subordinateIds: ['3'],
-      subordinateNames: ['Nguyễn Hoàng Minh Quân'],
+      roleDetailsInfo: [{
+        organizationEntityId: '1',
+        organizationEntityName: 'abc',
+        managesOrganizationEntityId: '1',
+        managesOrganizationEntityName: 'abc',
+        subordinateId: '3',
+        subordinateName: 'Nguyễn Hoàng Minh Quân',
+        groupId: '1'
+      }]
     },
     scheduleInfo: {},
     createdAt: '2023-01-01T08:00:00.000Z',

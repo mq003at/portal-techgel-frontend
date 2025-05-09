@@ -17,6 +17,7 @@ export const rootOrganizationMockData: OrganizationEntityDTO = {
   // Optional sortOrder and fullPathName are also omitted for simplicity in mock data.
 };
 
+
 export const divisionsMockData: OrganizationEntityDTO[] = [
   {
     id: '1',
@@ -101,7 +102,7 @@ export const divisionsMockData: OrganizationEntityDTO[] = [
     id: '4',
     name: 'Khối Tài Chính - Kế Toán',
     status: 'ACTIVE',
-    mainId: 'K_TC_KT',
+    mainId: 'K_TCKT',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     level: 1,
@@ -510,3 +511,6 @@ export const teamMockData: OrganizationEntityDTO[] = [
     employeeNames: ['Lê Team2'],
   },
 ];
+
+const allOrg = [...divisionsMockData, ...departmentsMockData]
+const OrganizaionEntityEmployeeData = [{id: 1, empId: 1, orgId: 1}]
