@@ -1,6 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import { OrganizationEntityDTO } from '../DTOs/OrganizationEntityDTO';
-import { setSelectedOrganizationEntity } from '../store/selectedOrganizationEntitySlice';
 import OrganizationTreeNodeUI from './OrganizationTreeNodeUI';
 
 export function OrganizationTreeNode({
