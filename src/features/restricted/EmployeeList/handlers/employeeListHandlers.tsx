@@ -23,7 +23,9 @@ function getOrgInfoByLevel(level: number, allOrg: OrganizationEntityDTO[], emplo
 
 export const employeeListHandlers = [
   // 🟢 GET all employees
-  http.get<never, null, EmployeeDTO[]>('/api/employees', () => {
+  http.get<never, null, EmployeeDTO[]>('/api/employees', async () => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     const enrichedEmployees = employees.map((employee) => {
       // 🔹 Divisions
       const { ids: relatedDivisionIds, names: divisionNames } = getOrgInfoByLevel(1, allOrg, employee.id);

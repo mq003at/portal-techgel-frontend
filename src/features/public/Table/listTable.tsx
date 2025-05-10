@@ -1,10 +1,8 @@
-import { Column, ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, PaginationState, RowData, SortingState, useReactTable } from "@tanstack/react-table";
+import { Column, ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, PaginationState, RowData, SortingState, useReactTable } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { Fragment } from "react/jsx-runtime";
-import FunctionalityBar from "../Organization/component/OrganizationTable/FunctionalityBar";
-import { genderOptions } from "../../restricted/EmployeeList/configs/employeeFieldOptions";
 
 interface TableProps<B, T> {
     title: string;
@@ -26,6 +24,16 @@ declare module '@tanstack/react-table' {
 function Filter({ column }: { column: Column<any, unknown> }) {
     const columnFilterValue = column.getFilterValue()
     const { filterVariant, selectOptions, isDateRange } = column.columnDef.meta ?? {}
+
+    const sortedUniqueValues = useMemo(
+      () =>
+        filterVariant === 'range'
+          ? []
+          : Array.from(column.getFacetedUniqueValues().keys())
+              .sort()
+              .slice(0, 5000),
+      [column.getFacetedUniqueValues(), filterVariant]
+    )
   
     return filterVariant === 'range' ? (
       isDateRange ?
@@ -82,13 +90,21 @@ function Filter({ column }: { column: Column<any, unknown> }) {
         })}
       </select>
     ) : (
-      <DebouncedInput
-        className="w-20"
-        onChange={value => column.setFilterValue(value)}
-        placeholder={`Search...`}
-        type="text"
-        value={(columnFilterValue ?? '') as string}
-      />
+      <>
+        <datalist id={column.id + 'list'}>
+          {sortedUniqueValues.map((value: any) => (
+            <option value={value} key={value} />
+          ))}
+        </datalist>
+        <DebouncedInput
+          className="w-20"
+          onChange={value => column.setFilterValue(value)}
+          placeholder={`Search...`}
+          type="text"
+          value={(columnFilterValue ?? '') as string}
+          list={column.id + 'list'}
+        />
+      </>
     )
   }
   
@@ -140,7 +156,7 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
 
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-    const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0,pageSize: 1,})
+    const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0,pageSize: 5,})
 
     // const basicTable = useReactTable({
     //     initialState: {
@@ -200,6 +216,9 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
       getSortedRowModel: getSortedRowModel(),
       getFilteredRowModel: getFilteredRowModel(),
       getPaginationRowModel: getPaginationRowModel(),
+      getFacetedRowModel: getFacetedRowModel(),
+      getFacetedUniqueValues: getFacetedUniqueValues(),
+      getFacetedMinMaxValues: getFacetedMinMaxValues(),
       onSortingChange: setSorting,
       onColumnFiltersChange: setColumnFilters,
       onPaginationChange: setPagination,
@@ -309,7 +328,7 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                             className={`px-4 py-2 text-left bg-base-200 ${h.column.getCanSort() ? 'cursor-pointer select-none' : ''}`}
                             style={{
                               position: h.column.getIsPinned() ? 'sticky' : 'relative',
-                              left: h.column.getIsPinned() === 'left' ? `${index * 100}px` : undefined,
+                              left: h.column.getIsPinned() === 'left' ? `${index * 150}px` : undefined,
                               zIndex: h.column.getIsPinned() ? 2 : 1,
                             }}
                           >
@@ -370,9 +389,8 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                         className="px-4 py-2 min-w-25 bg-white border-t"
                         style={{
                           position: cell.column.getIsPinned() ? 'sticky' : 'relative',
-                          left: cell.column.getIsPinned() === 'left' ? `${index * 100}px` : undefined,
-                          zIndex: cell.column.getIsPinned() ? 2 : undefined,
-                          width: 2000,
+                          left: cell.column.getIsPinned() === 'left' ? `${index * 150}px` : undefined,
+                          zIndex: cell.column.getIsPinned() ? 2 : 1,
                         }}
                       >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -444,7 +462,7 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                 table.setPageSize(Number(e.target.value));
               }}
             >
-              {[1, 5, 10, 20, 30].map(pageSize => (
+              {[5, 30, 50, 100].map(pageSize => (
                 <option key={pageSize} value={pageSize}>
                   Show {pageSize}
                 </option>
