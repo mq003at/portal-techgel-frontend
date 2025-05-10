@@ -11,6 +11,7 @@ import OrganizationPage from '../features/public/Organization/pages/Organization
 import { EmployeeListAddPage } from '../features/restricted/EmployeeList/pages/EmployeeListAddPage';
 import { EmployeeListEditPage } from '../features/restricted/EmployeeList/pages/EmployeeListEditPage';
 import { BadgeGeneration } from '../components/badges/BadgeGeneration';
+import { SignatureManagerPage } from '../features/public/SignatureManager/pages/SigatureManagerPage';
 
 export default function Body() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -24,7 +25,7 @@ export default function Body() {
         <div className={`flex-1 py-6 bg-base-100 ${isExpanded ? 'ml-80' : 'ml-35'}`}>
           <AdvancedServiceBar />
           <Routes>
-            <Route path="/" element={<Navigate to="/general" />} />
+            <Route path="/" element={<Navigate to="/main/general" />} />
 
             <Route path="/employees" element={<EmployeeListPage />} />
             <Route path="/employees/add" element={<EmployeeListAddPage />} />
@@ -37,6 +38,9 @@ export default function Body() {
             <Route path="/organization/:id/edit" element={<OrganizationEditPage />} /> */}
 
             {/* <Route path="*" element={<Navigate to="/main/general" />} /> */}
+
+            <Route path="/signature-manager" element={<SignatureManagerPage />} />
+            <Route path="*" element={<Navigate to="/main/general" />} />
           </Routes>
         </div>
       </div>

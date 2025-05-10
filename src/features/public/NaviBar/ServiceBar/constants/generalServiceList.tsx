@@ -1,7 +1,5 @@
-import { FaSignature } from 'react-icons/fa';
 import IconWrapper from '../../../../../components/wrapper/IconWrapper';
 import { ServiceGroup } from '../../../../../types/models/Service/ServiceModal';
-import { GoWorkflow } from 'react-icons/go';
 
 export const allGeneralServices: ServiceGroup[] = [
   {
@@ -84,6 +82,36 @@ export const allGeneralServices: ServiceGroup[] = [
           />
         ),
         navigateTo: '/main/general-workflow',
+      },
+      {
+        title: 'Quy Trình Hỗ Trợ Văn Phòng',
+        icon: (
+          <IconWrapper
+            src="../assets/icon/serviceBarIcons/workflow-general.svg"
+            title="Quy trình cốt lõi: mua sắm, bảo trì, sửa chữa csvc, IT Helpdesk,..."
+          />
+        ),
+        navigateTo: '/main/support-workflow',
+      },
+      {
+        title: 'Quy Trình Theo Dõi Chất Lượng',
+        icon: (
+          <IconWrapper
+            src="../assets/icon/serviceBarIcons/workflow-general.svg"
+            title="Quy Trình Đề Xuất CSVC"
+          />
+        ),
+        navigateTo: '/main/general-workflow/facility-proposal',
+      },
+      {
+        title: 'Quy Trình Quản Trị Rủi Ro',
+        icon: (
+          <IconWrapper
+            src="../assets/icon/serviceBarIcons/workflow-general.svg"
+            title="Quy Trình Đề Xuất Mua Sắm"
+          />
+        ),
+        navigateTo: '/main/general-workflow/purchase-proposal',
       },
     ],
   },
@@ -174,6 +202,18 @@ export const allGeneralServices: ServiceGroup[] = [
     ],
   },
   {
+    group: 'Thăm dò Ý kiến',
+    items: [
+      {
+        title: 'Thăm dò Ý kiến',
+        icon: (
+          <IconWrapper src="../assets/icon/serviceBarIcons/survey.svg" title="Thăm dò ý kiến" />
+        ),
+        navigateTo: '/main/survey',
+      },
+    ],
+  },
+  {
     group: 'Tài Sản',
     items: [
       {
@@ -195,6 +235,21 @@ export const allGeneralServices: ServiceGroup[] = [
           />
         ),
         navigateTo: '/main/booking',
+      },
+    ],
+  },
+  {
+    group: 'Kho Công Ty',
+    items: [
+      {
+        title: 'Kho Công Ty',
+        icon: (
+          <IconWrapper
+            src="../assets/icon/serviceBarIcons/company-storage.svg"
+            title="Kho Công ty"
+          />
+        ),
+        navigateTo: '/main/company-storage',
       },
     ],
   },
