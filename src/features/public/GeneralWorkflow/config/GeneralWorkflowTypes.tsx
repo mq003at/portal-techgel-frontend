@@ -30,28 +30,35 @@ export interface GeneralWorkflow extends Omit<BaseDTO, 'mainId'> {
   approvedByIds: string[];
   approvedByNames: string[];
   approvedBySignatures: string[];
+
   draftedByIds: string[];
   draftedByNames: string[];
   draftedBySignatures?: string[];
 
   GeneralNodes: GeneralWorkflowNode[];
   quota?: number;
+
+  documentIds: string[]
+  documentNames: string[]
 }
 
 export interface GeneralWorkflowNode extends Omit<BaseDTO, 'mainId'> {
   mainId?: never;
   name: string;
+  type: GeneralWorkflowNodeCategory; // Ky hay tu xu ly
 
-  senderId: string;
-  senderName: string;
-  senderMessage: string;
+  senderId?: string;
+  senderName?: string;
+  senderMessage?: string;
 
-  receiverId: string;
-  receiverName: string;
-  receiverMessage: string;
+  receiverId?: string;
+  receiverName?: string;
+  receiverMessage?: string;
 
   status: GeneralWorkflowStatusType;
   processedAt: string;
   comment: string;
   order: number;
 }
+
+export type GeneralWorkflowNodeCategory = 'SIGN' | 'EXCEL'

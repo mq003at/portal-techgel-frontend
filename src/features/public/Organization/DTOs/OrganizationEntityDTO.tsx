@@ -2,10 +2,21 @@ import { BaseDTO } from '../../../../types/DTOs/BaseDTO';
 import { EmployeeDTO } from '../../../restricted/EmployeeList/DTOs/EmployeeDTO';
 import { OrganizationStatus } from '../configs/OrganizationModelOptions';
 
+export interface OrganizationEntityLayer {
+  id: string
+  level: number,
+  name: string,
+
+  organizationIds: string[]
+}
+
 export interface OrganizationEntitySummaryDTO extends BaseDTO {
   name: string;
   description: string;
-  level: number;
+
+  layerId: string;
+  level: number; 
+  layerName: string;
 
   managerId?: string;
   managerName?: string;
@@ -26,6 +37,9 @@ export interface OrganizationEntitySummaryDTO extends BaseDTO {
 
   // breadcrumb path
   fullPathName?: string;
+
+  // doc
+  documentCounts: number;
 }
 
 export interface OrganizationEntityDTO extends OrganizationEntitySummaryDTO {

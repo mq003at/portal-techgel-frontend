@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SwitchBar } from '../../../../components/switchBar.tsx/SwitchBar';
 import { employeeTabs, EmployeeTabKey, TabToDTOMap } from '../configs/EmployeeTabs';
 import { useGetEmployeesQuery } from '../api/employeeListApi';
 import { ColumnDef } from '@tanstack/react-table';
 import { EmployeeDTO } from '../DTOs/EmployeeDTO';
-import { EmployeeListTable } from '../tables/employeeListTable';
 import { employeeColumnMap } from '../tables/types/tableTypes';
 import { useNavigate } from 'react-router';
 import { FaPlus } from 'react-icons/fa';
