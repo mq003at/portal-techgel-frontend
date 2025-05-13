@@ -7,6 +7,7 @@ export interface BasicDocumentInfo {
 
 export const documentBasicColumns: ColumnDef<BasicDocumentInfo, any>[] = [
   {
+    id: 'mainId',
     accessorKey: 'mainId',
     header: 'Mã tài liệu',
     enableSorting: true,

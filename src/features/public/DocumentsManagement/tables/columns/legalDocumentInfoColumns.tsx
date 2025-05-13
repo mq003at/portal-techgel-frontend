@@ -1,11 +1,14 @@
+import { Fragment } from "react/jsx-runtime";
 import { TableColumnDef } from "../../../../restricted/EmployeeList/tables/types/tableTypes";
 import { DateCell } from "../../../Table/components/DateCell";
 import { StatusCell } from "../../../Table/components/StatusCell";
 import { documentIsLegalOptions } from "../../constants/DocumentTypeOptions";
 import { LegalDocumentInfo } from "../../DTOs/DocumentDTO";
+import { v4 as uuidv4 } from 'uuid';
 
 export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
     {
+        id: 'draftDate',
         accessorKey: 'draftDate',
         header: 'Ngày soạn thảo',
         enableSorting: true,
@@ -37,6 +40,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
         },
     },
     {
+        id: 'publishDate',
         accessorKey: 'publishDate',
         header: 'Ngày xuất bản',
         enableSorting: true,
@@ -68,6 +72,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
         },
     },
     {
+        id: 'effectiveDate',
         accessorKey: 'effectiveDate',
         header: 'Ngày có hiệu lực',
         enableSorting: true,
@@ -99,6 +104,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
         },
     },
     {
+        id: 'expiredDate',
         accessorKey: 'expiredDate',
         header: 'Ngày hết hạn',
         enableSorting: true,
@@ -130,6 +136,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
         },
     },
     {
+        id: 'draftByIds',
         accessorKey: 'draftByIds',
         header: 'Mã người soạn thảo',
         enableSorting: true,
@@ -139,10 +146,10 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
             return (
                 <>
                     {values.map((value, index) => (
-                        <>
-                            <StatusCell key={index} getValue={() => value}/> 
+                        <Fragment key={uuidv4()}>
+                            <StatusCell getValue={() => value}/> 
                             &nbsp;
-                        </>
+                        </Fragment>
                     ))}
                 </>
             );
@@ -153,6 +160,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
         },
     },
     {
+        id: 'publishByIds',
         accessorKey: 'publishByIds',
         header: 'Mã người xuất bản',
         enableSorting: true,
@@ -162,10 +170,10 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
             return (
                 <>
                     {values.map((value, index) => (
-                        <>
-                            <StatusCell key={index} getValue={() => value}/> 
+                        <Fragment key={uuidv4()}>
+                            <StatusCell getValue={() => value}/> 
                             &nbsp;
-                        </>
+                        </Fragment>
                     ))}
                 </>
             );
@@ -176,6 +184,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
         },
     },
     {
+        id: 'approvalByIds',
         accessorKey: 'approvalByIds',
         header: 'Mã người phê duyệt',
         enableSorting: true,
@@ -185,10 +194,10 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
             return (
                 <>
                     {values.map((value, index) => (
-                        <>
-                            <StatusCell key={index} getValue={() => value}/> 
+                        <Fragment key={uuidv4()}>
+                            <StatusCell getValue={() => value}/> 
                             &nbsp;
-                        </>
+                        </Fragment>
                     ))}
                 </>
             );
@@ -199,6 +208,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
         },
     },
     {
+        id: 'isLegalDocument',
         accessorKey: 'isLegalDocument',
         header: 'Tính pháp lý',
         enableSorting: true,
@@ -206,7 +216,6 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
             <StatusCell getValue={props.getValue} options={documentIsLegalOptions} />
         ),
         filterFn: (row, columnId, filterValue) => {
-            console.log("**********" + typeof(row.getValue(columnId)) + " " + typeof(filterValue));
             return row.getValue(columnId) === (filterValue.toLowerCase() == 'true')
         },
         meta: {

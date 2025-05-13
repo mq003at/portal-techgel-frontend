@@ -6,7 +6,6 @@ interface BadgeWrapperProps {
 }
 
 export const BadgeWrapper: React.FC<BadgeWrapperProps> = ({ label, color = 'neutral' }) => {
-  console.log('badge', label, color);
   return (
     <span
       className={`badge text-center badge-${color} h-fit`}

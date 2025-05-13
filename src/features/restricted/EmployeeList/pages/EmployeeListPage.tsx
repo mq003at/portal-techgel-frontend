@@ -71,6 +71,7 @@ function renderNestedTable<T extends EmployeeTabKey>(
   return (
     <ListTable<BasicEmployeeInfo, TabToDTOMap[T]>
       title={`Bảng: ${title}`}
+      slug={`employees`}
       basicData={basicData}
       basicListColumns={employeeBasicListColumns}
       nestedData={nestedData}

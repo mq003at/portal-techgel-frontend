@@ -59,17 +59,17 @@ export const documentSubTypeOptions = [
 ];
 
 export const documentCategoryOptions = [
-  { value: DocumentCategoryEnum.LEGAL, label: 'Pháp lý' },
+  { value: DocumentCategoryEnum.LEGAL, label: 'Pháp lý & Doanh nghiệp' },
   { value: DocumentCategoryEnum.EMPLOYMENT, label: 'Nhân sự' },
-  { value: DocumentCategoryEnum.ACCOUNTING, label: 'Kế toán' },
-  { value: DocumentCategoryEnum.INTERNAL, label: 'Nội bộ' },
-  { value: DocumentCategoryEnum.PROJECT, label: 'Dự án' },
-  { value: DocumentCategoryEnum.DESIGN, label: 'Thiết kế' },
-  { value: DocumentCategoryEnum.EQUIPMENT, label: 'Thiết bị' },
-  { value: DocumentCategoryEnum.GUIDELINE, label: 'Hướng dẫn' },
-  { value: DocumentCategoryEnum.CLIENT, label: 'Khách hàng' },
-  { value: DocumentCategoryEnum.PR, label: 'Quan hệ công chúng' },
-  { value: DocumentCategoryEnum.COPYRIGHT, label: 'Bản quyền' },
+  { value: DocumentCategoryEnum.ACCOUNTING, label: 'Kế toán - Tài chính' },
+  { value: DocumentCategoryEnum.INTERNAL, label: 'Hành chính - Nội bộ' },
+  { value: DocumentCategoryEnum.PROJECT, label: 'Dự án & Công trình' },
+  { value: DocumentCategoryEnum.DESIGN, label: 'Kỹ thuật - Bản vẽ - Thiết kế' },
+  { value: DocumentCategoryEnum.EQUIPMENT, label: 'Vật tư & Thiết bị' },
+  { value: DocumentCategoryEnum.GUIDELINE, label: 'Huấn luyện & Kiểm định' },
+  { value: DocumentCategoryEnum.CLIENT, label: 'Khách hàng & Đối tác' },
+  { value: DocumentCategoryEnum.PR, label: 'PR - Marketing - HSNL' },
+  { value: DocumentCategoryEnum.COPYRIGHT, label: 'Sở hữu trí tuệ' },
   { value: DocumentCategoryEnum.ARCHIVE, label: 'Lưu trữ' },
 ];
 
