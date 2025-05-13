@@ -12,6 +12,7 @@ import { EmployeeListAddPage } from '../features/restricted/EmployeeList/pages/E
 import { EmployeeListEditPage } from '../features/restricted/EmployeeList/pages/EmployeeListEditPage';
 import { BadgeGeneration } from '../components/badges/BadgeGeneration';
 import { SignatureManagerPage } from '../features/public/SignatureManager/pages/SigatureManagerPage';
+import DoucmentsManagementViewPage from '../features/public/DocumentsManagement/pages/DocumentsManagementViewPage';
 
 export default function Body() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -38,6 +39,8 @@ export default function Body() {
             <Route path="/organization/:id/edit" element={<OrganizationEditPage />} /> */}
 
             {/* <Route path="*" element={<Navigate to="/main/general" />} /> */}
+
+            <Route path="/documents" element={<DoucmentsManagementViewPage />} />
 
             <Route path="/signature-manager" element={<SignatureManagerPage />} />
             <Route path="*" element={<Navigate to="/main/general" />} />

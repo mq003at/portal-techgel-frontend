@@ -37,6 +37,7 @@ export interface GeneralWorkflow extends BaseDTO {
   approvedByIds: string[];
   approvedByNames: string[];
 
+
   // Who start this workflow
   authorId: string[];
   authorNames: string[];
@@ -46,6 +47,8 @@ export interface GeneralWorkflow extends BaseDTO {
 
 export interface GeneralWorkflowNode extends BaseDTO {
   name: string;
+  type: GeneralWorkflowNodeCategory; // Ky hay tu xu ly
+
 
   // Represent the order inside a workflow of a general workflow.
   mainId: string;
@@ -75,3 +78,5 @@ export interface GeneralWorkflowNode extends BaseDTO {
   createdAt: string;
   updatedAt: string;
 }
+
+export type GeneralWorkflowNodeCategory = 'SIGN' | 'EXCEL'

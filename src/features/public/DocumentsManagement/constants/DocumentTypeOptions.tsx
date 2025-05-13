@@ -73,6 +73,11 @@ export const documentCategoryOptions = [
   { value: DocumentCategoryEnum.ARCHIVE, label: 'Lưu trữ' },
 ];
 
+export const documentIsLegalOptions = [
+  { value: true, label: 'Có' },
+  { value: false, label: 'Không' },
+];
+
 export const confidentialityLevelOptions = [
   { value: ConfidentialityLevelEnum.PUBLIC, label: 'Công khai' },
   { value: ConfidentialityLevelEnum.INTERNAL, label: 'Nội bộ' },

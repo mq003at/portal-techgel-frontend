@@ -1,3 +1,4 @@
+import { BaseDTO } from '../../../../types/DTOs/BaseDTO';
 import {
   DocumentCategory,
   DocumentConfidentialityLevel,
@@ -6,12 +7,10 @@ import {
   DocumentTypes,
 } from '../types/DocumentEnum';
 
-export interface DocumentDTO {
+export interface DocumentDTO extends BaseDTO{
   id: string;
-  mainId: string;
   generalDocumentInfo: GeneralDocumentInfo;
   legalDocumentInfo: LegalDocumentInfo;
-  aprrovalInfo: string[];
   securityInfo: SecurityInfo;
   additionalInfo: AdditionalInfo;
   editInfo: EditInfo[];
@@ -23,11 +22,20 @@ export interface GeneralDocumentInfo {
   status: DocumentStatus; // e.g., 'DRAFT', 'APPROVED'...
   subType: DocumentSubType;
   category: DocumentCategory;
-  uploadBy: string;
+  
+  ownerId: string;
+  ownerName: string;
+
+  organizationEntityResponsibleId?: string;
+  organizationEntityResponsibleName?: string;
+
   tag: string[];
   description?: string;
   url?: string;
   version?: string;
+
+  workflowIds?: string[];
+  workflowNames?: string[];
 }
 
 export interface LegalDocumentInfo {
@@ -35,15 +43,19 @@ export interface LegalDocumentInfo {
   publishDate?: string;
   effectiveDate?: string;
   expiredDate?: string;
+  finalAprovalDate?: string;
+  inspectionDate?: string[];
 
   //id of user
   draftByIds?: string[];
   publishByIds?: string[];
   approvalByIds?: string[];
+  inspectionByIds?: string[];
 
   draftByNames?: string[];
   publishByNames?: string[];
   approvalByNames?: string[];
+  inspectionByNames?: string[];
 
   isLegalDocument: boolean;
 }
@@ -80,4 +92,22 @@ export interface EditInfo {
   editByName?: string; //DbGenerated
   editComment?: string;
   recordURL?: string;
+}
+
+export interface CreateDocumentDTO extends BaseDTO {
+  id: string;
+  generalDocumentInfo: GeneralDocumentInfo;
+  legalDocumentInfo: LegalDocumentInfo;
+  securityInfo: SecurityInfo;
+  additionalInfo: AdditionalInfo;
+  editInfo: EditInfo[];
+}
+
+export interface UpdateDocumentDTO extends BaseDTO {
+  id: string;
+  generalDocumentInfo: GeneralDocumentInfo;
+  legalDocumentInfo: LegalDocumentInfo;
+  securityInfo: SecurityInfo;
+  additionalInfo: AdditionalInfo;
+  editInfo: EditInfo[];
 }
