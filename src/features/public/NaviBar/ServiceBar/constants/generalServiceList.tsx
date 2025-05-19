@@ -1,5 +1,6 @@
-import IconWrapper from '../../../../../components/wrapper/IconWrapper';
+import IconWrapper from '../../../../../components/Wrapper/IconWrapper';
 import { ServiceGroup } from '../../../../../types/models/Service/ServiceModal';
+import { documentServiceGroup } from '../../../DocumentsManagement/data/DocumentMockList';
 
 export const allGeneralServices: ServiceGroup[] = [
   {
@@ -131,76 +132,77 @@ export const allGeneralServices: ServiceGroup[] = [
       },
     ],
   },
-  {
-    group: 'Hệ Thống Quản Lý Tài Liệu',
-    items: [
-      {
-        title: 'Tất cả Tài Liệu',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Pháp Lý & Doanh Nghiệp',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Nhân Sự',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: 'Báo Cáo & Biên Bản',
-      },
-      {
-        title: 'Kế Toán - Tài Chính',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Hành Chính - Nội bộ',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Dự Án & Công trình',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Kỹ Thuật - Bản Vẽ - Thiết Kế',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Vật Tư & Thiết Bị',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Huấn Luyện & Kiểm Định',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Khách Hàng & Đối Tác',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'PR - Marketing - HSNL',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Sở Hữu Trí Tuệ',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-      {
-        title: 'Kho Lưu Trữ',
-        icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
-        navigateTo: '',
-      },
-    ],
-  },
+  
+    // group: 'Hệ Thống Quản Lý Tài Liệu',
+    // items: [
+    //   {
+    //     title: 'Tất cả Tài Liệu',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents',
+    //   },
+    //   {
+    //     title: 'Pháp Lý & Doanh Nghiệp',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/legal',
+    //   },
+    //   {
+    //     title: 'Nhân Sự',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/employment',
+    //   },
+    //   {
+    //     title: 'Kế Toán - Tài Chính',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/accounting',
+    //   },
+    //   {
+    //     title: 'Hành Chính - Nội bộ',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/internal',
+    //   },
+    //   {
+    //     title: 'Dự Án & Công trình',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/project',
+    //   },
+    //   {
+    //     title: 'Kỹ Thuật - Bản Vẽ - Thiết Kế',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/design',
+    //   },
+    //   {
+    //     title: 'Vật Tư & Thiết Bị',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/equipment',
+    //   },
+    //   {
+    //     title: 'Huấn Luyện & Kiểm Định',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/guildeline',
+    //   },
+    //   {
+    //     title: 'Khách Hàng & Đối Tác',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/client',
+    //   },
+    //   {
+    //     title: 'PR - Marketing - HSNL',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/pr',
+    //   },
+    //   {
+    //     title: 'Sở Hữu Trí Tuệ',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/copyright',
+    //   },
+    //   {
+    //     title: 'Kho Lưu Trữ',
+    //     icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+    //     navigateTo: '/main/documents/archive',
+    //   },
+    // ],
+    ...documentServiceGroup
+  ,
   {
     group: 'Thăm dò Ý kiến',
     items: [

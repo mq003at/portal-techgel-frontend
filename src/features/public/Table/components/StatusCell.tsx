@@ -11,7 +11,6 @@ interface StatusCellProps {
 
 export const StatusCell = ({ getValue, options}: StatusCellProps) => {
     const statusValue = getValue();
-    console.log("*********", statusValue);
     if(!options) return <BadgeWrapper label={String(statusValue)} color="neutral" />;
 
     const statusMeta = options.find((opt) => opt.value === statusValue);

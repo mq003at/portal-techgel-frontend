@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SwitchBar } from '../../../../components/switchBar.tsx/SwitchBar';
 import { employeeTabs, EmployeeTabKey, TabToDTOMap } from '../configs/EmployeeTabs';
 import { useGetEmployeesQuery } from '../api/employeeListApi';
 import { ColumnDef } from '@tanstack/react-table';
 import { EmployeeDTO } from '../DTOs/EmployeeDTO';
-import { EmployeeListTable } from '../tables/employeeListTable';
 import { employeeColumnMap } from '../tables/types/tableTypes';
 import { useNavigate } from 'react-router';
 import { FaPlus } from 'react-icons/fa';
 import { BasicEmployeeInfo, employeeBasicListColumns } from '../tables/columns/basicInfoColumns';
 import { ListTable } from '../../../public/Table/listTable';
+import { ItemParams } from 'react-contexify';
 
 export function EmployeeListPage() {
   const [currentTab, setCurrentTab] = useState<EmployeeTabKey>('personalInfo');
@@ -28,6 +28,45 @@ export function EmployeeListPage() {
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as EmployeeTabKey);
   };
+
+  const handleEdit = ({ props }: ItemParams) => {
+    navigate(`/main/employees/${props.id}/edit`);
+  };
+
+  function renderNestedTable<T extends EmployeeTabKey>(
+    tabKey: T,
+    employees: EmployeeDTO[],
+    title: string
+  ) {
+    const nestedData = employees.map((e) => e[tabKey]) as TabToDTOMap[T][];
+    const columns = employeeColumnMap[tabKey] as ColumnDef<TabToDTOMap[T], any>[];
+
+    const basicData = employees.map((e) => ({
+      id: e.id,
+      mainId: e.mainId,
+      firstName: e.firstName,
+      lastName: e.lastName,
+      middleName: e.middleName,
+      avatar: e.avatar,
+    }));
+
+    const contextMenu = [
+      {label: 'Cập nhật thông tin', handle: handleEdit},
+    ]
+
+    return (
+      <ListTable<BasicEmployeeInfo, TabToDTOMap[T]>
+        title={`Bảng: ${title}`}
+        slug={`employees`}
+        contextMenu={contextMenu}
+        basicData={basicData}
+        basicListColumns={employeeBasicListColumns}
+        nestedData={nestedData}
+        nestedColumns={columns}
+      />
+    );
+  }
+
 
   return (
     <div className="p-6 space-y-4">
@@ -49,33 +88,5 @@ export function EmployeeListPage() {
         employeeTabs.find((tab) => tab.name === currentTab)?.label || 'N/A'
       )}
     </div>
-  );
-}
-
-function renderNestedTable<T extends EmployeeTabKey>(
-  tabKey: T,
-  employees: EmployeeDTO[],
-  title: string
-) {
-  const nestedData = employees.map((e) => e[tabKey]) as TabToDTOMap[T][];
-  const columns = employeeColumnMap[tabKey] as ColumnDef<TabToDTOMap[T], any>[];
-
-  const basicData = employees.map((e) => ({
-    id: e.id,
-    mainId: e.mainId,
-    firstName: e.firstName,
-    lastName: e.lastName,
-    middleName: e.middleName,
-    avatar: e.avatar,
-  }));
-
-  return (
-    <ListTable<BasicEmployeeInfo, TabToDTOMap[T]>
-      title={`Bảng: ${title}`}
-      basicData={basicData}
-      basicListColumns={employeeBasicListColumns}
-      nestedData={nestedData}
-      nestedColumns={columns}
-    />
   );
 }

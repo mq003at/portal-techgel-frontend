@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import ScrollableServiceSection from '../components/ScrollableServiceSection';
 import ImageWrapper from '../../../../../components/wrapper/ImageWrapper';
 import { allGeneralServices } from '../constants/generalServiceList';
-import IconWrapper from '../../../../../components/wrapper/IconWrapper';
+import IconWrapper from '../../../../../components/Wrapper/IconWrapper';
 
 interface ServiceBarProps {
   isExpanded: boolean;
