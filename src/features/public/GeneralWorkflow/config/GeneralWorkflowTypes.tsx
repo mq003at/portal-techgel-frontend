@@ -20,6 +20,7 @@ export type GeneralWorkflowStatusType = keyof typeof GeneralWorkflowStatusEnum;
 export type GeneralWorkflowLogicType = keyof typeof GeneralWorkflowLogicEnum;
 
 import { BaseDTO } from '../../../../types/DTOs/BaseDTO';
+import { CommentDTO } from '../../Comment/DTOs/CommentDTO';
 
 export interface GeneralWorkflow extends BaseDTO {
   /// <summary>
@@ -38,9 +39,10 @@ export interface GeneralWorkflow extends BaseDTO {
   approvedByNames: string[];
 
   // Who start this workflow
-  authorId: string[];
-  authorNames: string[];
+  authorId: string;
+  authorName: string;
 
+  // Each nodes represent a step in the workflow.
   approvalNodes: GeneralWorkflowNode[];
 }
 
@@ -53,13 +55,8 @@ export interface GeneralWorkflowNode extends BaseDTO {
   description: string;
   type: GeneralWorkflowLogicEnum;
 
-  // Specific check to see if the requirement is met to proceeed to next node.
-  requireNumberOfApprovals?: number;
-  requireSpecificApproverIds?: string[];
-  requireSpecificApproverNames?: string[];
-
-  approvalIds: string[];
-  approvalNames: string[];
+  approvalRule: ApprovalRule;
+  approvalRecords: ApprovalRecord[];
 
   // Involved documents
   documentIds: string[];
@@ -71,7 +68,19 @@ export interface GeneralWorkflowNode extends BaseDTO {
   comments: CommentDTO[];
 
   status: GeneralWorkflowStatusType;
+}
 
-  createdAt: string;
-  updatedAt: string;
+export interface ApprovalRule {
+  logic: GeneralWorkflowLogicEnum;
+  requiredCount?: number;
+  specificApproverIds?: string[];
+  specificApproverNames?: string[];
+  fallbackNodeId?: string;
+}
+
+export interface ApprovalRecord {
+  approverId: string;
+  approverName: string;
+  approvedAt: string;
+  isApproved: boolean;
 }

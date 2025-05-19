@@ -240,16 +240,27 @@ export const allGeneralServices: ServiceGroup[] = [
   },
   {
     group: 'Kho Công Ty',
+    icon: (
+      <IconWrapper src="../assets/icon/serviceBarIcons/company-storage.svg" title="Kho công ty" />
+    ),
     items: [
       {
-        title: 'Kho Công Ty',
+        title: 'Kho Hành Chính',
+        icon: (
+          <IconWrapper src="../assets/icon/serviceBarIcons/hr-storage.svg" title="Kho Hành chính" />
+        ),
+        navigateTo: '/main/hr-storage',
+      },
+
+      {
+        title: 'Kho Công trình',
         icon: (
           <IconWrapper
-            src="../assets/icon/serviceBarIcons/company-storage.svg"
-            title="Kho Công ty"
+            src="../assets/icon/serviceBarIcons/construction-storage.svg"
+            title="Quản lý xuất nhập kho"
           />
         ),
-        navigateTo: '/main/company-storage',
+        navigateTo: '/main/construction-storage',
       },
     ],
   },
