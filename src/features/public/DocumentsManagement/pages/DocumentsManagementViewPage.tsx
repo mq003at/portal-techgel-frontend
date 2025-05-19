@@ -29,12 +29,11 @@ export default function DocumentsManagementViewPage(){
         );
     }
 
-    const handleAction = ({ props }: ItemParams) => {
-      alert(`Bạn vừa chọn hàng: ${props.row.name} (ID: ${props.row.id})`);
+    const handleEdit = ({ props }: ItemParams) => {
+      navigate(`/main/documents/${props.id}/edit`);
     };
     const handleViewPdf = ({ props }: ItemParams) => {
-      const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
-      // navigate(`/main/pdf-viewer?file=${url}`)
+      const url = 'https://pdf-lib.js.org/assets/with_cropbox.pdf'
       window.open(`/pdf-viewer?file=${url}`, '_blank');
     };
 
@@ -48,7 +47,7 @@ export default function DocumentsManagementViewPage(){
         }));
 
         const contextMenu = [
-          {label: 'Cập nhật thông tin', handle: handleAction},
+          {label: 'Cập nhật thông tin', handle: handleEdit},
           {label: 'Chỉnh sửa file', handle: handleViewPdf}
         ]
 

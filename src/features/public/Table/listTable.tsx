@@ -173,12 +173,13 @@ export function ListTable<B, T>({title, slug, contextMenu, basicData, basicListC
     const { show } = useContextMenu({
       id: MENU_ID,
     });
-    const handleContextMenu = (event: React.MouseEvent, row: any) => {
+    const handleContextMenu = (event: React.MouseEvent, row: any, id: any) => {
       event.preventDefault();
       show({
         event,
         props: {
-          row,
+          row: row,
+          id
         },
       });
     };
@@ -424,7 +425,7 @@ export function ListTable<B, T>({title, slug, contextMenu, basicData, basicListC
                 })} */}
                 {table.getRowModel().rows.map(row => (
                   <tr key={row.id} onClick={() => navigate(`/main/${slug}/${row.original.id}/edit`)} 
-                    onContextMenu={(e) => handleContextMenu(e, row)}
+                    onContextMenu={(e) => handleContextMenu(e, row, row.original.id)}
                     className="cursor-pointer group">
                     {row.getVisibleCells().map((cell, index) => (
                       <td

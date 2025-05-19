@@ -85,9 +85,53 @@ export const securityInfoColumns: TableColumnDef<SecurityInfo>[] = [
     },
   },
   {
+    accessorKey: 'confidentialityReadNames',
+    header: 'Tên người được xem',
+    enableSorting: true,
+    cell: ({ getValue }) => {
+      const values = getValue<string[]>() || [];
+      return (
+        <>
+          {values.map((value, index) => (
+            <Fragment key={`${value}-${index}`}>
+              <StatusCell getValue={() => value} />
+              &nbsp;
+            </Fragment>
+          ))}
+        </>
+      );
+    },
+    filterFn: (row, columnId, filterValue) => {
+      const values = row.getValue<string[]>(columnId);
+      return values?.some(value => value.toLowerCase().includes(filterValue.toLowerCase()));
+    },
+  },
+  {
     accessorKey: 'confidentialityWriteIds',
     id: 'confidentialityWriteIds',
     header: 'Mã người được ghi',
+    enableSorting: true,
+    cell: ({ getValue }) => {
+      const values = getValue<string[]>() || [];
+      return (
+        <>
+          {values.map((value, index) => (
+            <Fragment key={`${value}-${index}`}>
+              <StatusCell getValue={() => value} />
+              &nbsp;
+            </Fragment>
+          ))}
+        </>
+      );
+    },
+    filterFn: (row, columnId, filterValue) => {
+      const values = row.getValue<string[]>(columnId);
+      return values?.some(value => value.toLowerCase().includes(filterValue.toLowerCase()));
+    },
+  },
+  {
+    accessorKey: 'confidentialityWriteNames',
+    header: 'Tên người được ghi',
     enableSorting: true,
     cell: ({ getValue }) => {
       const values = getValue<string[]>() || [];
@@ -131,9 +175,53 @@ export const securityInfoColumns: TableColumnDef<SecurityInfo>[] = [
     },
   },
   {
+    accessorKey: 'confidentialityVisibilityNames',
+    header: 'Tên người được hiển thị',
+    enableSorting: true,
+    cell: ({ getValue }) => {
+      const values = getValue<string[]>() || [];
+      return (
+        <>
+          {values.map((value, index) => (
+            <Fragment key={`${value}-${index}`}>
+              <StatusCell getValue={() => value} />
+              &nbsp;
+            </Fragment>
+          ))}
+        </>
+      );
+    },
+    filterFn: (row, columnId, filterValue) => {
+      const values = row.getValue<string[]>(columnId);
+      return values?.some(value => value.toLowerCase().includes(filterValue.toLowerCase()));
+    },
+  },
+  {
     accessorKey: 'confidentialityStatusChangeIds',
     id: 'confidentialityStatusChangeIds',
     header: 'Mã người được thay đổi trạng thái',
+    enableSorting: true,
+    cell: ({ getValue }) => {
+      const values = getValue<string[]>() || [];
+      return (
+        <>
+          {values.map((value, index) => (
+            <Fragment key={`${value}-${index}`}>
+              <StatusCell getValue={() => value} />
+              &nbsp;
+            </Fragment>
+          ))}
+        </>
+      );
+    },
+    filterFn: (row, columnId, filterValue) => {
+      const values = row.getValue<string[]>(columnId);
+      return values?.some(value => value.toLowerCase().includes(filterValue.toLowerCase()));
+    },
+  },
+  {
+    accessorKey: 'confidentialityStatusChangeNames',
+    header: 'Tên người được thay đổi trạng thái',
     enableSorting: true,
     cell: ({ getValue }) => {
       const values = getValue<string[]>() || [];

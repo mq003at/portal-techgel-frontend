@@ -1,5 +1,5 @@
 import { Field, ErrorMessage } from 'formik';
-import { InputFieldProps } from './types/InputFieldProps';
+import InputFieldProps from './types/InputFieldProps';
 
 export default function TextField({ label, name, placeholder, required = false }: InputFieldProps) {
   return (

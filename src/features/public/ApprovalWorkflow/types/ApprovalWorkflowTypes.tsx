@@ -2,7 +2,6 @@ import { BaseDTO } from '../../../../types/DTOs/BaseDTO';
 import { ApprovalWorkflowStatusType, ApprovalWorkflowLogicType } from './ApprovalWorkFlowEnums';
 
 export interface ApprovalWorkflow extends BaseDTO {
-  mainId?: never;
   name: string;
   description?: string;
   status: ApprovalWorkflowStatusType;
@@ -20,7 +19,6 @@ export interface ApprovalWorkflow extends BaseDTO {
 }
 
 export interface ApprovalWorkflowNode extends BaseDTO {
-  mainId?: never;
   name: string;
 
   senderId: string;

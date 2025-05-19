@@ -33,7 +33,7 @@ export const documentApi = createApi({
 
         updateDocument: builder.mutation<DocumentDTO, {id: string; data: UpdateDocumentDTO}>({
             query: ({id, data}) => ({
-                url: `document/${id}`,
+                url: `documents/${id}`,
                 method: 'PUT',
                 body: data,
             }),

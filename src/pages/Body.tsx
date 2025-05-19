@@ -13,7 +13,9 @@ import { EmployeeListEditPage } from '../features/restricted/EmployeeList/pages/
 import { BadgeGeneration } from '../components/badges/BadgeGeneration';
 import { SignatureManagerPage } from '../features/public/SignatureManager/pages/SigatureManagerPage';
 import DoucmentsManagementViewPage from '../features/public/DocumentsManagement/pages/DocumentsManagementViewPage';
-import { PDFPage } from '../features/public/DocumentsManagement/tables/pdfViewer';
+import { DocumentsManagementAddPage } from '../features/public/DocumentsManagement/pages/DocumentsManagementAddPage';
+import { DocumentsManagementEditPage } from '../features/public/DocumentsManagement/pages/DocumentsManagementEditPage';
+import SignatureManagerCreateImageSignaturePage from '../features/public/SignatureManager/pages/SignatureManagerCreateImageSignaturePage';
 
 export default function Body() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -42,9 +44,13 @@ export default function Body() {
             {/* <Route path="*" element={<Navigate to="/main/general" />} /> */}
             
             <Route path="/documents" element={<DoucmentsManagementViewPage />} />
+            <Route path="/documents/add" element={<DocumentsManagementAddPage />} />
             <Route path="/documents/:id" element={<DoucmentsManagementViewPage />} />
+            <Route path="/documents/:id/edit" element={<DocumentsManagementEditPage />} />
 
             <Route path="/signature-manager" element={<SignatureManagerPage />} />
+            <Route path="/signature-manager/create-signature-image" element={<SignatureManagerCreateImageSignaturePage />} />
+
             <Route path="*" element={<Navigate to="/main/general" />} />
           </Routes>
         </div>

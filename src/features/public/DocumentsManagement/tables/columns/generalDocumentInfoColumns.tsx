@@ -108,7 +108,7 @@ export const generalDocumentInfoColumns: TableColumnDef<GeneralDocumentInfo>[] =
   {
     accessorKey: 'tag',
     id: 'tag',
-    header: 'Tag',
+    header: 'Tags',
     enableSorting: true,
     cell: ({ getValue: getTags }) => {
       const tags = getTags<string[]>() || [];
@@ -147,5 +147,51 @@ export const generalDocumentInfoColumns: TableColumnDef<GeneralDocumentInfo>[] =
     id: 'version',
     header: 'Phiên bản',
     enableSorting: true,
+  },
+  {
+    accessorKey: 'workflowIds',
+    header: 'Mã quy trình',
+    enableSorting: true,
+    cell: ({ getValue: getTags }) => {
+      const tags = getTags<string[]>() || [];
+
+      return (
+        <>
+          {tags.map((tag, index) => (
+            <Fragment key={`${tag}-${index}`}>
+              <StatusCell getValue={() => tag} />
+              &nbsp;
+            </Fragment>
+          ))}
+        </>
+      );
+    },
+    filterFn: (row, columnId, filterValue) => {
+      const tags = row.getValue<string[]>(columnId);
+      return tags?.some(tag => tag.toLowerCase().includes(filterValue.toLowerCase()));
+    },
+  },
+  {
+    accessorKey: 'workflowNames',
+    header: 'Tên quy trình',
+    enableSorting: true,
+    cell: ({ getValue: getTags }) => {
+      const tags = getTags<string[]>() || [];
+
+      return (
+        <>
+          {tags.map((tag, index) => (
+            <Fragment key={`${tag}-${index}`}>
+              <StatusCell getValue={() => tag} />
+              &nbsp;
+            </Fragment>
+          ))}
+        </>
+      );
+    },
+    filterFn: (row, columnId, filterValue) => {
+      const tags = row.getValue<string[]>(columnId);
+      return tags?.some(tag => tag.toLowerCase().includes(filterValue.toLowerCase()));
+    },
   },
 ];
