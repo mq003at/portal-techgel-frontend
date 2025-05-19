@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { FaPlus } from 'react-icons/fa';
 import { useGetEmployeesQuery } from '../../../restricted/EmployeeList/api/employeeListApi';
 import { SwitchBar } from '../../../../components/switchBar.tsx/SwitchBar';
 import { SignatureTabKey, signatureTabs } from '../configs/SignatureTabs';

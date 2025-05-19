@@ -14,7 +14,7 @@ import PersonalInfoSection from '../forms/sections/PersonalInfoSection';
 import RoleInfoSection from '../forms/sections/RoleInfoSection';
 import ScheduleInfoSection from '../forms/sections/ScheduleInfoSection';
 import TaxInfoSection from '../forms/sections/TaxInfoSection';
-import InputField from '../../../../components/form/InputField';
+import InputField from '../../../../components/Form/InputField';
 import { toast, ToastContainer } from 'react-toastify';
 
 export function EmployeeListEditPage() {
@@ -97,7 +97,7 @@ export function EmployeeListEditPage() {
       <Formik<EmployeeDTO> initialValues={employee} onSubmit={handleSubmit} enableReinitialize>
         <Form className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <InputField name="mainId" label="Mã nhân viên" required />
+            <InputField name="mainId" label="Mã nhân viên" required disabled />
             <InputField name="lastName" label="Họ" required />
             <InputField name="middleName" label="Tên đệm" />
             <InputField name="firstName" label="Tên" required />

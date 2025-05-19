@@ -7,11 +7,11 @@ import { resolve } from 'path';
 let documents = [...documentMockData]
 
 export const documentHandlers = [
-    http.get<never, null, DocumentDTO[]>('/api/documents', async () => {
-        await new Promise(resolve => setTimeout(resolve, 1000));
+    // http.get<never, null, DocumentDTO[]>('/api/documents', async () => {
+    //     await new Promise(resolve => setTimeout(resolve, 1000));
 
-        return HttpResponse.json(documents, { status: 200 });
-    }),
+    //     return HttpResponse.json(documents, { status: 200 });
+    // }),
 
     http.get<{ id: string }, null, DocumentDTO | { message: string }>('/api/documents/:id', async ({ params }) => {
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -22,6 +22,21 @@ export const documentHandlers = [
         if(!document) return HttpResponse.json({ message: 'Document not found' }, { status: 404 });
 
         return HttpResponse.json(document, { status: 200 });
+    }),
+
+    http.get<never, null, DocumentDTO[] | { message: string }> ('/api/documents', async ({ request }) => {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        const url = new URL(request.url);
+        const cate = url.searchParams.get('cate');
+
+        if(!cate) return HttpResponse.json(documents, { status: 200 });
+
+        const results = documents.filter(doc => doc.generalDocumentInfo.category === cate);
+
+        if(!results) return HttpResponse.json({ message: 'Document not found' }, { status: 404});
+
+        return HttpResponse.json(results, { status: 200 });
     }),
 
     http.post<never, CreateDocumentDTO, DocumentDTO>('/api/documents', async ({ request }) => {

@@ -1,4 +1,4 @@
-import { AdditionalInfo, GeneralDocumentInfo, LegalDocumentInfo, SecurityInfo } from "../DTOs/DocumentDTO";
+import { AdditionalInfo, EditInfo, GeneralDocumentInfo, LegalDocumentInfo, SecurityInfo } from "../DTOs/DocumentDTO";
 
 export type DocumentTabKey =
     | 'generalDocumentInfo'
@@ -16,11 +16,12 @@ export interface TabToDTOMap {
     legalDocumentInfo: LegalDocumentInfo;
     securityInfo: SecurityInfo;
     additionalInfo: AdditionalInfo;
+    editInfo: EditInfo;
 }
 
 export const documentTabs: DocumentTab[] = [
     { name: 'generalDocumentInfo', label: 'Thông tin chung'},
     { name: 'legalDocumentInfo', label: 'Tài liệu pháp lý'},
     { name: 'securityInfo', label: 'Bảo mật'},
-    { name: 'additionalInfo', label: 'Bổ xung'},
+    { name: 'additionalInfo', label: 'Bổ xung'}
 ]

@@ -3,9 +3,19 @@ import { useEffect, useMemo, useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { Fragment } from "react/jsx-runtime";
+import { v4 as uuidv4 } from 'uuid';
+import { Menu, Item, useContextMenu, ItemParams } from 'react-contexify';
+import 'react-contexify/ReactContexify.css';
+
+interface ContextMenuItem {
+  label: string;
+  handle: (params: any) => void;
+}
 
 interface TableProps<B, T> {
     title: string;
+    slug: string;
+    contextMenu: ContextMenuItem[];
     basicData: B[];
     basicListColumns: ColumnDef<B, any>[];
     nestedData: T[];
@@ -85,19 +95,19 @@ function Filter({ column }: { column: Column<any, unknown> }) {
         value={columnFilterValue?.toString()}
       >
         <option value="">All</option>
-        {selectOptions.map((op) => {
-          return <option value={op.value}>{op.label}</option>
+        {selectOptions.map((op, index) => {
+          return <option key={index} value={op.value}>{op.label}</option>
         })}
       </select>
     ) : (
       <>
         <datalist id={column.id + 'list'}>
           {sortedUniqueValues.map((value: any) => (
-            <option value={value} key={value} />
+            <option value={value} key={uuidv4()} />
           ))}
         </datalist>
         <DebouncedInput
-          className="w-20"
+          className=""
           onChange={value => column.setFilterValue(value)}
           placeholder={`Search...`}
           type="text"
@@ -133,12 +143,12 @@ function Filter({ column }: { column: Column<any, unknown> }) {
     }, [value])
   
     return (
-      <label className="input h-8">
+      <label className="input h-8 w-50">
         <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="2.5"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth="2.5"
             fill="none"
             stroke="currentColor"
           >
@@ -151,12 +161,28 @@ function Filter({ column }: { column: Column<any, unknown> }) {
     )
   }
 
-export function ListTable<B, T>({title, basicData, basicListColumns, nestedData, nestedColumns}: TableProps<B, T>){
+const MENU_ID = 'row-context-menu';
+
+export function ListTable<B, T>({title, slug, contextMenu, basicData, basicListColumns, nestedData, nestedColumns}: TableProps<B, T>){
     const navigate = useNavigate();
 
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [pagination, setPagination] = useState<PaginationState>({pageIndex: 0,pageSize: 5,})
+
+    const { show } = useContextMenu({
+      id: MENU_ID,
+    });
+    const handleContextMenu = (event: React.MouseEvent, row: any, id: any) => {
+      event.preventDefault();
+      show({
+        event,
+        props: {
+          row: row,
+          id
+        },
+      });
+    };
 
     // const basicTable = useReactTable({
     //     initialState: {
@@ -198,6 +224,7 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
     //     ...basicTable.getAllLeafColumns(),
     //     ...nestedTable.getAllLeafColumns(),
     //   ];
+
     const combinedData = useMemo(() => (
       basicData.map((basicItem, index) => ({
         ...basicItem,
@@ -208,6 +235,20 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
     const combinedColumns: ColumnDef<any, any>[] = useMemo(() => (
       [...basicListColumns, ...nestedColumns]
     ), [basicListColumns, nestedColumns]);
+
+    const validColumnFilterIds = useMemo(
+      () => combinedColumns.map(col => col.accessorKey || col.id),
+      [combinedColumns]
+    );
+    const sanitizedColumnFilters = useMemo(
+      () => columnFilters.filter(f => validColumnFilterIds.includes(f.id)),
+      [columnFilters, validColumnFilterIds]
+    );
+    useEffect(() => {
+      setColumnFilters(prev =>
+        prev.filter(f => validColumnFilterIds.includes(f.id))
+      );
+    }, [validColumnFilterIds]);
 
     const table = useReactTable({
       data: combinedData,
@@ -224,15 +265,15 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
       onPaginationChange: setPagination,
       state: {
         sorting,
-        columnFilters,
+        columnFilters: sanitizedColumnFilters,
         pagination,
       },
       initialState: {
         columnPinning: {
           left: basicListColumns
-            .filter((column): column is ColumnDef<any, any> & { accessorKey: string } =>
+            .filter((column): column is ColumnDef<any, any> & { id: string } =>
               column.enablePinning === true)
-            .map(column => column.accessorKey),
+            .map(column => column.id),
           right: [],
         },
       },
@@ -337,6 +378,7 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                               {{
                                 asc: ' 🔼',
                                 desc: ' 🔽',
+                                false: ' 🔃',
                               }[h.column.getIsSorted() as string] ?? null}
                             </div>
 
@@ -382,11 +424,13 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                     );
                 })} */}
                 {table.getRowModel().rows.map(row => (
-                  <tr key={row.id} onClick={() => navigate(`/main/employees/${row.original.id}/edit`)} className="hover:bg-gray-50 cursor-pointer">
+                  <tr key={row.id} onClick={() => navigate(`/main/${slug}/${row.original.id}/edit`)} 
+                    onContextMenu={(e) => handleContextMenu(e, row, row.original.id)}
+                    className="cursor-pointer group">
                     {row.getVisibleCells().map((cell, index) => (
                       <td
                         key={cell.id}
-                        className="px-4 py-2 min-w-25 bg-white border-t"
+                        className="px-4 py-2 min-w-25 bg-white border-t group-hover:!bg-gray-100"
                         style={{
                           position: cell.column.getIsPinned() ? 'sticky' : 'relative',
                           left: cell.column.getIsPinned() === 'left' ? `${index * 150}px` : undefined,
@@ -401,6 +445,15 @@ export function ListTable<B, T>({title, basicData, basicListColumns, nestedData,
                 </tbody>
             </table>
           </div>
+
+          <div>
+            <Menu id={MENU_ID}>
+              {contextMenu.map((c, index) => (
+                <Item key={index} onClick={c.handle}>{c.label}</Item>
+              ))}
+            </Menu>
+          </div>
+
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-1">
               <button

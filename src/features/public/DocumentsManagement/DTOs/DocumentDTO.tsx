@@ -44,7 +44,7 @@ export interface LegalDocumentInfo {
   effectiveDate?: string;
   expiredDate?: string;
   finalAprovalDate?: string;
-  inspectionDate?: string[];
+  inspectionDate?: string;
 
   //id of user
   draftByIds?: string[];

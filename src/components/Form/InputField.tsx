@@ -1,5 +1,6 @@
 import { Field, ErrorMessage } from 'formik';
 import InputFieldProps from './types/InputFieldProps';
+import { TagInput } from './TagInput';
 
 export default function InputField({
   label,
@@ -8,8 +9,10 @@ export default function InputField({
   placeholder,
   required = false,
   options,
+  tags,
   disabled,
 }: InputFieldProps) {
+
   return (
     <div className="grid grid-cols-2 gap-4 items-center form-control">
       {/* Label Column */}
@@ -32,16 +35,22 @@ export default function InputField({
               </option>
             ))}
           </Field>
+        ) : type === 'tags' && tags ? (
+            <TagInput
+              name={name}
+              suggestions={tags.suggestions}
+              allowNew={tags.allowNew}
+            />
         ) : (
-          <Field
-            name={name}
-            type={type}
-            placeholder={placeholder}
-            className="input input-bordered w-full"
-            disabled={disabled}
-          />
+            <Field
+                name={name}
+                type={type}
+                placeholder={placeholder}
+                className="input input-bordered w-full"
+                disabled={disabled}
+            />
         )}
-
+        
         {/* Error Message (Spans Both Columns) */}
         <ErrorMessage
           name={name}

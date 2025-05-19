@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router";
-import { useGetDocumentsQuery } from "../api/documentApi";
+import { useNavigate, useParams, useSearchParams } from "react-router";
+import { useGetDocumentsByCateQuery, useGetDocumentsQuery } from "../api/documentApi";
 import { useEffect, useState } from "react";
 import { DocumentTabKey, documentTabs, TabToDTOMap } from "../configs/documentTabs";
 import { DocumentDTO } from "../DTOs/DocumentDTO";
@@ -10,23 +10,32 @@ import { BasicDocumentInfo } from "../tables/columns/generalDocumentInfoColumns"
 import { documentBasicColumns } from "../tables/columns/basicDocumentInfoColumns";
 import { FaPlus } from "react-icons/fa";
 import { SwitchBar } from "../../../../components/switchBar.tsx/SwitchBar";
+import { ItemParams } from "react-contexify";
 
-export default function DoucmentsManagementViewPage(){
+export default function DocumentsManagementViewPage(){
     const [currentTab, setCurrentTab] = useState<DocumentTabKey>('generalDocumentInfo');
-    const { data: documents = [], isLoading, isError } = useGetDocumentsQuery();
+    const [searchParams] = useSearchParams();
+    const cate =  searchParams.get('cate') || '';
+
+    const { data: documents = [], isLoading, isFetching } = useGetDocumentsByCateQuery(cate, {refetchOnMountOrArgChange: true});
+
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(documents);
-    }, [documents]);
-
-    if (isLoading) {
+    if (isLoading || isFetching) {
         return (
             <div className="flex items-center justify-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-solid"></div>
             </div>
         );
     }
+
+    const handleEdit = ({ props }: ItemParams) => {
+      navigate(`/main/documents/${props.id}/edit`);
+    };
+    const handleViewPdf = ({ props }: ItemParams) => {
+      const url = 'https://pdf-lib.js.org/assets/with_cropbox.pdf'
+      window.open(`/pdf-viewer?file=${url}`, '_blank');
+    };
 
     function renderNestedTable<T extends DocumentTabKey>(tabKey: T, documents: DocumentDTO[], title: string){
         const nestedData = documents.map((d) => d[tabKey]) as TabToDTOMap[T][];
@@ -37,9 +46,16 @@ export default function DoucmentsManagementViewPage(){
             mainId: d.mainId
         }));
 
+        const contextMenu = [
+          {label: 'Cập nhật thông tin', handle: handleEdit},
+          {label: 'Chỉnh sửa file', handle: handleViewPdf}
+        ]
+
         return (
             <ListTable<BasicDocumentInfo, TabToDTOMap[T]>
                 title={`Bảng: ${title}`}
+                slug={`documents`}
+                contextMenu={contextMenu}
                 basicData={basicData}
                 basicListColumns={documentBasicColumns}
                 nestedData={nestedData}

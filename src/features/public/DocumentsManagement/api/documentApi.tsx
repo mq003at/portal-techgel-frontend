@@ -17,6 +17,11 @@ export const documentApi = createApi({
             providesTags: (_result, _error, id) => [{type: 'Document', id}],
         }),
 
+        getDocumentsByCate: builder.query<DocumentDTO[], string>({
+            query: (cate) => `documents?cate=${cate}`,
+            providesTags: (_result, _error, cate) => [{ type: 'Document', id: cate }],
+        }),
+
         createDocument: builder.mutation<DocumentDTO, CreateDocumentDTO>({
             query: (body) => ({
                 url: 'documents',
@@ -28,7 +33,7 @@ export const documentApi = createApi({
 
         updateDocument: builder.mutation<DocumentDTO, {id: string; data: UpdateDocumentDTO}>({
             query: ({id, data}) => ({
-                url: `document/${id}`,
+                url: `documents/${id}`,
                 method: 'PUT',
                 body: data,
             }),
@@ -48,6 +53,7 @@ export const documentApi = createApi({
 export const {
     useGetDocumentsQuery,
     useGetDocumentByIdQuery,
+    useGetDocumentsByCateQuery,
     useCreateDocumentMutation,
     useUpdateDocumentMutation,
     useDeleteDocumentMutation,

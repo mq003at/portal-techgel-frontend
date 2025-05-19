@@ -5,6 +5,7 @@ import { Route, Routes, useLocation } from "react-router";
 import pkg from "../package.json";
 import LoginPage from "./features/public/LoginPage/pages/LoginPage";
 import Body from "./pages/Body";
+import { PDFPage } from "./features/public/DocumentsManagement/tables/pdfViewer";
 
 console.log("DaisyUI version:", (pkg.dependencies as any)["daisyui"]);
 
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/main/*" element={<Body />} />
+          <Route path="/pdf-viewer" element={<PDFPage />} />
         </Routes>
       </div>
     </div>
