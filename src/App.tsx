@@ -5,7 +5,7 @@ import { Route, Routes, useLocation } from "react-router";
 import pkg from "../package.json";
 import LoginPage from "./features/public/LoginPage/pages/LoginPage";
 import Body from "./pages/Body";
-import { PDFPage } from "./features/public/DocumentsManagement/tables/pdfViewer";
+import { PDFPage } from "./features/public/DocumentsManagement/tables/PdfViewer";
 
 console.log("DaisyUI version:", (pkg.dependencies as any)["daisyui"]);
 

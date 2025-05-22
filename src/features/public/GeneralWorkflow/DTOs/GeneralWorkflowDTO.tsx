@@ -2,6 +2,11 @@ import { BaseDTO } from "../../../../types/DTOs/BaseDTO";
 import { GeneralWorkflowLogicType, GeneralWorkflowStatusType } from "../config/GeneralWorkflowTypes";
 
 export interface GeneralWorkflowDTO extends BaseDTO {
+    generalInfo: GeneralInfo,
+    approvalNodes: ApprovalWorkflowNode[];
+}
+
+export interface GeneralInfo {
     name: string;
     description?: string;
     status: GeneralWorkflowStatusType;
@@ -13,10 +18,8 @@ export interface GeneralWorkflowDTO extends BaseDTO {
     draftedByIds: string[];
     draftedByNames?: string[];
     draftedBySignatures?: string[];
-
-    approvalNodes: ApprovalWorkflowNode[];
     quota?: number;
-}
+} 
 
 export interface ApprovalWorkflowNode extends BaseDTO {
     name: string;
@@ -34,4 +37,14 @@ export interface ApprovalWorkflowNode extends BaseDTO {
     approvalComment?: string;
 
     order?: number;
+}
+
+export interface CreateGeneralWorkflowDTO extends BaseDTO {
+    generalInfo: GeneralInfo,
+    approvalNodes: ApprovalWorkflowNode[];
+}
+
+export interface UpdateGeneralWorkflowDTO extends BaseDTO {
+    generalInfo: GeneralInfo,
+    approvalNodes: ApprovalWorkflowNode[];
 }

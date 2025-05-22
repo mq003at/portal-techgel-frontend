@@ -233,8 +233,6 @@ export function PDFPage() {
         const embeddedImage = await pdf.embedPng(imageBytes);
         let { width: imgWidth, height: imgHeight } = embeddedImage;
 
-        console.log(imgWidth, imgHeight)
-
         const page = pdf.getPages()[currentPage - 1];
         const pdfWidth = page.getWidth();
         const pdfHeight = page.getHeight();
