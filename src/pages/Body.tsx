@@ -18,6 +18,7 @@ import { DocumentsManagementEditPage } from '../features/public/DocumentsManagem
 import SignatureManagerCreateImageSignaturePage from '../features/public/SignatureManager/pages/SignatureManagerCreateImageSignaturePage';
 import GeneralWorkflowViewPage from '../features/public/GeneralWorkflow/pages/GeneralWorkflowViewPage';
 import GeneralWorkflowViewStepsPage from '../features/public/GeneralWorkflow/pages/GeneralWorkflowViewStepsPage';
+import { GeneralWorkflowAddPage } from '../features/public/GeneralWorkflow/pages/GeneralWorkflowAddPage';
 
 export default function Body() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -54,6 +55,7 @@ export default function Body() {
             <Route path="/signature-manager/create-signature-image" element={<SignatureManagerCreateImageSignaturePage />} />
 
             <Route path="/general-workflow" element={<GeneralWorkflowViewPage />} />
+            <Route path="/general-workflow/add" element={<GeneralWorkflowAddPage />} />
             <Route path="/general-workflow/:id/steps" element={<GeneralWorkflowViewStepsPage />} />
 
             <Route path="*" element={<Navigate to="/main/general" />} />
