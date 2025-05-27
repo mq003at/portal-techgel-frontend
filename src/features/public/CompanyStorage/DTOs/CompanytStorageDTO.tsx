@@ -25,5 +25,5 @@ export interface CompanyStorageDTO extends BaseDTO {
   // Status Information
   capacity: string;
   currentOccupancy: string;
-  status: 
+  status: CompanyStorageStatusType;
 }

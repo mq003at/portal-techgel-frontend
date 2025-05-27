@@ -7,7 +7,7 @@ import {
   DocumentTypes,
 } from '../types/DocumentEnum';
 
-export interface DocumentDTO extends BaseDTO{
+export interface DocumentDTO extends BaseDTO {
   id: string;
   generalDocumentInfo: GeneralDocumentInfo;
   legalDocumentInfo: LegalDocumentInfo;
@@ -18,11 +18,11 @@ export interface DocumentDTO extends BaseDTO{
 
 export interface GeneralDocumentInfo {
   name: string;
-  type: DocumentTypes; // Consider using an enum like 'DocumentType'
-  status: DocumentStatus; // e.g., 'DRAFT', 'APPROVED'...
+  type: DocumentTypes;
+  status: DocumentStatus;
   subType: DocumentSubType;
   category: DocumentCategory;
-  
+
   ownerId: string;
   ownerName: string;
 
@@ -89,7 +89,7 @@ export interface AdditionalInfo {
 export interface EditInfo {
   editDate: string;
   editById: string;
-  editByName?: string; //DbGenerated
+  editByName?: string;
   editComment?: string;
   recordURL?: string;
 }
