@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik';
 import { EmployeeDTO, UpdateEmployeeDTO } from '../DTOs/EmployeeDTO';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useParams, useNavigate } from 'react-router';
 import { SwitchBar } from '../../../../components/switchBar.tsx/SwitchBar';
@@ -16,21 +16,39 @@ import ScheduleInfoSection from '../forms/sections/ScheduleInfoSection';
 import TaxInfoSection from '../forms/sections/TaxInfoSection';
 import InputField from '../../../../components/Form/InputField';
 import { toast, ToastContainer } from 'react-toastify';
+import { fetchEmployeeById, updateEmployee } from '../handlers/employeeService';
 
 export function EmployeeListEditPage() {
   const { id = '' } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState<EmployeeTabKey>('personalInfo');
+  const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [employee, setEmployee] = useState<EmployeeDTO>();
+  // const { data: employee, isLoading } = useGetEmployeeByIdQuery(id ?? '');
+  // const [updateEmployee, { isLoading: isUpdating, isError: isUpdateError, error: updateError, isSuccess: isUpdateSuccess }] = useUpdateEmployeeMutation();
 
-  const { data: employee, isLoading } = useGetEmployeeByIdQuery(id ?? '');
-  const [updateEmployee, { isLoading: isUpdating, isError: isUpdateError, error: updateError, isSuccess: isUpdateSuccess }] = useUpdateEmployeeMutation();
+  useEffect(() => {
+      setLoading(true);
+      setError(null);
+  
+      fetchEmployeeById(id)
+        .then(setEmployee)
+        .catch((err) => {
+          console.error(err);
+          setError('Lỗi khi tải nhân viên');
+        })
+        .finally(() => setLoading(false));
+    }, []);
 
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as EmployeeTabKey);
   };
 
   const handleSubmit = async (formData: UpdateEmployeeDTO) => {
-    const promise = updateEmployee({ id: id, data: formData }).unwrap();
+    //const promise = updateEmployee({ id: id, data: formData }).unwrap();
+    const promise = updateEmployee(id, formData);
     
     toast.promise(promise, {
       pending: 'Đang cập nhật nhân viên...',
@@ -76,7 +94,7 @@ export function EmployeeListEditPage() {
     }
   };
 
-  if (isLoading || !employee) {
+  if (loading || !employee) {
     return <div className="p-6">Đang tải dữ liệu nhân viên...</div>;
   }
 
@@ -104,8 +122,8 @@ export function EmployeeListEditPage() {
           </div>
           {renderSection(currentTab)}
           <div className="pt-4 text-right">
-            <button type="submit" className="btn btn-primary" disabled={isUpdating}>
-                {isUpdating ? 'Đang lưu...' : 'Lưu thông tin'}
+            <button type="submit" className="btn btn-primary" disabled={updating}>
+                {updating ? 'Đang lưu...' : 'Lưu thông tin'}
             </button>
           </div>
         </Form>

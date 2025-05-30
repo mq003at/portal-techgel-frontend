@@ -31,10 +31,10 @@ export function ApprovalNodesSection() {
                 className="btn btn-secondary btn-md transition duration-300 hover:shadow-lg flex items-center gap-2"
                 onClick={() =>
                     push({
-                    name: '',
-                    senderId: '',
-                    receiverId: '',
-                    approvalStatus: 'PENDING',
+                      name: '',
+                      senderId: '',
+                      receiverId: '',
+                      approvalStatus: 'PENDING',
                     })
                 }
                 >

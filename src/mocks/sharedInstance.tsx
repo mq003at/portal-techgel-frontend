@@ -7,7 +7,7 @@ import { generalWorkflowHandlers } from '../features/public/GeneralWorkflow/hand
 
 export const worker = setupWorker(...employeeListHandlers, ...organizationEntityHandlers, ...documentHandlers, ...generalWorkflowHandlers);
 const sharedInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  baseURL: "http://localhost:5000", //import.meta.env.VITE_API_BASE_URL || '/api',
   headers: {
     'Content-Type': 'application/json',
   },

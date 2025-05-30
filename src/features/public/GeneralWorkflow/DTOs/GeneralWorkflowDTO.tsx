@@ -37,6 +37,8 @@ export interface ApprovalWorkflowNode extends BaseDTO {
     approvalComment?: string;
 
     order?: number;
+    files?: string[];
+    rawFiles?: File[]; 
 }
 
 export interface CreateGeneralWorkflowDTO extends BaseDTO {
@@ -47,4 +49,24 @@ export interface CreateGeneralWorkflowDTO extends BaseDTO {
 export interface UpdateGeneralWorkflowDTO extends BaseDTO {
     generalInfo: GeneralInfo,
     approvalNodes: ApprovalWorkflowNode[];
+}
+
+export interface UpdateApprovalWorkflowNode extends BaseDTO {
+    name: string;
+
+    senderId: string;
+    senderName?: string;
+    senderMessage?: string;
+
+    receiverId: string;
+    receiverName?: string;
+    receiverMessage?: string;
+
+    approvalStatus: GeneralWorkflowStatusType;
+    approvalDate?: string;
+    approvalComment?: string;
+
+    order?: number;
+    files?: string[];
+    rawFiles?: File[]; 
 }

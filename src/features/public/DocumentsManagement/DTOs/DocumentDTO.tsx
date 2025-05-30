@@ -41,7 +41,7 @@ export interface GeneralDocumentInfo {
 export interface LegalDocumentInfo {
   draftDate?: string; // ISO string date
   publishDate?: string;
-  effectiveDate?: string;
+  effectiveDate?: string | null;
   expiredDate?: string;
   finalAprovalDate?: string;
   inspectionDate?: string;

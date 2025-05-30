@@ -1,4 +1,4 @@
-import { Field, ErrorMessage } from 'formik';
+import { Field, ErrorMessage, useFormikContext } from 'formik';
 import InputFieldProps from './types/InputFieldProps';
 import { TagInput } from './TagInput';
 
@@ -10,8 +10,18 @@ export default function InputField({
   required = false,
   options,
   tags,
+  files,
   disabled,
 }: InputFieldProps) {
+  const { setFieldValue } = useFormikContext();
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.currentTarget.files) {
+      const fileList = Array.from(event.currentTarget.files);
+      setFieldValue(name, fileList);
+    } else {
+      setFieldValue(name, []);
+    }
+  };
 
   return (
     <div className="grid grid-cols-2 gap-4 items-center form-control">
@@ -36,19 +46,29 @@ export default function InputField({
             ))}
           </Field>
         ) : type === 'tags' && tags ? (
-            <TagInput
-              name={name}
-              suggestions={tags.suggestions}
-              allowNew={tags.allowNew}
-            />
+          <TagInput
+            name={name}
+            suggestions={tags.suggestions}
+            allowNew={tags.allowNew}
+          />
+        ) : type === 'file' ? (
+          <input
+            name={name}
+            type={type}
+            multiple={files?.multiple}
+            accept={files?.accept}
+            className="file-input file-input-bordered w-full"
+            onChange={handleFileChange}
+            disabled={disabled}
+          />
         ) : (
-            <Field
-                name={name}
-                type={type}
-                placeholder={placeholder}
-                className="input input-bordered w-full"
-                disabled={disabled}
-            />
+          <Field
+            name={name}
+            type={type}
+            placeholder={placeholder}
+            className="input input-bordered w-full"
+            disabled={disabled}
+          />
         )}
         
         {/* Error Message (Spans Both Columns) */}

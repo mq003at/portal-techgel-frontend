@@ -7,26 +7,26 @@ import {
 
 export const organizationEntityApi = createApi({
   reducerPath: 'organizationEntityApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:5001/api' }),
   tagTypes: ['OrganizationEntity'],
 
   endpoints: (builder) => ({
     // 🔄 GET all organization entities (divisions, departments, etc.)
     getOrganizationEntities: builder.query<OrganizationEntityDTO[], void>({
-      query: () => 'organization-entities',
+      query: () => 'organizationentities',
       providesTags: ['OrganizationEntity'],
     }),
 
     // 🔍 GET organization entity by ID
     getOrganizationEntityById: builder.query<OrganizationEntityDTO, string>({
-      query: (id) => `organization-entities/${id}`,
+      query: (id) => `organizationentities/${id}`,
       providesTags: (_result, _error, id) => [{ type: 'OrganizationEntity', id }],
     }),
 
     // ➕ CREATE organization entity
     createOrganizationEntity: builder.mutation<OrganizationEntityDTO, CreateOrganizationEntityDTO>({
       query: (body) => ({
-        url: 'organization-entities',
+        url: 'organizationentities',
         method: 'POST',
         body,
       }),
@@ -39,7 +39,7 @@ export const organizationEntityApi = createApi({
       { id: string; data: UpdateOrganizationEntityDTO }
     >({
       query: ({ id, data }) => ({
-        url: `organization-entities/${id}`,
+        url: `organizationentities/${id}`,
         method: 'PUT',
         body: data,
       }),
@@ -49,7 +49,7 @@ export const organizationEntityApi = createApi({
     // ❌ DELETE organization entity
     deleteOrganizationEntity: builder.mutation<void, string>({
       query: (id) => ({
-        url: `organization-entities/${id}`,
+        url: `organizationentities/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['OrganizationEntity'],

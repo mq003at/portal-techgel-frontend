@@ -40,14 +40,14 @@ export const TagInput = ({ name, suggestions, allowNew }: TagsInputFieldProps) =
 
     return (
         <ReactTags
-        ref={tagRef}
-        labelText=""
-        selected={selectedTags}
-        suggestions={suggestions}
-        onAdd={onAdd}
-        onDelete={onDelete}
-        placeholderText=''
-        allowNew={allowNew}
+            ref={tagRef}
+            labelText=""
+            selected={selectedTags}
+            suggestions={suggestions}
+            onAdd={onAdd}
+            onDelete={onDelete}
+            placeholderText=''
+            allowNew={allowNew}
         />
     );
 };

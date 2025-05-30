@@ -3,7 +3,7 @@ import { EmployeeDTO, CreateEmployeeDTO, UpdateEmployeeDTO } from '../DTOs/Emplo
 
 export const employeeApi = createApi({
   reducerPath: 'employeeApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:5001/api' }),
   tagTypes: ['Employee'],
   endpoints: (builder) => ({
     // GET all employees

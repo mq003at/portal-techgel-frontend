@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { v4 as uuid } from 'uuid';
 import { resolve } from 'path';
-import { CreateGeneralWorkflowDTO, GeneralWorkflowDTO, UpdateGeneralWorkflowDTO } from '../DTOs/GeneralWorkflowDTO';
+import { ApprovalWorkflowNode, CreateGeneralWorkflowDTO, GeneralWorkflowDTO, UpdateApprovalWorkflowNode, UpdateGeneralWorkflowDTO } from '../DTOs/GeneralWorkflowDTO';
 import { GeneralWorkflowFacilitySupport } from '../data/GeneralWorkflowFacilitySupport';
 
 let generalWorkflows = [...GeneralWorkflowFacilitySupport]
@@ -34,6 +34,8 @@ export const generalWorkflowHandlers = [
 
         const { id, ...restBody } = body;
 
+        body.approvalNodes.map((n, index) => n.id = `N${index}`);
+
         const newGeneralWorkflow: GeneralWorkflowDTO = {
             id: nextId,
             mainId: `D${nextId}`,
@@ -48,6 +50,34 @@ export const generalWorkflowHandlers = [
         return HttpResponse.json(newGeneralWorkflow, { status: 201 });
     }),
 
+    http.put<{id: string, nodeId: string }, UpdateApprovalWorkflowNode, ApprovalWorkflowNode | {message: string}>('/api/general-workflow/:id/nodes/:nodeId', async ({ request, params }) => {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        const id = params.id;
+        const nodeId = params.nodeId;
+        const updates = await request.json();
+
+        const index = generalWorkflows.findIndex(d => d.id === id);
+        if(index === -1 ) return HttpResponse.json({ message: 'GeneralWorkflow not found'}, {status: 404});
+        const existing = generalWorkflows[index];
+
+        const nodeIndex = existing.approvalNodes.findIndex(n => n.id === nodeId);
+        if(nodeIndex === -1) return HttpResponse.json({ message: 'ApprovalWorkflowNode not found'}, {status: 404});
+        const nodeExisting = existing.approvalNodes[nodeIndex]
+
+        const updatedApprovalWorkflowNode: ApprovalWorkflowNode = {
+            ...nodeExisting,
+            ...updates,
+            id: nodeExisting.id,
+            mainId: nodeExisting.mainId,
+            updatedAt: new Date().toISOString(),
+        }
+
+        generalWorkflows[index].approvalNodes[nodeIndex] = updatedApprovalWorkflowNode;
+
+        return HttpResponse.json(updatedApprovalWorkflowNode, { status: 200 });
+    }),
+
     http.put<{ id: string }, UpdateGeneralWorkflowDTO, GeneralWorkflowDTO | { message: string }>('/api/general-workflow/:id', async ({ request, params }) => {
         await new Promise(resolve => setTimeout(resolve, 3000));
 
@@ -59,7 +89,7 @@ export const generalWorkflowHandlers = [
 
         const existing = generalWorkflows[index];
 
-        const updatedDocument: GeneralWorkflowDTO = {
+        const updatedGeneralWorkflow: GeneralWorkflowDTO = {
             ...existing,
             ...updates,
             id: existing.id,
@@ -67,9 +97,9 @@ export const generalWorkflowHandlers = [
             updatedAt: new Date().toISOString(),
         };
 
-        generalWorkflows[index] = updatedDocument;
+        generalWorkflows[index] = updatedGeneralWorkflow;
 
-        return HttpResponse.json(updatedDocument, { status: 200 });
+        return HttpResponse.json(updatedGeneralWorkflow, { status: 200 });
     }),
 
     http.delete<{ id: string }, null, null>('/api/general-workflows/:id', ({ params }) => {

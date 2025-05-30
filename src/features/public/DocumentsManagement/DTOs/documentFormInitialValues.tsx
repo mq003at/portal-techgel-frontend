@@ -25,7 +25,7 @@ export const documentFormInitialValues: DocumentDTO = {
   },
 
   legalDocumentInfo: {
-    draftDate: '',
+    draftDate: new Date().toISOString().split('T')[0],
     publishDate: '',
     effectiveDate: '',
     expiredDate: '',

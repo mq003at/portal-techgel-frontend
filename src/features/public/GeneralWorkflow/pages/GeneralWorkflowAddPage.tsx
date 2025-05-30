@@ -23,29 +23,59 @@ export function GeneralWorkflowAddPage() {
         setCurrentTab(tabName as GeneralWorkflowTabKey);
     }
 
-    const handleSubmit = async (formData: CreateGeneralWorkflowDTO) => {
-        const promise = createGeneralWorkflow(formData).unwrap();
+    const uploadFileToVPS = async (file: File): Promise<string> => {
+        const formData = new FormData();
+        formData.append('file', file);
 
-        toast.promise(promise, {
-        pending: 'Đang tạo quy trình...',
-            success: {
-                render() {
-                    return 'Tạo quy trình thành công!';
-                },
-                onClose: () => {
-                    navigate('/main/general-workflow/');
-                },
-            },
-            error: 'Tạo quy trình thất bại. Vui lòng thử lại!',
+        const response = await fetch('http://localhost:3000/upload-file', {
+            method: 'POST',
+            body: formData,
         });
 
+        if (!response.ok) throw new Error('Upload failed');
+        const result = await response.json();
+        if(result.success) return `https://files.quan-ng.uk/upload/${file.name}`;
+        return "";
+    };
+
+    const handleSubmit = async (formData: CreateGeneralWorkflowDTO) => {
         try {
-            const result = await promise;
-            console.log("General workflow created:", result);
+            const promise = (async () => {
+                for (const node of formData.approvalNodes) {
+                    const files: File[] = Array.isArray(node.rawFiles) ? node.rawFiles : [];
+                    const urls: string[] = [];
+
+                    for (const file of files) {
+                    const url = await uploadFileToVPS(file);
+                    urls.push(url);
+                    }
+
+                    node.files = urls;
+                }
+
+                return createGeneralWorkflow(formData).unwrap();
+            })();
+
+            toast.promise(promise, {
+                pending: "Đang tạo quy trình...",
+                success: {
+                    render() {
+                    return "Tạo quy trình thành công!";
+                    },
+                    onClose: () => {
+                    navigate("/main/general-workflow/");
+                    },
+                },
+                error: "Tạo quy trình thất bại. Vui lòng thử lại!",
+            });
+
+            await promise;
         } catch (err) {
-            console.error("Failed to create general workflow", err);
+            console.error("Upload or create workflow failed", err);
+            toast.error("Lỗi khi upload file hoặc tạo quy trình!");
         }
-    }
+        };
+
 
     const renderSection = (tab: GeneralWorkflowTabKey) => {
         switch (tab) {

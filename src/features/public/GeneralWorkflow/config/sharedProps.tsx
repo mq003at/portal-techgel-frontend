@@ -145,6 +145,16 @@ export const approvalNodesFields: InputFieldProps[] = [
     name: 'order',
     type: 'number',
     required: true,
+  },
+  {
+    label: 'Upload files',
+    name: 'rawFiles',
+    type: 'file',
+    files: {
+      multiple: true,
+      accept: "application/pdf",
+    },
+    required: false
   }
 ];
 

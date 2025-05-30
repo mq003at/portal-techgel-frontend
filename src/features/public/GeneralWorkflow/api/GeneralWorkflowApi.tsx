@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CreateGeneralWorkflowDTO, GeneralWorkflowDTO, UpdateGeneralWorkflowDTO } from '../DTOs/GeneralWorkflowDTO';
+import { ApprovalWorkflowNode, CreateGeneralWorkflowDTO, GeneralWorkflowDTO, UpdateApprovalWorkflowNode, UpdateGeneralWorkflowDTO } from '../DTOs/GeneralWorkflowDTO';
 
 export const generalWorkflowApi = createApi({
     reducerPath: 'GeneralWorkflowApi',
@@ -35,6 +35,15 @@ export const generalWorkflowApi = createApi({
             invalidatesTags: (_result, _error, {id}) => [{ type: 'GeneralWorkflow', id}]
         }),
 
+        updateApprovalWorkflowNode: builder.mutation<ApprovalWorkflowNode, {id: string; nodeId: string, data: UpdateApprovalWorkflowNode}>({
+            query: ({id, nodeId, data}) => ({
+                url: `general-workflow/${id}/nodes/${nodeId}`,
+                method: 'PUT',
+                body: data,
+            }),
+            invalidatesTags: (_result, _error, {id, nodeId}) => [{ type: 'GeneralWorkflow', id, nodeId}]
+        }),
+
         deleteGeneralWorkflow: builder.mutation<void, string>({
             query: (id) => ({
                 url: `general-workflow/${id}`,
@@ -49,5 +58,6 @@ export const {
     useGetGeneralWorkflowsQuery,
     useGetGeneralWorkflowByIdQuery,
     useCreateGeneralWorkflowMutation,
+    useUpdateApprovalWorkflowNodeMutation,
     useUpdateGeneralWorkflowMutation,
 } = generalWorkflowApi;
