@@ -5,7 +5,7 @@ import { SwitchBar } from '../../../../components/switchBar.tsx/SwitchBar';
 import { Form, Formik } from 'formik';
 import InputField from '../../../../components/Form/InputField';
 import { ToastContainer, toast } from 'react-toastify';
-import { useCreateDocumentMutation } from '../api/documentApi';
+import { useCreateDocumentMetadataMutation, useCreateDocumentMutation } from '../api/documentApi';
 import { CreateDocumentDTO } from '../DTOs/DocumentDTO';
 import { DocumentTabKey, documentTabs } from '../configs/documentTabs';
 import GeneralDocumentInfoSection from '../forms/sections/GeneralDocumentInfoSection';
@@ -18,31 +18,78 @@ export function DocumentsManagementAddPage() {
   const [currentTab, setCurrentTab] = useState<DocumentTabKey>('generalDocumentInfo');
   const navigate = useNavigate();
 
+  const [createDocumentMetadata] = useCreateDocumentMetadataMutation();
   const [createDocument, { isLoading, isError, error, isSuccess }] = useCreateDocumentMutation();
 
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as DocumentTabKey);
   };
 
-  const handleSubmit = async (formData: CreateDocumentDTO) => {
-    const promise = createDocument(formData).unwrap();
+  const uploadFileToVPS = async (file: File): Promise<string> => {
+        const formData = new FormData();
+        formData.append('file', file);
 
-    toast.promise(promise, {
-      pending: 'Đang tạo tài liệu...',
-      success: {
-        render() {
-          return 'Tạo tài liệu thành công!';
-        },
-        onClose: () => {
-          navigate('/main/documents/');
-        },
-      },
-      error: 'Tạo tài liệu thất bại. Vui lòng thử lại!',
-    });
+        const response = await fetch('http://localhost:3000/upload-file', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) throw new Error('Upload failed');
+        const result = await response.json();
+        if(result.success) return `https://files.quan-ng.uk/upload/${file.name}`;
+        return "";
+    };
+
+  const handleSubmit = async (formData: CreateDocumentDTO) => {
+    // let promise;
+    // if('file' in formData.generalDocumentInfo && formData.generalDocumentInfo.file){
+    //     promise = createDocument(formData).unwrap();
+    // }else promise = createDocumentMetadata(formData).unwrap();
+
+    // toast.promise(promise, {
+    //   pending: 'Đang tạo tài liệu...',
+    //   success: {
+    //     render() {
+    //       return 'Tạo tài liệu thành công!';
+    //     },
+    //     onClose: () => {
+    //       navigate('/main/documents/');
+    //     },
+    //   },
+    //   error: 'Tạo tài liệu thất bại. Vui lòng thử lại!',
+    // });
+
+    // try {
+    //   const result = await promise;
+    //   console.log("Document created:", result);
+    // } catch (err) {
+    //   console.error("Failed to create document:", err);
+    // }
 
     try {
-      const result = await promise;
-      console.log("Document created:", result);
+      let promise;
+      console.log(formData);
+      if ('file' in formData.generalDocumentInfo && formData.generalDocumentInfo.file) {
+        const fileUrl = await uploadFileToVPS(formData.generalDocumentInfo.file);
+        formData.generalDocumentInfo.url = fileUrl;
+        promise = createDocument(formData).unwrap();
+        console.log('hi');
+      }else{
+        promise = createDocumentMetadata(formData).unwrap();
+      }
+
+      toast.promise(promise, {
+        pending: 'Đang tạo tài liệu...',
+        success: {
+          render() {
+            return 'Tạo tài liệu thành công!';
+          },
+          onClose: () => navigate('/main/documents/'),
+        },
+        error: 'Tạo tài liệu thất bại. Vui lòng thử lại!',
+      });
+
+      await promise;
     } catch (err) {
       console.error("Failed to create document:", err);
     }

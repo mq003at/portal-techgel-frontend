@@ -20,6 +20,15 @@ export const generalDocumentInfoFields: InputFieldProps[] = [
     required: false,
   },
   {
+    label: 'File',
+    name: 'file',
+    type: 'file',
+    files: {
+      multiple: false,
+      accept: "application/pdf",
+    },
+  },
+  {
     label: 'Trạng thái',
     name: 'status',
     type: 'select',
@@ -75,8 +84,12 @@ export const generalDocumentInfoFields: InputFieldProps[] = [
   {
     label: 'Tag',
     name: 'tag',
-    type: 'tags',
     required: false,
+    type: 'tags',
+    tags: {
+      suggestions: [],
+      allowNew: true
+    }
   },
   {
     label: 'Mô tả',

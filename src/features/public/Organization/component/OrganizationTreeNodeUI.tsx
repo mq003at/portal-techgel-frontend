@@ -19,8 +19,6 @@ export default function OrganizationTreeNodeUI({
   const hasChildren = Children.count(children) > 0;
   const indentPx = level * 16;
 
-  console.log('rendering', label, level, isOpen, hasChildren);
-
   return (
     <div>
       <div

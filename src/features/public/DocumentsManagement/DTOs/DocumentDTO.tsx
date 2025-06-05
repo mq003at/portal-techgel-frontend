@@ -1,4 +1,4 @@
-import { BaseDTO } from '../../../../types/DTOs/BaseDTO';
+import { BaseCreateDTO, BaseDTO } from '../../../../types/DTOs/BaseDTO';
 import {
   DocumentCategory,
   DocumentConfidentialityLevel,
@@ -7,8 +7,12 @@ import {
   DocumentTypes,
 } from '../types/DocumentEnum';
 
+export interface SignDocumentUploadDTO {
+  file: string;
+}
+
 export interface DocumentDTO extends BaseDTO{
-  id: string;
+  file: string,
   generalDocumentInfo: GeneralDocumentInfo;
   legalDocumentInfo: LegalDocumentInfo;
   securityInfo: SecurityInfo;
@@ -17,25 +21,26 @@ export interface DocumentDTO extends BaseDTO{
 }
 
 export interface GeneralDocumentInfo {
+  file?: File;
   name: string;
-  type: DocumentTypes; // Consider using an enum like 'DocumentType'
-  status: DocumentStatus; // e.g., 'DRAFT', 'APPROVED'...
+  type: DocumentTypes; 
+  status: DocumentStatus; 
   subType: DocumentSubType;
   category: DocumentCategory;
   
   ownerId: string;
   ownerName: string;
 
-  organizationEntityResponsibleId?: string;
-  organizationEntityResponsibleName?: string;
+  organizationEntityResponsibleId: number;
+  organizationEntityResponsibleName: string;
 
   tag: string[];
-  description?: string;
-  url?: string;
-  version?: string;
+  description: string;
+  url: string;
+  version: string;
 
-  workflowIds?: string[];
-  workflowNames?: string[];
+  generalWorkflowIds: number[];
+  generalWorkflowNames: string[];
 }
 
 export interface LegalDocumentInfo {
@@ -94,8 +99,7 @@ export interface EditInfo {
   recordURL?: string;
 }
 
-export interface CreateDocumentDTO extends BaseDTO {
-  id: string;
+export interface CreateDocumentDTO extends BaseCreateDTO {
   generalDocumentInfo: GeneralDocumentInfo;
   legalDocumentInfo: LegalDocumentInfo;
   securityInfo: SecurityInfo;
@@ -103,8 +107,7 @@ export interface CreateDocumentDTO extends BaseDTO {
   editInfo: EditInfo[];
 }
 
-export interface UpdateDocumentDTO extends BaseDTO {
-  id: string;
+export interface UpdateDocumentDTO {
   generalDocumentInfo: GeneralDocumentInfo;
   legalDocumentInfo: LegalDocumentInfo;
   securityInfo: SecurityInfo;

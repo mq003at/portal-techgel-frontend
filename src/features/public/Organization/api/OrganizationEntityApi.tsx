@@ -43,7 +43,7 @@ export const organizationEntityApi = createApi({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: (_result, _error, { id }) => [{ type: 'OrganizationEntity', id }],
+      invalidatesTags: ['OrganizationEntity']
     }),
 
     // ❌ DELETE organization entity

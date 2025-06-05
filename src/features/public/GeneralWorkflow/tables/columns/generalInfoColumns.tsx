@@ -2,11 +2,11 @@ import { Fragment } from "react/jsx-runtime";
 import { TableColumnDef } from "../../../../restricted/EmployeeList/tables/types/tableTypes";
 import { StatusCell } from "../../../Table/components/StatusCell";
 import { generalWorkflowLogicOptions, GeneralWorkflowStatusOptions } from "../../constants/GeneralWorkflowTypeOptions";
-import { GeneralInfo } from "../../DTOs/GeneralWorkflowDTO";
+import { LeaveGeneralInfo } from "../../DTOs/LeaveRequestWorkflowDTO";
 
-export const generalInfoColumns: TableColumnDef<GeneralInfo>[] = [
+export const generalInfoColumns: TableColumnDef<LeaveGeneralInfo>[] = [
     {
-        accessorKey: 'name',
+        accessorKey: 'startDate',
         header: 'Tên',
         enableSorting: true,
     },

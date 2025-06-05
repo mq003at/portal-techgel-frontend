@@ -1,7 +1,7 @@
 import { GeneralWorkflowLogicEnum, GeneralWorkflowStatusEnum } from "../config/GeneralWorkflowTypes";
 
 export const GeneralWorkflowStatusOptions = [
-  { value: GeneralWorkflowStatusEnum.PENDING, label: 'Chờ phê duyệt', color:  'neutral'},
+  { value: GeneralWorkflowStatusEnum.PENDING, label: 'Chờ phê duyệt', color: 'neutral'},
   { value: GeneralWorkflowStatusEnum.DRAFT, label: 'Bản nháp', color: 'info'},
   { value: GeneralWorkflowStatusEnum.REJECTED, label: 'Đã từ chối', color: 'danger'},
   { value: GeneralWorkflowStatusEnum.CANCELLED, label: 'Đã hủy', color: 'warning'},

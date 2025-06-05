@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import NeedHelpLoginPopover from "../modals/NeedHelpLoginPopover";
+import { useAppDispatch } from "../../../../hooks/reduxHooks";
+import { useGetEmployeeByIdQuery, useGetEmployeesQuery, useLoginMutation } from "../../../restricted/EmployeeList/api/employeeListApi";
+import { loginSuccess } from "../../Organization/store/loginSlice";
+import { createPhoneBook } from "../../../restricted/EmployeeList/store/EmployeesSlice";
+import { EmployeeDTO } from "../../../restricted/EmployeeList/DTOs/EmployeeDTO";
+import { PhoneBookDTO } from "../../../restricted/EmployeeList/DTOs/PhoneBookDTO";
 
 const techgelTester = {
   mainId: "techgel-test",
@@ -9,6 +15,8 @@ const techgelTester = {
 
 export default function LoginBox() {
   const [showHelp, setShowHelp] = useState<boolean>(false);
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
@@ -18,22 +26,37 @@ export default function LoginBox() {
   );
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(mainId, password)
-    if (
-      mainId === techgelTester.mainId &&
-      password === techgelTester.password
-    ) {
-      if (rememberMe) {
-        localStorage.setItem("loginmainId", mainId);
-      } else {
-        localStorage.removeItem("loginmainId");
+    // if (
+    //   mainId === techgelTester.mainId &&
+    //   password === techgelTester.password
+    // ) {
+    //   if (rememberMe) {
+    //     localStorage.setItem("loginmainId", mainId);
+    //   } else {
+    //     localStorage.removeItem("loginmainId");
+    //   }
+    //   navigate("/main/announcement");
+    // } else {
+    //   setError("Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.");
+    // }
+    try{
+      const result = await login({mainId, password}).unwrap();
+      if(result){
+        dispatch(loginSuccess({ user: result }));
+        localStorage.setItem('user', JSON.stringify(result));
+        navigate("/main/general");
+      }else {
+        setError("Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.");
+        localStorage.removeItem('user');
       }
-      navigate("/main/announcement");
-    } else {
+    }catch(err){
+      console.error("error");
+      localStorage.removeItem('user');
       setError("Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.");
     }
+    
   };
 
   return (

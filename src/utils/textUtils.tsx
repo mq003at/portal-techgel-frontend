@@ -10,10 +10,15 @@
  * safeString(null);         // ""
  * safeString("");           // ""
  */
-export function safeString(value: string | null | undefined, placeholder?: string): string {
-  return value ?? placeholder ?? '';
+export function safeString(
+  value: string | null | undefined | number,
+  placeholder: string = ''
+): string {
+  if (value === null || value === undefined) {
+    return placeholder;
+  }
+  return String(value);
 }
-
 /**
  * Returns a guaranteed non-null number.
  *

@@ -18,13 +18,13 @@ import InputField from '../../../../components/Form/InputField';
 import { useCreateEmployeeMutation } from '../api/employeeListApi';
 import { ToastContainer, toast } from 'react-toastify';
 
-import { employeeFormValidationSchema } from '../DTOs/employeeFormValidationSchema';
-
 export function EmployeeListAddPage() {
   const [currentTab, setCurrentTab] = useState<EmployeeTabKey>('personalInfo');
   const navigate = useNavigate();
 
-  const [createEmployee, { isLoading, isError, error, isSuccess }] = useCreateEmployeeMutation();
+  // const [createEmployee, { isLoading, isError, error, isSuccess }] = useCreateEmployeeMutation();
+
+  const [createEmployee, { isLoading }] = useCreateEmployeeMutation();
 
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as EmployeeTabKey);
@@ -48,11 +48,11 @@ export function EmployeeListAddPage() {
 
     try {
       const result = await promise;
-      console.log("Employee created:", result);
+      console.log('Employee created:', result);
     } catch (err) {
-      console.error("Failed to create employee:", err);
+      console.error('Failed to create employee:', err);
     }
-  }
+  };
 
   const renderSection = (tab: EmployeeTabKey) => {
     switch (tab) {
@@ -91,14 +91,15 @@ export function EmployeeListAddPage() {
 
       <SwitchBar tabs={employeeTabs} onTabChange={handleTabChange} initialTab={currentTab} />
 
-      <Formik<CreateEmployeeDTO> 
-        initialValues={employeeFormInitialValues} 
-        validationSchema={employeeFormValidationSchema}
-        onSubmit={handleSubmit}>
-        {(formik) => (
+      <Formik<CreateEmployeeDTO>
+        initialValues={employeeFormInitialValues}
+        // validationSchema={employeeFormValidationSchema}
+        onSubmit={handleSubmit}
+      >
+        {() => (
           <Form className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputField name="mainId" label="Mã nhân viên" required disabled/>
+              <InputField name="mainId" label="Mã nhân viên" required disabled />
               <InputField name="lastName" label="Họ" required />
               <InputField name="middleName" label="Tên đệm" />
               <InputField name="firstName" label="Tên" required />

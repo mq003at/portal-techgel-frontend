@@ -34,8 +34,8 @@ interface TableProps<B, T> {
   contextMenu: ContextMenuItem[];
   basicData: B[];
   basicListColumns: ColumnDef<B, any>[];
-  nestedData: T[];
-  nestedColumns: ColumnDef<T, any>[];
+  nestedData?: T[];
+  nestedColumns?: ColumnDef<T, any>[];
 }
 
 declare module '@tanstack/react-table' {
@@ -179,7 +179,7 @@ function DebouncedInput({
 
 const MENU_ID = 'row-context-menu';
 
-export function ListTable<B, T>({
+export function ListTable<B, T = undefined>({
   title,
   slug,
   contextMenu,
@@ -208,103 +208,73 @@ export function ListTable<B, T>({
     });
   };
 
-  // const basicTable = useReactTable({
-  //     initialState: {
-  //         columnPinning: {
-  //             left: basicListColumns
-  //             .filter((column): column is ColumnDef<B, any> & { accessorKey: string } =>
-  //                 column.enablePinning === true)
-  //             .map(column => column.accessorKey),
-  //             right: [],
-  //         },
-  //     },
-  //     data: basicData,
-  //     columns: basicListColumns,
-  //     getCoreRowModel: getCoreRowModel(),
-  //     getSortedRowModel: getSortedRowModel(),
-  //     onSortingChange: setSorting,
-  //     onColumnFiltersChange: setColumnFilters,
-  //     getFilteredRowModel: getFilteredRowModel(),
-  //     state: {
-  //         sorting,
-  //         columnFilters,
-  //     },
-  // });
-  // const nestedTable = useReactTable({
-  //     data: nestedData,
-  //     columns: nestedColumns,
-  //     getCoreRowModel: getCoreRowModel(),
-  //     getSortedRowModel: getSortedRowModel(),
-  //     onSortingChange: setSorting,
-  //     onColumnFiltersChange: setColumnFilters,
-  //     getFilteredRowModel: getFilteredRowModel(),
-  //     state: {
-  //         sorting,
-  //         columnFilters,
-  //     },
-  // });
+  let combinedData: any[];
+  let combinedColumns: ColumnDef<any, any>[];
 
-  // const allLeafColumns: (Column<B, unknown> | Column<T, unknown>)[] = [
-  //     ...basicTable.getAllLeafColumns(),
-  //     ...nestedTable.getAllLeafColumns(),
-  //   ];
+  if(nestedData && nestedColumns){
+    combinedData = useMemo(
+      () =>
+        basicData.map((basicItem, index) => ({
+          ...basicItem,
+          ...nestedData[index],
+        })),
+      [basicData, nestedData]
+    );
 
-  const combinedData = useMemo(
-    () =>
-      basicData.map((basicItem, index) => ({
-        ...basicItem,
-        ...nestedData[index],
-      })),
-    [basicData, nestedData]
-  );
-
-  const combinedColumns: ColumnDef<any, any>[] = useMemo(
-    () => [...basicListColumns, ...nestedColumns],
-    [basicListColumns, nestedColumns]
-  );
+    combinedColumns = useMemo(
+      () => [...basicListColumns, ...nestedColumns],
+      [basicListColumns, nestedColumns]
+    );
+  }else{
+    combinedData = basicData
+    combinedColumns = useMemo(
+        () => [...basicListColumns],
+        [basicListColumns]
+    );
+  }
 
   const validColumnFilterIds = useMemo(
-    () => combinedColumns.map((col) => ('accessorKey' in col ? col.accessorKey.toString() : col.id)),
-    [combinedColumns]
-  );
-  const sanitizedColumnFilters = useMemo(
-    () => columnFilters.filter((f) => validColumnFilterIds.includes(f.id)),
-    [columnFilters, validColumnFilterIds]
-  );
-  useEffect(() => {
-    setColumnFilters((prev) => prev.filter((f) => validColumnFilterIds.includes(f.id)));
-  }, [validColumnFilterIds]);
+      () => combinedColumns.map((col) => ('accessorKey' in col ? col.accessorKey.toString() : col.id)),
+      [combinedColumns]
+    );
+    const sanitizedColumnFilters = useMemo(
+      () => columnFilters.filter((f) => validColumnFilterIds.includes(f.id)),
+      [columnFilters, validColumnFilterIds]
+    );
+    useEffect(() => {
+      setColumnFilters((prev) => prev.filter((f) => validColumnFilterIds.includes(f.id)));
+    }, [validColumnFilterIds]);
 
-  const table = useReactTable({
-    data: combinedData,
-    columns: combinedColumns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
-    getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onPaginationChange: setPagination,
-    state: {
-      sorting,
-      columnFilters: sanitizedColumnFilters,
-      pagination,
-    },
-    initialState: {
-      columnPinning: {
-        left: basicListColumns
-          .filter(
-            (column): column is ColumnDef<any, any> & { id: string } =>
-              column.enablePinning === true
-          )
-          .map((column) => ('accessorKey' in column ? column.accessorKey.toString() : column.id)),
-        right: [],
+    const table = useReactTable({
+      data: combinedData,
+      columns: combinedColumns,
+      getCoreRowModel: getCoreRowModel(),
+      getSortedRowModel: getSortedRowModel(),
+      getFilteredRowModel: getFilteredRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+      getFacetedRowModel: getFacetedRowModel(),
+      getFacetedUniqueValues: getFacetedUniqueValues(),
+      getFacetedMinMaxValues: getFacetedMinMaxValues(),
+      onSortingChange: setSorting,
+      onColumnFiltersChange: setColumnFilters,
+      onPaginationChange: setPagination,
+      state: {
+        sorting,
+        columnFilters: sanitizedColumnFilters,
+        pagination,
       },
-    },
-  });
+      initialState: {
+        columnPinning: {
+          left: basicListColumns
+            .filter(
+              (column): column is ColumnDef<any, any> & { id: string } =>
+                column.enablePinning === true
+            )
+            .map((column) => ('accessorKey' in column ? column.accessorKey.toString() : column.id)),
+          right: [],
+        },
+      },
+    });
 
   return (
     <section className="mt-10 space-y-6">

@@ -13,7 +13,7 @@ export const StatusCell = ({ getValue, options}: StatusCellProps) => {
     const statusValue = getValue();
     if(!options) return <BadgeWrapper label={String(statusValue)} color="neutral" />;
 
-    const statusMeta = options.find((opt) => opt.value === statusValue);
+    const statusMeta = options.find((opt) => String(opt.value).toLowerCase() === String(statusValue).toLowerCase());
     const label = statusMeta?.label || statusValue;
     const color = statusMeta?.color || 'neutral';
     return <BadgeWrapper label={label} color={color} />;

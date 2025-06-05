@@ -1,22 +1,21 @@
 import { useNavigate, useSearchParams } from "react-router";
-import { useGetGeneralWorkflowsQuery } from "../api/GeneralWorkflowApi";
 import { useState } from "react";
-import { GeneralWorkflowTabKey, generalWorkflowTabs, TabToDTOMap } from "../config/GeneralWorkflowTabs";
-import { generalWorkflowColumnMap } from "../tables/tableTypes";
 import { ColumnDef } from "@tanstack/react-table";
 import { ListTable } from "../../Table/listTable";
 import { BasicGeneralWorkflowInfo, generalWorkflowBasicColumns } from "../tables/columns/basicGeneralWorkflowInfoColumns";
-import { GeneralWorkflowDTO } from "../DTOs/GeneralWorkflowDTO";
 import { FaPlus } from "react-icons/fa";
 import { SwitchBar } from "../../../../components/switchBar.tsx/SwitchBar";
 import { ItemParams } from "react-contexify";
+import { useGetLeaveRequestWorkflowsQuery } from "../api/LeaveRequestWorkflowApi";
+import { LeaveRequestWorkflowDTO } from "../DTOs/LeaveRequestWorkflowDTO";
+import { LeaveRequestWorkflowTabKey, leaveRequestWorkflowTabs, TabToDTOMap } from "../config/GeneralWorkflowTabs";
 
 
-export default function GeneralWorkflowViewPage() {
-    const [currentTab, setCurrentTab] = useState<GeneralWorkflowTabKey>('generalInfo');
+export default function LeaveRequestWorkflowViewPage() {
+    const [currentTab, setCurrentTab] = useState<LeaveRequestWorkflowTabKey>('');
     const [searchParams] = useSearchParams();
 
-    const { data: generalWorkflows = [], isLoading, isFetching } = useGetGeneralWorkflowsQuery();
+    const { data: leaveRequestWorkflows = [], isLoading, isFetching } = useGetLeaveRequestWorkflowsQuery();
 
     const navigate = useNavigate();
 
@@ -29,16 +28,26 @@ export default function GeneralWorkflowViewPage() {
     }
 
     const handleViewApprovalNode = ({ props }: ItemParams) => {
-        navigate(`/main/general-workflow/${props.id}/steps`);
+        navigate(`/main/leave-request/${props.id}/nodes`);
     }
 
-    function renderNestedTable<T extends GeneralWorkflowTabKey>(tabKey: T, generalWorkflows: GeneralWorkflowDTO[], title: string){
-        const nestedData = generalWorkflows.map((g) => g[tabKey]) as TabToDTOMap[T][];
-        const columns = generalWorkflowColumnMap[tabKey] as ColumnDef<TabToDTOMap[T], any>[];
+    function renderNestedTable<T extends LeaveRequestWorkflowTabKey>(tabKey: T, leaveRequestWorkflows: LeaveRequestWorkflowDTO[], title: string){
+        // const nestedData = leaveRequestWorkflows.map((g) => g[tabKey]) as TabToDTOMap[T][];
+        // const columns = generalWorkflowColumnMap[tabKey] as ColumnDef<TabToDTOMap[T], any>[];
 
-        const basicData = generalWorkflows.map((g) => ({
+        const basicData = leaveRequestWorkflows.map((g) => ({
             id: g.id,
             mainId: g.mainId,
+            name: g.name,
+            description: g.description,
+            status: g.status,
+            employeeId: g.employeeId,
+            employeeName: g.employeeName,
+            reason: g.reason,
+            startDate: g.startDate,
+            endDate: g.endDate,
+            employeeAnnualLeaveTotalDays: g.employeeAnnualLeaveTotalDays,
+            leaveApprovalCategory: g.leaveAprrovalCategory,
         }));
 
         const contextMenu = [
@@ -46,20 +55,18 @@ export default function GeneralWorkflowViewPage() {
         ];
 
         return (
-            <ListTable<BasicGeneralWorkflowInfo, TabToDTOMap[T]>
+            <ListTable<BasicGeneralWorkflowInfo>
                 title={`Bảng ${title}`}
-                slug={`generalWorkflow`}
+                slug={`leave-requests`}
                 contextMenu={contextMenu}
                 basicData={basicData}
                 basicListColumns={generalWorkflowBasicColumns}
-                nestedData={nestedData}
-                nestedColumns={columns}
             />
         )
     }
 
     const handleTabChange = (tabName: string) => {
-        setCurrentTab(tabName as GeneralWorkflowTabKey);
+        setCurrentTab(tabName as LeaveRequestWorkflowTabKey);
     };
 
     return (
@@ -68,18 +75,18 @@ export default function GeneralWorkflowViewPage() {
             <h2 className="text-xl font-bold">Danh sách quy trình</h2>
             <button
                 className="btn btn-primary flex items-center gap-2"
-                onClick={() => navigate('/main/general-workflow/add')}
+                onClick={() => navigate('/main/leave-request/add')}
             >
                 <FaPlus /> Tạo quy trình
             </button>
             </div>
     
-            <SwitchBar tabs={generalWorkflowTabs} onTabChange={handleTabChange} initialTab={currentTab} />
+            <SwitchBar tabs={leaveRequestWorkflowTabs} onTabChange={handleTabChange} initialTab={currentTab} />
     
             {renderNestedTable(
                 currentTab,
-                generalWorkflows,
-                generalWorkflowTabs.find((tab) => tab.name === currentTab)?.label || 'N/A'
+                leaveRequestWorkflows,
+                leaveRequestWorkflowTabs.find((tab) => tab.name === currentTab)?.label || 'N/A'
             )}
         </div>
     )

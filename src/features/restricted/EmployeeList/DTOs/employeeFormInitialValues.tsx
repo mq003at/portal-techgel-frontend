@@ -1,14 +1,10 @@
-import { EmployeeDTO } from './EmployeeDTO';
+import { CreateEmployeeDTO, EmployeeDTO } from './EmployeeDTO';
 
-export const employeeFormInitialValues: EmployeeDTO = {
-  id: '',
+export const employeeFormInitialValues: CreateEmployeeDTO = {
   mainId: '',
   firstName: '',
   middleName: '',
   lastName: '',
-
-  createdAt: '',
-  updatedAt: '',
 
   personalInfo: {
     gender: 'OTHER',
@@ -72,15 +68,15 @@ export const employeeFormInitialValues: EmployeeDTO = {
     organizationEntityIds: [],
     organizationEntityNames: [],
 
-    managesOrganizationEntityIds: [],
-    managesOrganizationEntityNames: [],
+    managedOrganizationEntityIds: [],
+    managedOrganizationEntityNames: [],
 
-    supervisorId: '',
-    supervisorName: '',
+    supervisorId: undefined,
+    supervisorName: undefined,
 
     subordinateIds: [],
     subordinateNames: [],
 
-    groupIds: [],
+    groupId: undefined,
   },
 };

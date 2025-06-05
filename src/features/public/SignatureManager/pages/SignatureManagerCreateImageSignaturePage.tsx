@@ -1,12 +1,23 @@
 import React, { useRef, useState } from 'react';
 import Signature from '@uiw/react-signature';
+import { FaMinus, FaUndo, FaDownload, FaSave, FaTrashAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router';
+import { useAppSelector } from '../../../../hooks/reduxHooks';
+import { useCreateSignatureMutation, useDeleteSignatureMutation } from '../api/SignatureApi';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignatureManagerCreateImageSignaturePage() {
-  const signatureRef = useRef<any>(null);
-  const [size, setSize] = useState(6);
-  const [smoothing, setSmoothing] = useState(0.46);
-  const [thinning, setThinning] = useState(0.73);
-  const [streamline, setStreamline] = useState(0.5);
+    const signatureRef = useRef<any>(null);
+    const [size, setSize] = useState(6);
+    const [smoothing, setSmoothing] = useState(0.46);
+    const [thinning, setThinning] = useState(0.73);
+    const [streamline, setStreamline] = useState(0.5);
+    const { user } = useAppSelector((state) => state.auth);
+    const [createSignature] = useCreateSignatureMutation();
+    const [deleteSignature] = useDeleteSignatureMutation();
+    const navigate = useNavigate();
+    const [saving, setSaving] = useState(false);
 
     const handleClear = () => {
         signatureRef.current?.clear();
@@ -14,101 +25,212 @@ function SignatureManagerCreateImageSignaturePage() {
 
     const handleDownload = () => {
         const svgEl = signatureRef.current.svg;
-
-        if(svgEl){
+        if (svgEl) {
             const svgData = new XMLSerializer().serializeToString(svgEl);
-            const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+            const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
             const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
+            const a = document.createElement('a');
             a.href = url;
-            a.download = "signature.svg";
+            a.download = 'signature.svg';
             a.click();
-
             URL.revokeObjectURL(url);
         }
     };
 
     const handleResetOptions = () => {
-        setSize(6); 
+        setSize(6);
         setSmoothing(0.46);
         setThinning(0.73);
         setStreamline(0.5);
-    }
-
-    const handleCopySVG = async () => {
-        const svgData = signatureRef.current.svg.outerHTML;
-        if (svgData) {
-            await navigator.clipboard.writeText(svgData);
-            alert('Đã copy SVG vào clipboard!');
-        }
     };
 
     const handleSave = async () => {
-        const svgEl = signatureRef.current.svg;
-        const svgString = new XMLSerializer().serializeToString(svgEl);
+        const svgEl = signatureRef.current?.svg;
+        if (!svgEl) return;
+
+        setSaving(true);
+
+        const clonedSvg = svgEl.cloneNode(true) as SVGSVGElement;
+
+        clonedSvg.removeAttribute('style');
+        clonedSvg.style.border = 'none';
+
+        const svgString = new XMLSerializer().serializeToString(clonedSvg);
         const svgBlob = new Blob([svgString], { type: 'image/svg+xml' });
-        const svgFile = new File([svgBlob], 'signature.svg', { type: 'image/svg+xml' });
-    }
+        const svgFile = new File([svgBlob], `signature-${user?.id}.svg`, { type: 'image/svg+xml' });
+
+        const formData = new FormData();
+        formData.append('EmployeeId', String(user?.id));
+        formData.append('File', svgFile);
+        formData.append('FileName', svgFile.name);
+
+        try {
+            await createSignature(formData).unwrap();
+            toast.success('Lưu chữ ký thành công!');
+        } catch (error) {
+            console.error(error);
+            toast.error('Lỗi khi lưu chữ ký!');
+        } finally {
+            setSaving(false);
+        }
+        };
 
 
     return (
-        <div className="p-10">
-        <h2>Ký tên tại đây:</h2>
-        <div className="flex justify-between items-center">
-            <div
-                style={{ display: "flex", flexWrap: "wrap", gap: "1rem", paddingTop: "1rem" }}
+        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-50 p-8 relative">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-8">
+                <h1 className="text-3xl font-extrabold text-indigo-700 tracking-wide">Ký tên tại đây</h1>
+                <button
+                    onClick={() => navigate('/main/signature-manager/')}
+                    className="btn flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded shadow"
                 >
-                <label>
-                    <div>Size: {size}</div>
-                    <input type="range" max={50} min={1} defaultValue={6} onChange={(e) => setSize(parseInt(e.target.value))} />
-                </label>
-                <label>
-                    <div>Smoothing: {smoothing}</div>
-                    <input
-                        type="range"
-                        max="0.99"
-                        min="-0.99"
-                        step="0.01"
-                        defaultValue="0.46"
-                        onChange={(e) => setSmoothing(parseFloat(e.target.value))}
-                    />
-                </label>
-                <label>
-                    <div>Thinning: {thinning}</div>
-                    <input
-                        type="range"
-                        max="0.99"
-                        min="-0.99"
-                        step="0.01"
-                        defaultValue="0.73"
-                        onChange={(e) => setThinning(parseFloat(e.target.value))}
-                    />
-                </label>
-                <label>
-                    <div>Streamline: {streamline}</div>
-                    <input type="range" max="0.99" min="0.01" step="0.01" defaultValue="0.5" onChange={(e) => setStreamline(parseFloat(e.target.value))} />
-                </label>
+                    <FaMinus /> Quay lại
+                </button>
             </div>
-            <div className="flex flex-wrap gap-[0.51rem] pt-[0.46rem]" style={{ marginTop: 10 }}>
-                <button onClick={handleClear} className="btn btn-accent">Clear</button>
-                <button onClick={handleResetOptions} className="btn btn-neutral">Reset Options</button>
-                {/* <button onClick={handleCopySVG} className="btn btn-error">Copy to SVG</button> */}
-                <button onClick={handleDownload} className="btn btn-secondary">Download Image</button>
-                <button onClick={handleSave} className="btn btn-primary">Save Image</button>
+
+            {/* Main Content */}
+            <div className="flex flex-col md:flex-row gap-10">
+                {/* Signature Canvas */}
+                <div className="flex-1 bg-white rounded-xl shadow-lg p-6 flex flex-col">
+                    <Signature
+                        ref={signatureRef}
+                        style={{ borderRadius: 12, border: '2px solid #a5b4fc', flexGrow: 1 }}
+                        color="#4c51bf"
+                        options={{ size, smoothing, thinning, streamline }}
+                    />
+                    <p className="mt-3 text-center text-sm text-indigo-600">Vẽ chữ ký của bạn trong khung bên trên</p>
+                </div>
+
+                {/* Controls */}
+                <div className="w-full max-w-sm bg-white rounded-xl shadow-lg p-6 flex flex-col space-y-8">
+                    {/* Sliders */}
+                    <div className="space-y-6">
+                        {/* Size */}
+                        <div>
+                            <label htmlFor="size" className="block font-semibold text-indigo-700 mb-1">
+                                Kích thước: <span className="text-indigo-900 font-bold">{size}</span>
+                            </label>
+                            <input
+                                id="size"
+                                type="range"
+                                min={1}
+                                max={50}
+                                value={size}
+                                onChange={(e) => setSize(parseInt(e.target.value))}
+                                className="w-full accent-indigo-600"
+                            />
+                        </div>
+
+                        {/* Smoothing */}
+                        <div>
+                            <label htmlFor="smoothing" className="block font-semibold text-indigo-700 mb-1">
+                                Làm mượt: <span className="text-indigo-900 font-bold">{smoothing.toFixed(2)}</span>
+                            </label>
+                            <input
+                                id="smoothing"
+                                type="range"
+                                min={-0.99}
+                                max={0.99}
+                                step={0.01}
+                                value={smoothing}
+                                onChange={(e) => setSmoothing(parseFloat(e.target.value))}
+                                className="w-full accent-indigo-600"
+                            />
+                        </div>
+
+                        {/* Thinning */}
+                        <div>
+                            <label htmlFor="thinning" className="block font-semibold text-indigo-700 mb-1">
+                                Làm mảnh: <span className="text-indigo-900 font-bold">{thinning.toFixed(2)}</span>
+                            </label>
+                            <input
+                                id="thinning"
+                                type="range"
+                                min={-0.99}
+                                max={0.99}
+                                step={0.01}
+                                value={thinning}
+                                onChange={(e) => setThinning(parseFloat(e.target.value))}
+                                className="w-full accent-indigo-600"
+                            />
+                        </div>
+
+                        {/* Streamline */}
+                        <div>
+                            <label htmlFor="streamline" className="block font-semibold text-indigo-700 mb-1">
+                                Làm trơn nét vẽ: <span className="text-indigo-900 font-bold">{streamline.toFixed(2)}</span>
+                            </label>
+                            <input
+                                id="streamline"
+                                type="range"
+                                min={0.01}
+                                max={0.99}
+                                step={0.01}
+                                value={streamline}
+                                onChange={(e) => setStreamline(parseFloat(e.target.value))}
+                                className="w-full accent-indigo-600"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Buttons */}
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <button
+                            onClick={handleClear}
+                            className="btn flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded shadow"
+                        >
+                            <FaTrashAlt /> Xóa
+                        </button>
+                        <button
+                            onClick={handleResetOptions}
+                            className="btn flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded shadow"
+                        >
+                            <FaUndo /> Đặt lại
+                        </button>
+                        <button
+                            onClick={handleDownload}
+                            className="btn flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded shadow"
+                        >
+                            <FaDownload /> Tải về
+                        </button>
+                        <button
+                            onClick={handleSave}
+                            className="btn flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded shadow"
+                        >
+                            <FaSave /> Lưu
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-        <Signature
-            ref={signatureRef}
-            style={{ border: '1px solid #ccc', width: '100%', height: 'calc(100vh - 40px - 142px - 48px)' }}
-            color="black"
-            options={{
-                size,
-                smoothing,
-                thinning,
-                streamline,
-            }}
-        />
+
+            {/* Toast */}
+            <ToastContainer position="top-right" autoClose={3000} />
+
+            {/* Saving Overlay */}
+            {saving && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-40 backdrop-blur-sm">
+                    <div className="flex flex-col items-center gap-4 p-6 bg-white rounded-xl shadow-lg animate-fade-in">
+                        <svg className="animate-spin h-10 w-10 text-indigo-600" viewBox="0 0 24 24">
+                            <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                                fill="none"
+                            />
+                            <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8v8z"
+                            />
+                        </svg>
+                        <p className="text-indigo-700 font-medium text-lg">Đang lưu chữ ký...</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -1,10 +1,7 @@
-import { DocumentDTO } from "./DocumentDTO";
+import { CreateDocumentDTO, DocumentDTO } from "./DocumentDTO";
 
-export const documentFormInitialValues: DocumentDTO = {
-  id: '',
+export const documentFormInitialValues: CreateDocumentDTO = {
   mainId: '',
-  createdAt: '',
-  updatedAt: '',
 
   generalDocumentInfo: {
     name: '',

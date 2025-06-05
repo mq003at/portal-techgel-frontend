@@ -1,7 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 export interface BasicEmployeeInfo {
-  id: string;
   mainId: string;
   lastName: string;
   middleName?: string;

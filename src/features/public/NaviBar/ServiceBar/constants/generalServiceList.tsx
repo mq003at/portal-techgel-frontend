@@ -75,14 +75,14 @@ export const allGeneralServices: ServiceGroup[] = [
 
     items: [
       {
-        title: 'Quy Trình Chung',
+        title: 'Quy Trình Nghỉ Phép',
         icon: (
           <IconWrapper
             src="../assets/icon/serviceBarIcons/workflow-general.svg"
-            title="Quy Trình Chung"
+            title="Quy Trình Nghỉ Phép"
           />
         ),
-        navigateTo: '/main/general-workflow',
+        navigateTo: '/main/leave-request',
       },
       {
         title: 'Quy Trình Hỗ Trợ Văn Phòng',

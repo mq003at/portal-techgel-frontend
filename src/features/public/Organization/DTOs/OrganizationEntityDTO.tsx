@@ -2,13 +2,6 @@ import { BaseDTO } from '../../../../types/DTOs/BaseDTO';
 import { EmployeeDTO } from '../../../restricted/EmployeeList/DTOs/EmployeeDTO';
 import { OrganizationStatus } from '../configs/OrganizationModelOptions';
 
-export interface OrganizationEntityLayer {
-  id: string
-  level: number,
-  name: string,
-
-  organizationIds: string[]
-}
 
 export interface OrganizationEntitySummaryDTO extends BaseDTO {
   name: string;
@@ -23,34 +16,22 @@ export interface OrganizationEntitySummaryDTO extends BaseDTO {
 
   status: OrganizationStatus;
 
-  parentId: string;
-  parentName: string;
+  parent: OrganizationEntitySummaryDTO;
 
-  childrenIds: string[];
-  childrenNames: string[];
+  childrenIds?: string[];
+  childrenNames?: string[];
 
   employeeIds?: string[];
   employeeNames?: string[];
 
-  // manual sorting between entity within the same parent
   sortOrder?: number;
 
-  // breadcrumb path
   fullPathName?: string;
 
-  // doc
   documentCounts: number;
 }
 
-export interface OrganizationEntityDTO extends OrganizationEntitySummaryDTO {
-  children?: OrganizationEntityDTO[];
-  parent?: OrganizationEntityDTO;
-  employees?: EmployeeDTO[];
-  manager?: EmployeeDTO;
-}
-
-export interface CreateOrganizationEntityDTO {
-  mainId: string;
+export interface CreateOrganizationEntityDTO extends BaseDTO{
   name: string;
   description: string;
   level: number;
@@ -58,14 +39,13 @@ export interface CreateOrganizationEntityDTO {
   managerId?: string;
   status: OrganizationStatus;
 
-  parentId: string;
+  parentId?: string;
   sortOrder?: number;
-
+  childrenIds: number[];
   employeeIds?: string[];
 }
 
-export interface UpdateOrganizationEntityDTO {
-  mainId?: string;
+export interface UpdateOrganizationEntityDTO extends BaseDTO{
   name?: string;
   description?: string;
   level?: number;
@@ -74,7 +54,8 @@ export interface UpdateOrganizationEntityDTO {
   status?: OrganizationStatus;
 
   parentId?: string;
+  parent: OrganizationEntitySummaryDTO;
   sortOrder?: number;
-
+  childrenIds: number[];
   employeeIds?: string[];
 }

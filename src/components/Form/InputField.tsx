@@ -1,6 +1,9 @@
 import { Field, ErrorMessage, useFormikContext } from 'formik';
 import InputFieldProps from './types/InputFieldProps';
 import { TagInput } from './TagInput';
+import { DatetimeInput } from './DatetimeInput';
+import { TextareaInput } from './TextareaInput';
+import { SelectInput } from './SelectInput';
 
 export default function InputField({
   label,
@@ -46,11 +49,11 @@ export default function InputField({
             ))}
           </Field>
         ) : type === 'tags' && tags ? (
-          <TagInput
-            name={name}
-            suggestions={tags.suggestions}
-            allowNew={tags.allowNew}
-          />
+          <TagInput name={name} suggestions={tags.suggestions} allowNew={tags.allowNew} />
+        ) : type === 'datetime' ? (
+            <DatetimeInput name={name} required={required} disabled={disabled} />
+        ): type === 'select-input' ? (
+            <SelectInput options={options} name={name} disabled={disabled} placeholder={placeholder} />
         ) : type === 'file' ? (
           <input
             name={name}
@@ -61,6 +64,9 @@ export default function InputField({
             onChange={handleFileChange}
             disabled={disabled}
           />
+        ) : type === 'textarea' ? (
+          <TextareaInput name={name} placeholder={placeholder} 
+                        disabled={disabled} required={required}/>
         ) : (
           <Field
             name={name}
@@ -70,7 +76,7 @@ export default function InputField({
             disabled={disabled}
           />
         )}
-        
+
         {/* Error Message (Spans Both Columns) */}
         <ErrorMessage
           name={name}

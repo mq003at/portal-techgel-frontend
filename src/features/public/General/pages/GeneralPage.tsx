@@ -1,12 +1,17 @@
+import { useAppSelector } from '../../../../hooks/reduxHooks';
+
 const categories = [
-  { title: "Công việc", count: 0, color: "bg-red-500" },
-  { title: "Sự kiện", count: 0, color: "bg-green-500" },
-  { title: "Thông báo", count: 0, color: "bg-violet-500" },
-  { title: "Yêu cầu", count: 0, color: "bg-cyan-500" },
+  { title: 'Công việc', count: 0, color: 'bg-red-500' },
+  { title: 'Sự kiện', count: 0, color: 'bg-green-500' },
+  { title: 'Thông báo', count: 0, color: 'bg-violet-500' },
+  { title: 'Yêu cầu', count: 0, color: 'bg-cyan-500' },
 ];
 
 export default function GeneralPage() {
-  console.log("general");
+  const { user } = useAppSelector((state) => state.auth);
+  console.log('general');
+  console.log(user);
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
       {categories.map((category, index) => (

@@ -3,7 +3,7 @@ import { CreateDocumentDTO, DocumentDTO, UpdateDocumentDTO } from '../DTOs/Docum
 
 export const documentApi = createApi({
     reducerPath: 'documentApi',
-    baseQuery: fetchBaseQuery({baseUrl: '/api'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https://localhost:5001/api'}),
     tagTypes: ['Document'],
 
     endpoints: (builder) => ({
@@ -22,9 +22,18 @@ export const documentApi = createApi({
             providesTags: (_result, _error, cate) => [{ type: 'Document', id: cate }],
         }),
 
+        createDocumentMetadata: builder.mutation<DocumentDTO, CreateDocumentDTO>({
+            query: (body) => ({
+                url: 'documents/metadata',
+                method: 'POST',
+                body,
+            }),
+            invalidatesTags: ['Document'],
+        }),
+
         createDocument: builder.mutation<DocumentDTO, CreateDocumentDTO>({
             query: (body) => ({
-                url: 'documents',
+                url: 'documents/upload',
                 method: 'POST',
                 body,
             }),
@@ -55,6 +64,7 @@ export const {
     useGetDocumentByIdQuery,
     useGetDocumentsByCateQuery,
     useCreateDocumentMutation,
+    useCreateDocumentMetadataMutation,
     useUpdateDocumentMutation,
     useDeleteDocumentMutation,
 } = documentApi;

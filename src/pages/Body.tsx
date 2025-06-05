@@ -16,13 +16,13 @@ import DoucmentsManagementViewPage from '../features/public/DocumentsManagement/
 import { DocumentsManagementAddPage } from '../features/public/DocumentsManagement/pages/DocumentsManagementAddPage';
 import { DocumentsManagementEditPage } from '../features/public/DocumentsManagement/pages/DocumentsManagementEditPage';
 import SignatureManagerCreateImageSignaturePage from '../features/public/SignatureManager/pages/SignatureManagerCreateImageSignaturePage';
-import GeneralWorkflowViewPage from '../features/public/GeneralWorkflow/pages/GeneralWorkflowViewPage';
-import GeneralWorkflowViewStepsPage from '../features/public/GeneralWorkflow/pages/GeneralWorkflowViewStepsPage';
-import { GeneralWorkflowAddPage } from '../features/public/GeneralWorkflow/pages/GeneralWorkflowAddPage';
+import LeaveRequestWorkflowViewPage from '../features/public/GeneralWorkflow/pages/LeaveRequestWorkflowViewPage';
+import LeaveRequestWorkflowViewStepsPage from '../features/public/GeneralWorkflow/pages/LeaveRequestWorkflowViewNodesPage';
+import { LeaveRequestWorkflowAddPage } from '../features/public/GeneralWorkflow/pages/LeaveRequestWorkflowAddPage';
 
 export default function Body() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
-
+  
   return (
     <ApolloProvider client={client}>
       <BadgeGeneration />
@@ -54,9 +54,9 @@ export default function Body() {
             <Route path="/signature-manager" element={<SignatureManagerPage />} />
             <Route path="/signature-manager/create-signature-image" element={<SignatureManagerCreateImageSignaturePage />} />
 
-            <Route path="/general-workflow" element={<GeneralWorkflowViewPage />} />
-            <Route path="/general-workflow/add" element={<GeneralWorkflowAddPage />} />
-            <Route path="/general-workflow/:id/steps" element={<GeneralWorkflowViewStepsPage />} />
+            <Route path="/leave-request" element={<LeaveRequestWorkflowViewPage />} />
+            <Route path="/leave-request/add" element={<LeaveRequestWorkflowAddPage />} />
+            <Route path="/leave-request/:id/nodes" element={<LeaveRequestWorkflowViewStepsPage />} />
 
             <Route path="*" element={<Navigate to="/main/general" />} />
           </Routes>

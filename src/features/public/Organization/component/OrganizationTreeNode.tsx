@@ -10,7 +10,6 @@ export function OrganizationTreeNode({
   level: number;
   onSelect: (e: OrganizationEntityDTO) => void;
 }) {
-  console.log('rendering', entity); // now entity.children is the real array
   return (
     <OrganizationTreeNodeUI label={entity.name} level={level} onClick={() => onSelect(entity)}>
       {entity.children?.map((child) => (

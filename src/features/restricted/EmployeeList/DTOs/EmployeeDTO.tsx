@@ -1,5 +1,5 @@
 import { EmploymentStatus, Gender } from '../../../../types/constants/EmployeeConstants';
-import { BaseDTO, BaseReadDTO } from '../../../../types/DTOs/BaseDTO';
+import { BaseCreateDTO, BaseDTO, BaseReadDTO } from '../../../../types/DTOs/BaseDTO';
 import { MaritalStatus } from '../types/EmployeeTypes';
 
 export interface EmployeeDTO extends BaseReadDTO {
@@ -18,7 +18,7 @@ export interface EmployeeDTO extends BaseReadDTO {
   roleInfo: RoleInfoDTO;
 }
 
-export interface UpdateEmployeeDTO extends BaseDTO {
+export interface UpdateEmployeeDTO {
   firstName: string;
   middleName?: string;
   lastName: string;
@@ -34,11 +34,12 @@ export interface UpdateEmployeeDTO extends BaseDTO {
   roleInfo?: RoleInfoDTO;
 }
 
-export interface CreateEmployeeDTO extends BaseDTO {
+export interface CreateEmployeeDTO extends BaseCreateDTO{
   firstName: string;
   middleName?: string;
   lastName: string;
   avatar?: string;
+  password?: string;
 
   personalInfo: PersonalInfoDTO;
   companyInfo: CompanyInfoDTO;
@@ -117,38 +118,21 @@ export interface ScheduleInfoDTO {
 
 export interface RoleInfoDTO {
   // // Org structure
-  // organizationEntityIds?: string[];
-  // organizationEntityNames?: string[];
+  organizationEntityIds?: string[];
+  organizationEntityNames?: string[];
 
   // // Manager
-  // managesOrganizationEntityIds?: string[];
-  // managesOrganizationEntityNames?: string[];
-
-  // // Direct Subordinates
-  // subordinateIds?: string[];
-  // subordinateNames?: string[];
+  managedOrganizationEntityIds?: string[];
+  managedOrganizationEntityNames?: string[];
 
   // // Special Permission
-  // groupIds?: string[];
+  groupId?: string[];
 
   // Direct Supervisor
   supervisorId?: string;
   supervisorName?: string;
 
-  roleDetailsInfo?: RoleDetailsInfoDTO[]
-}
-
-export interface RoleDetailsInfoDTO {
-  organizationEntityId: string,
-  organizationEntityName: string,
-
-  managesOrganizationEntityId: string,
-  managesOrganizationEntityName: string,
-
   // Direct Subordinates
-  subordinateId: string,
-  subordinateName: string,
-
-  // Special Permission
-  groupId: string
+  subordinateIds: string[];
+  subordinateNames: string[];
 }
