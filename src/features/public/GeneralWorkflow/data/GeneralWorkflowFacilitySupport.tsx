@@ -9,7 +9,7 @@ import { GeneralWorkflowDTO } from '../DTOs/GeneralWorkflowDTO';
 //     workflowLogic: 'SEQUENTIAL',
 //     approvedByIds: ['2', '3'],
 //     draftedByIds: ['1'],
-//     approvalNodes: [
+//     ApprovalWorkflowNodes: [
 //       {
 //         id: '1',
 //         name: 'Techgel nhờ Quân duyệt Đơn xin nghỉ phép',
@@ -48,7 +48,7 @@ import { GeneralWorkflowDTO } from '../DTOs/GeneralWorkflowDTO';
 //     draftedByIds: ['u-4001'],
 //     draftedByNames: ['Dang Van G'],
 //     draftedBySignatures: ['sign-g.png'],
-//     approvalNodes: [
+//     ApprovalWorkflowNodes: [
 //       {
 //         id: 'node-003',
 //         name: 'Legal Review',
@@ -84,8 +84,6 @@ import { GeneralWorkflowDTO } from '../DTOs/GeneralWorkflowDTO';
 //   },
 // ];
 
-
-
 export const GeneralWorkflowFacilitySupport: GeneralWorkflowDTO[] = [
   {
     id: '1',
@@ -102,9 +100,9 @@ export const GeneralWorkflowFacilitySupport: GeneralWorkflowDTO[] = [
       draftedByIds: ['1'],
       draftedByNames: ['a', 'd'],
       draftedBySignatures: ['s', 'k'],
-      quota: 13
+      quota: 13,
     },
-    approvalNodes: [
+    ApprovalWorkflowNodes: [
       {
         id: '1',
         mainId: 'node-001',
@@ -168,7 +166,7 @@ export const GeneralWorkflowFacilitySupport: GeneralWorkflowDTO[] = [
       draftedByNames: ['Dang Van G'],
       draftedBySignatures: ['sign-g.png'],
     },
-    approvalNodes: [
+    ApprovalWorkflowNodes: [
       {
         id: '3',
         mainId: 'node-003',

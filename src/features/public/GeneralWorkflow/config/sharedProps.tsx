@@ -1,7 +1,9 @@
-import InputFieldProps from "../../../../components/Form/types/InputFieldProps";
-import { EmployeeMockData } from "../../../restricted/EmployeeList/data/employeeData";
-import { generalWorkflowLogicOptions, GeneralWorkflowStatusOptions } from "../constants/GeneralWorkflowTypeOptions";
-
+import InputFieldProps from '../../../../components/Form/types/InputFieldProps';
+import { EmployeeMockData } from '../../../restricted/EmployeeList/data/employeeData';
+import {
+  generalWorkflowLogicOptions,
+  GeneralWorkflowStatusOptions,
+} from '../constants/GeneralWorkflowTypeOptions';
 
 export const generalInfoFields: InputFieldProps[] = [
   {
@@ -13,22 +15,14 @@ export const generalInfoFields: InputFieldProps[] = [
     label: 'Trạng thái',
     name: 'status',
     type: 'select',
-    options: [
-      ...GeneralWorkflowStatusOptions.map((d) => (
-        {value: d.value, label: d.label}
-      ))
-    ],
+    options: [...GeneralWorkflowStatusOptions.map((d) => ({ value: d.value, label: d.label }))],
     required: false,
   },
   {
     label: 'Logic',
     name: 'workflowLogic',
     type: 'select',
-    options: [
-      ...generalWorkflowLogicOptions.map((d) => (
-        {value: d.value, label: d.label}
-      ))
-    ],
+    options: [...generalWorkflowLogicOptions.map((d) => ({ value: d.value, label: d.label }))],
     required: false,
   },
   {
@@ -37,9 +31,9 @@ export const generalInfoFields: InputFieldProps[] = [
     required: true,
     type: 'tags',
     tags: {
-      suggestions: [...EmployeeMockData.map((e) => ({label: e.id, value: e.id}))],
-      allowNew: false
-    }
+      suggestions: [...EmployeeMockData.map((e) => ({ label: e.id, value: e.id }))],
+      allowNew: false,
+    },
   },
   {
     label: 'Được phê duyệt bởi tên',
@@ -47,9 +41,14 @@ export const generalInfoFields: InputFieldProps[] = [
     required: true,
     type: 'tags',
     tags: {
-      suggestions: [...EmployeeMockData.map((e) => ({label: `${e.firstName} ${e.middleName} ${e.lastName}`, value: `${e.firstName} ${e.middleName} ${e.lastName}`}))],
-      allowNew: false
-    }
+      suggestions: [
+        ...EmployeeMockData.map((e) => ({
+          label: `${e.firstName} ${e.middleName} ${e.lastName}`,
+          value: `${e.firstName} ${e.middleName} ${e.lastName}`,
+        })),
+      ],
+      allowNew: false,
+    },
   },
   {
     label: 'Được phê duyệt bởi chữ ký',
@@ -58,8 +57,8 @@ export const generalInfoFields: InputFieldProps[] = [
     type: 'tags',
     tags: {
       suggestions: [],
-      allowNew: true
-    }
+      allowNew: true,
+    },
   },
   {
     label: 'Được soạn thảo bởi ID',
@@ -67,9 +66,9 @@ export const generalInfoFields: InputFieldProps[] = [
     required: true,
     type: 'tags',
     tags: {
-      suggestions: [...EmployeeMockData.map((e) => ({label: e.id, value: e.id}))],
-      allowNew: false
-    }
+      suggestions: [...EmployeeMockData.map((e) => ({ label: e.id, value: e.id }))],
+      allowNew: false,
+    },
   },
   {
     label: 'Được soạn thảo bởi tên',
@@ -77,9 +76,14 @@ export const generalInfoFields: InputFieldProps[] = [
     required: true,
     type: 'tags',
     tags: {
-      suggestions: [...EmployeeMockData.map((e) => ({label: `${e.firstName} ${e.middleName} ${e.lastName}`, value: `${e.firstName} ${e.middleName} ${e.lastName}`}))],
-      allowNew: false
-    }
+      suggestions: [
+        ...EmployeeMockData.map((e) => ({
+          label: `${e.firstName} ${e.middleName} ${e.lastName}`,
+          value: `${e.firstName} ${e.middleName} ${e.lastName}`,
+        })),
+      ],
+      allowNew: false,
+    },
   },
   {
     label: 'Được soạn thảo bởi chữ ký',
@@ -88,8 +92,8 @@ export const generalInfoFields: InputFieldProps[] = [
     type: 'tags',
     tags: {
       suggestions: [],
-      allowNew: true
-    }
+      allowNew: true,
+    },
   },
   {
     label: 'Hạn ngạch',
@@ -98,7 +102,7 @@ export const generalInfoFields: InputFieldProps[] = [
   },
 ];
 
-export const approvalNodesFields: InputFieldProps[] = [
+export const ApprovalWorkflowNodesFields: InputFieldProps[] = [
   {
     label: 'Tên',
     name: 'name',
@@ -133,11 +137,7 @@ export const approvalNodesFields: InputFieldProps[] = [
     label: 'Trạng thái',
     name: 'approvalStatus',
     type: 'select',
-    options: [
-      ...GeneralWorkflowStatusOptions.map((d) => (
-        {value: d.value, label: d.label}
-      ))
-    ],
+    options: [...GeneralWorkflowStatusOptions.map((d) => ({ value: d.value, label: d.label }))],
     required: false,
   },
   {
@@ -145,6 +145,5 @@ export const approvalNodesFields: InputFieldProps[] = [
     name: 'order',
     type: 'number',
     required: true,
-  }
+  },
 ];
-

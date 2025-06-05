@@ -4,19 +4,19 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
   {
     id: '1',
     mainId: '1',
-    createdAt: "",
-    updatedAt: "",
+    createdAt: '',
+    updatedAt: '',
     name: 'Duyệt Đơn Xin Nghỉ Phép',
     status: 'PENDING',
     workflowLogic: 'SEQUENTIAL',
     approvedByIds: ['2', '3'],
     draftedByIds: ['1'],
-    approvalNodes: [
+    ApprovalWorkflowNodes: [
       {
         id: 'node-001',
         mainId: 'node-001',
-        createdAt: "",
-        updatedAt: "",
+        createdAt: '',
+        updatedAt: '',
         name: 'Techgel nhờ Quân duyệt Đơn xin nghỉ phép',
         senderId: 'u-2001',
         senderName: 'Le Thi B',
@@ -31,8 +31,8 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
       {
         id: 'node-002',
         mainId: 'node-002',
-        createdAt: "",
-        updatedAt: "",
+        createdAt: '',
+        updatedAt: '',
         name: 'Director Approval',
         senderId: 'u-1002',
         senderName: 'Tran Van C',
@@ -47,8 +47,8 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
   {
     id: 'wf-002',
     mainId: '2',
-    createdAt: "",
-    updatedAt: "",
+    createdAt: '',
+    updatedAt: '',
     name: 'Contract Sign-Off',
     status: 'PENDING',
     workflowLogic: 'MAJORITY',
@@ -59,12 +59,12 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
     draftedByIds: ['u-4001'],
     draftedByNames: ['Dang Van G'],
     draftedBySignatures: ['sign-g.png'],
-    approvalNodes: [
+    ApprovalWorkflowNodes: [
       {
         id: 'node-003',
         mainId: 'node-003',
-        createdAt: "",
-        updatedAt: "",
+        createdAt: '',
+        updatedAt: '',
         name: 'Legal Review',
         senderId: 'u-4001',
         senderName: 'Dang Van G',
@@ -77,8 +77,8 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
       {
         id: 'node-004',
         mainId: 'node-004',
-        createdAt: "",
-        updatedAt: "",
+        createdAt: '',
+        updatedAt: '',
         name: 'Finance Review',
         senderId: 'u-4001',
         senderName: 'Dang Van G',
@@ -91,8 +91,8 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
       {
         id: 'node-005',
         mainId: 'node-005',
-        createdAt: "",
-        updatedAt: "",
+        createdAt: '',
+        updatedAt: '',
         name: 'CTO Approval',
         senderId: 'u-4001',
         senderName: 'Dang Van G',

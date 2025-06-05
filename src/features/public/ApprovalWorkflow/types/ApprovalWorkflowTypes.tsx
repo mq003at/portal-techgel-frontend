@@ -14,7 +14,7 @@ export interface ApprovalWorkflow extends BaseDTO {
   draftedByNames?: string[]; //DbGenerated
   draftedBySignatures?: string[];
 
-  approvalNodes: ApprovalWorkflowNode[];
+  ApprovalWorkflowNodes: ApprovalWorkflowNode[];
   quota?: number;
 }
 
