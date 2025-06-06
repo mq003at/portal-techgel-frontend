@@ -3,6 +3,7 @@ import ScrollableServiceSection from '../components/ScrollableServiceSection';
 import ImageWrapper from '../../../../../components/wrapper/ImageWrapper';
 import { allGeneralServices } from '../constants/generalServiceList';
 import IconWrapper from '../../../../../components/Wrapper/IconWrapper';
+import { useDrawer } from '../../../../../ui/DrawerContext';
 
 interface ServiceBarProps {
   isExpanded: boolean;
@@ -11,6 +12,7 @@ interface ServiceBarProps {
 
 export default function ServiceBar({ isExpanded, setIsExpanded }: ServiceBarProps) {
   const navigate = useNavigate();
+  const { toggleDrawer, isDrawerOpen } = useDrawer();
 
   const services = allGeneralServices;
 
@@ -46,7 +48,7 @@ export default function ServiceBar({ isExpanded, setIsExpanded }: ServiceBarProp
       <ExpandCollapseButtonServiceBar
         iconName={isExpanded ? 'turnleft' : 'turnright'}
         title={isExpanded ? 'Mở rộng' : 'Thu gọn'}
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={() => {setIsExpanded(!isExpanded); toggleDrawer()}}
       />
     </div>
   );

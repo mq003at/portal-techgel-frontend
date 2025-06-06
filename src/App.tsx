@@ -12,6 +12,7 @@ import { EmployeeDTO } from "./features/restricted/EmployeeList/DTOs/EmployeeDTO
 import { useGetEmployeesQuery } from "./features/restricted/EmployeeList/api/employeeListApi";
 import { createPhoneBook } from "./features/restricted/EmployeeList/store/EmployeesSlice";
 import { PhoneBookDTO } from "./features/restricted/EmployeeList/DTOs/PhoneBookDTO";
+import { DrawerProvider } from "./ui/DrawerContext";
 
 console.log("DaisyUI version:", (pkg.dependencies as any)["daisyui"]);
 
@@ -68,15 +69,17 @@ function App() {
   }, [dispatch, employees]);
 
   return (
-    <div className="min-h-screen bg-base-200/60">
-      <div>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/main/*" element={<Body />} />
-          <Route path="/pdf-viewer" element={<PDFPage />} />
-        </Routes>
+    <DrawerProvider>
+      <div className="min-h-screen bg-base-200/60">
+        <div>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/main/*" element={<Body />} />
+            <Route path="/pdf-viewer" element={<PDFPage />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </DrawerProvider>
   );
 }
 

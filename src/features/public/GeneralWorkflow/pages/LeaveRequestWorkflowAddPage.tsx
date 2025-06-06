@@ -6,14 +6,11 @@ import { Formik, Form } from 'formik';
 import InputField from '../../../../components/Form/InputField';
 import { toast, ToastContainer } from 'react-toastify';
 import { leaveRequestWorkflowFormInitialValues } from '../DTOs/leaveRequestWorkflowFormInitialValues';
-import GeneralInfoSection from '../forms/sections/GeneralInfoSection';
-import { ApprovalNodesSection } from '../forms/sections/ApprovalNodesSection';
 import {
     LeaveRequestWorkflowTabKey,
     leaveRequestWorkflowTabs,
 } from '../config/GeneralWorkflowTabs';
 import { useCreateLeaveRequestWorkflowMutation } from '../api/LeaveRequestWorkflowApi';
-import { CreateLeaveRequestNodeDTO } from '../DTOs/LeaveRequestNodeDTO';
 import { CreateLeaveRequestWorkflowDTO } from '../DTOs/LeaveRequestWorkflowDTO';
 import { useAppSelector } from '../../../../hooks/reduxHooks';
 
@@ -79,7 +76,7 @@ export function LeaveRequestWorkflowAddPage() {
                 <h2 className="text-xl font-bold">Thêm quy trình</h2>
                 <button
                     className="btn btn-info flex items-center gap-2"
-                    onClick={() => navigate('/main/general-workflow/')}
+                    onClick={() => navigate('/main/leave-request/')}
                 >
                     <FaMinus /> Ngừng thêm quy trình
                 </button>
@@ -117,7 +114,7 @@ export function LeaveRequestWorkflowAddPage() {
                                 type="select-input"
                                 placeholder=""
                                 options={employees?.map((emp) => ({
-                                    label: `${emp.mainId} - ${emp.firstName} ${emp.middleName} ${emp.lastName}`,
+                                    label: `${emp.mainId} - ${emp.firstName} ${emp.middleName} ${emp.lastName} ${user?.id === emp.id ? '(Làm việc online)' : ''}`,
                                     value: emp.id,
                                 }))}
                                 required

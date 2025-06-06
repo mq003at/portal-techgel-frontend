@@ -167,7 +167,7 @@ export default function SignatureManagerImageSignaturePage() {
           
           <div className="w-full aspect-[3/1] bg-gray-50 border border-dashed border-gray-300 rounded-md flex items-center justify-center overflow-hidden">
             <img
-              src={data.fileUrl}
+              src= {`${data.fileUrl}?t=${new Date().getTime()}`}
               alt="Chữ ký của bạn"
               className="h-full object-contain"
             />

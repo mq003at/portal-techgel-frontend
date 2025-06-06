@@ -22,6 +22,7 @@ import { Fragment } from 'react/jsx-runtime';
 import { v4 as uuidv4 } from 'uuid';
 import { Menu, Item, useContextMenu, ItemParams } from 'react-contexify';
 import 'react-contexify/ReactContexify.css';
+import { useDrawer } from '../../../ui/DrawerContext';
 
 interface ContextMenuItem {
   label: string;
@@ -194,6 +195,8 @@ export function ListTable<B, T = undefined>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 5 });
 
+  const { toggleDrawer, isDrawerOpen } = useDrawer();
+
   const { show } = useContextMenu({
     id: MENU_ID,
   });
@@ -308,7 +311,7 @@ export function ListTable<B, T = undefined>({
       </div>
 
       {/* Basic Info Table */}
-      <div className="overflow-x-auto w-[calc(100vw-25em)] rounded-lg border bg-white shadow">
+      <div className={`overflow-x-auto ${isDrawerOpen ? 'w-[calc(100vw-24em)]' : 'w-[calc(100vw-13em)]'} rounded-lg border bg-white shadow`}>
         <table className="table border-separate border-spacing-0 w-full">
           <thead className="bg-gray-100 text-sm font-medium">
             <tr>

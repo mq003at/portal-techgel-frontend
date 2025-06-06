@@ -3,7 +3,7 @@ import { StatusCell } from '../../../Table/components/StatusCell';
 import { ColumnDef } from "@tanstack/react-table";
 import { GeneralWorkflowStatusType } from '../../config/GeneralWorkflowTypes';
 import { Fragment } from 'react/jsx-runtime';
-import { LeaveApprovalCategoryOptions } from '../../constants/LeaveRequestWorkflowOptions';
+import { DayNightOptions, LeaveApprovalCategoryOptions } from '../../constants/LeaveRequestWorkflowOptions';
 
 export interface BasicGeneralWorkflowInfo {
     id: number | undefined;
@@ -85,6 +85,36 @@ export const generalWorkflowBasicColumns: ColumnDef<BasicGeneralWorkflowInfo, an
         },
     },
     {
+        accessorKey: 'startDateDayNightType',
+        header: 'Từ buổi',
+        enableSorting: true,
+        cell: (props) => (
+            <StatusCell getValue={props.getValue} options={DayNightOptions} />
+        ),
+        filterFn: (row, columnId, filterValue) => {
+            return String(row.getValue(columnId)).toLowerCase() === filterValue.toLowerCase();
+        },
+        meta: {
+            filterVariant: 'select',
+            selectOptions: DayNightOptions,
+        },
+    },
+    {
+        accessorKey: 'endDateDayNightType',
+        header: 'Đến buổi',
+        enableSorting: true,
+        cell: (props) => (
+            <StatusCell getValue={props.getValue} options={DayNightOptions} />
+        ),
+        filterFn: (row, columnId, filterValue) => {
+            return String(row.getValue(columnId)).toLowerCase() === filterValue.toLowerCase();
+        },
+        meta: {
+            filterVariant: 'select',
+            selectOptions: DayNightOptions,
+        },
+    },
+    {
         id: 'employeeAnnualLeaveTotalDays',
         accessorKey: 'employeeAnnualLeaveTotalDays',
         header: 'Tổng phép năm',
@@ -107,8 +137,8 @@ export const generalWorkflowBasicColumns: ColumnDef<BasicGeneralWorkflowInfo, an
         },
     },
     {
-        id: 'employeeId',
-        accessorKey: 'employeeId',
+        id: 'employeeMainId',
+        accessorKey: 'employeeMainId',
         header: 'Mã nhân viên',
         enableSorting: true,
     },

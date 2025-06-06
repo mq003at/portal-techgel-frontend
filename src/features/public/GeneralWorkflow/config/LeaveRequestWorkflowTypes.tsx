@@ -26,8 +26,8 @@ export enum LeaveAprrovalCategoryEnum
 
 export enum DayNightEnum
 {
-    Day = 0,
-    Night = 1,
+    Day = 'Day',
+    Night = 'Night',
 }
 
 export type LeaveApprovalStepType = keyof typeof LeaveApprovalStepEnum;

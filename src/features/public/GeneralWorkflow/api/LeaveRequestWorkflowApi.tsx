@@ -41,9 +41,17 @@ export const leaveRequestWorkflowApi = createApi({
             invalidatesTags: (_result, _error, {id}) => [{ type: 'LeaveRequestWorkflow', id}]
         }),
 
-        approveLeaveRequestNode: builder.mutation<string, {id: number; approvedId: number; comment?: string}>({
-            query: ({id, approvedId, comment}) => ({
-                url: `leave-request-nodes/${id}/approve?approverId=${approvedId}`,
+        approveLeaveRequestNode: builder.mutation<string, {id: number; approverId: number; comment?: string}>({
+            query: ({id, approverId, comment}) => ({
+                url: `leave-request-nodes/${id}/approve?approverId=${approverId}`,
+                method: 'PUT',
+            }),
+            invalidatesTags: ['LeaveRequestWorkflow']
+        }),
+
+        rejectLeaveRequestNode: builder.mutation<string, {id: number; approverId: number; comment?: string}>({
+            query: ({id, approverId, comment}) => ({
+                url: `leave-request-nodes/${id}/reject?approverId=${approverId}`,
                 method: 'PUT',
             }),
             invalidatesTags: ['LeaveRequestWorkflow']
@@ -67,4 +75,5 @@ export const {
     useUpdateLeaveRequestWorkflowMutation,
     useDeleteLeaveRequestWorkflowMutation,
     useApproveLeaveRequestNodeMutation,
+    useRejectLeaveRequestNodeMutation,
 } = leaveRequestWorkflowApi;

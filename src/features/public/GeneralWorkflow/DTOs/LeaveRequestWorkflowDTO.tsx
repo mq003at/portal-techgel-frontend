@@ -41,6 +41,9 @@ export interface UpdateBaseWorkflowDTO extends BaseDTO {
 export interface LeaveRequestWorkflowDTO extends BaseWorkflowDTO {
     employeeId: number,
     employeeName: string,
+    employeeMainId: string,
+    startDateDayNightType: string,
+    endDateDayNightType: string,
     reason: string,
     startDate: string,
     endDate: string,

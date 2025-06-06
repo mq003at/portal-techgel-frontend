@@ -19,6 +19,7 @@ import SignatureManagerCreateImageSignaturePage from '../features/public/Signatu
 import LeaveRequestWorkflowViewPage from '../features/public/GeneralWorkflow/pages/LeaveRequestWorkflowViewPage';
 import LeaveRequestWorkflowViewStepsPage from '../features/public/GeneralWorkflow/pages/LeaveRequestWorkflowViewNodesPage';
 import { LeaveRequestWorkflowAddPage } from '../features/public/GeneralWorkflow/pages/LeaveRequestWorkflowAddPage';
+import { NavBarHeader } from '../features/public/NaviBar/ServiceBar/pages/NavBarHeader';
 
 export default function Body() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -29,8 +30,8 @@ export default function Body() {
 
       <div className="flex h-screen">
         <ServiceBar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-        <div className={`flex-1 py-6 bg-base-100 ${isExpanded ? 'ml-80' : 'ml-35'}`}>
-          <AdvancedServiceBar />
+        <div className={`pt-0 flex-1 py-6 bg-base-100 ${isExpanded ? 'ml-80' : 'ml-35'}`}>
+          <NavBarHeader />
           <Routes>
             <Route path="/" element={<Navigate to="/main/general" />} />
 

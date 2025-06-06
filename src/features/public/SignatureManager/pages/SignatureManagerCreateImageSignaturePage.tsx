@@ -73,7 +73,82 @@ function SignatureManagerCreateImageSignaturePage() {
         } finally {
             setSaving(false);
         }
-        };
+    };
+
+    
+    // const handleSave = async () => {
+    //     const svgEl = signatureRef.current?.svg;
+    //     if (!svgEl) return;
+
+    //     setSaving(true);
+
+    //     try {
+    //         // Clone SVG để xử lý
+    //         const clonedSvg = svgEl.cloneNode(true) as SVGSVGElement;
+    //         clonedSvg.removeAttribute('style');
+    //         clonedSvg.style.border = 'none';
+
+    //         const svgString = new XMLSerializer().serializeToString(clonedSvg);
+    //         const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    //         const svgUrl = URL.createObjectURL(svgBlob);
+
+    //         const img = new Image();
+    //         img.crossOrigin = 'anonymous'; // Đề phòng CORS
+    //         img.src = svgUrl;
+
+    //         img.onload = async () => {
+    //             // Lấy kích thước từ viewBox nếu có
+    //             const viewBox = clonedSvg.getAttribute('viewBox');
+    //             let width = 300, height = 100;
+
+    //             if (viewBox) {
+    //                 const [, , w, h] = viewBox.split(' ').map(Number);
+    //                 width = w;
+    //                 height = h;
+    //             } else {
+    //                 width = svgEl.clientWidth || 300;
+    //                 height = svgEl.clientHeight || 100;
+    //             }
+
+    //             const canvas = document.createElement('canvas');
+    //             canvas.width = width;
+    //             canvas.height = height;
+
+    //             const ctx = canvas.getContext('2d');
+    //             if (!ctx) throw new Error('Không thể tạo context cho canvas');
+
+    //             ctx.clearRect(0, 0, width, height);
+    //             ctx.drawImage(img, 0, 0, width, height);
+
+    //             // Chuyển canvas thành PNG
+    //             canvas.toBlob(async (blob) => {
+    //                 if (!blob) throw new Error('Không thể tạo ảnh PNG');
+
+    //                 const pngFile = new File([blob], `signature-${user?.id}.png`, {
+    //                     type: 'image/png',
+    //                 });
+
+    //                 const formData = new FormData();
+    //                 formData.append('EmployeeId', String(user?.id));
+    //                 formData.append('File', pngFile);
+    //                 formData.append('FileName', pngFile.name);
+
+    //                 await createSignature(formData).unwrap();
+    //                 toast.success('Lưu chữ ký thành công!');
+    //                 setSaving(false);
+    //             }, 'image/png');
+    //         };
+
+    //         img.onerror = () => {
+    //             throw new Error('Không thể tải SVG thành hình ảnh');
+    //         };
+    //     } catch (error) {
+    //         console.error(error);
+    //         toast.error('Lỗi khi lưu chữ ký!');
+    //         setSaving(false);
+    //     }
+    // };
+
 
 
     return (
