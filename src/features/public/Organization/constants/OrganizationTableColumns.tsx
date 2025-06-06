@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { OrgEntity } from '../types/OrganizationTypes';
 import { OrganizationEntityTypes, OrganizationStatusOptions } from './OrganizationModelOptions';
-import StatusBadge from '../../../../components/wrapper/BadgeWrapper';
+import {BadgeWrapper} from '../../../../components/Wrapper/BadgeWrapper';
 
 export const organizationTableColumns: ColumnDef<OrgEntity>[] = [
   {
@@ -23,7 +23,7 @@ export const organizationTableColumns: ColumnDef<OrgEntity>[] = [
     cell: (info) => {
       const row = info.row.original;
       const type = OrganizationEntityTypes.find((t) => t.key in row);
-      return <StatusBadge label={type?.label ?? 'Khối'} color={type?.color}></StatusBadge>;
+      return <BadgeWrapper label={type?.label ?? 'Khối'} color={type?.color}></BadgeWrapper>;
     },
   },
   {
@@ -31,7 +31,7 @@ export const organizationTableColumns: ColumnDef<OrgEntity>[] = [
     accessorKey: 'status',
     cell: (info) => {
       const status = OrganizationStatusOptions.find((s) => s.value === info.getValue());
-      return <StatusBadge label={status?.label ?? 'grey'} color={status?.color}></StatusBadge>;
+      return <BadgeWrapper label={status?.label ?? 'grey'} color={status?.color}></BadgeWrapper>;
     },
   },
   {

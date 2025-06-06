@@ -1,5 +1,9 @@
-import { Field, ErrorMessage } from 'formik';
-import { InputFieldProps } from './types/InputFieldProps';
+import { Field, ErrorMessage, useFormikContext } from 'formik';
+import InputFieldProps from './types/InputFieldProps';
+import { TagInput } from './TagInput';
+import { DatetimeInput } from './DatetimeInput';
+import { TextareaInput } from './TextareaInput';
+import { SelectInput } from './SelectInput';
 
 export default function InputField({
   label,
@@ -8,8 +12,20 @@ export default function InputField({
   placeholder,
   required = false,
   options,
+  tags,
+  files,
   disabled,
 }: InputFieldProps) {
+  const { setFieldValue } = useFormikContext();
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.currentTarget.files) {
+      const fileList = Array.from(event.currentTarget.files);
+      setFieldValue(name, fileList);
+    } else {
+      setFieldValue(name, []);
+    }
+  };
+
   return (
     <div className="grid grid-cols-2 gap-4 items-center form-control">
       {/* Label Column */}
@@ -32,6 +48,25 @@ export default function InputField({
               </option>
             ))}
           </Field>
+        ) : type === 'tags' && tags ? (
+          <TagInput name={name} suggestions={tags.suggestions} allowNew={tags.allowNew} />
+        ) : type === 'datetime' ? (
+            <DatetimeInput name={name} required={required} disabled={disabled} />
+        ): type === 'select-input' ? (
+            <SelectInput options={options} name={name} disabled={disabled} placeholder={placeholder} />
+        ) : type === 'file' ? (
+          <input
+            name={name}
+            type={type}
+            multiple={files?.multiple}
+            accept={files?.accept}
+            className="file-input file-input-bordered w-full"
+            onChange={handleFileChange}
+            disabled={disabled}
+          />
+        ) : type === 'textarea' ? (
+          <TextareaInput name={name} placeholder={placeholder} 
+                        disabled={disabled} required={required}/>
         ) : (
           <Field
             name={name}

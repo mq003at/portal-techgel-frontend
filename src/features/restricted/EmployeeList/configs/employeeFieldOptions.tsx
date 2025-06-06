@@ -27,9 +27,9 @@ export const employmentStatusOptions = [
 ];
 
 export const genderOptions = [
-  { value: GenderStatusEnum.MALE, label: 'Nam' },
-  { value: GenderStatusEnum.MALE, label: 'Nữ' },
-  { value: GenderStatusEnum.MALE, label: 'Khác' },
+  { value: GenderStatusEnum.MALE, label: 'Nam', color: 'primary' },
+  { value: GenderStatusEnum.FEMALE, label: 'Nữ', color: 'secondary' },
+  { value: GenderStatusEnum.OTHER, label: 'Khác', color: 'neutral' },
 ];
 
 export const maritalStatusOptions = [

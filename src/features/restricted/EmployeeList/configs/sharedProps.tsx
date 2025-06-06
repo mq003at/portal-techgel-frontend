@@ -1,7 +1,6 @@
-import { InputFieldProps } from '../../../../components/form/types/InputFieldProps';
+import InputFieldProps from '../../../../components/Form/types/InputFieldProps';
 import {
   employmentStatusOptions,
-  genderOptions,
   maritalStatusOptions,
 } from './employeeFieldOptions';
 
@@ -16,50 +15,60 @@ export const personalInfoFields: InputFieldProps[] = [
       { value: 'MALE', label: 'Nam' },
       { value: 'FEMALE', label: 'Nữ' },
     ],
+    required: false,
   },
   {
     label: 'Ngày sinh',
     name: 'dateOfBirth',
     type: 'date',
+    required: true,
   },
   {
     label: 'Tình trạng hôn nhân',
     name: 'maritalStatus',
     type: 'select',
     options: maritalStatusOptions,
+    required: false,
   },
   {
     label: 'Quốc tịch',
     name: 'nationality',
+    required: false,
   },
   {
     label: 'Email cá nhân',
     name: 'personalEmail',
     type: 'email',
     placeholder: 'abc@gmail.com',
+    required: true,
   },
   {
     label: 'Số điện thoại cá nhân',
     name: 'personalPhoneNumber',
     type: 'tel',
+    required: true,
   },
   {
     label: 'Số CMND/CCCD',
     name: 'idCardNumber',
+    required: true,
   },
   {
     label: 'Ngày cấp',
     name: 'idCardIssueDate',
     type: 'date',
+    required: true,
   },
   {
     label: 'Ngày hết hạn',
     name: 'idCardExpiryDate',
     type: 'date',
+    required: true,
   },
   {
     label: 'Địa chỉ',
     name: 'address',
+    required: false,
   },
 ];
 

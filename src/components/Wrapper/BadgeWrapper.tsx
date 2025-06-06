@@ -1,20 +1,17 @@
 import React from 'react';
 
-interface StatusBadgeProps {
+interface BadgeWrapperProps {
   label: string;
   color?: string;
 }
 
-const StatusBadge: React.FC<StatusBadgeProps> = ({ label, color = 'neutral' }) => {
-  console.log('badge', label, color);
+export const BadgeWrapper: React.FC<BadgeWrapperProps> = ({ label, color = 'neutral' }) => {
   return (
     <span
-      className={`badge text-center  badge-${color}`}
-      style={{ height: 'fit-content', width: '-webkit-fill-available' }}
+      className={`badge text-center badge-${color} h-fit`}
+      style={{color: color}}
     >
       {label}
     </span>
   );
 };
-
-export default StatusBadge;

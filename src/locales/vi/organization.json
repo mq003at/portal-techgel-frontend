@@ -1,0 +1,27 @@
+{
+  "organization": {
+    "common": {},
+    "table": {
+        "name": "Tên đối tượng",
+        "description": "Mô tả",
+        "managerId": "ID người quản lý",
+        "managerName": "Tên người quản lý",
+        "createdAt": "Ngày tạo",
+        "updatedAt": "Ngày cập nhật",
+        "status": "Trạng thái",
+        "statusOptions": {
+          "active": "Đang hoạt động",
+          "inactive": "Ngừng hoạt động",
+          "pending": "Đang chờ xử lý",
+          "suspended": "Bị đình chỉ"
+        },
+        "parentId": "ID tổ chức cha",
+        "parentName": "Tên tổ chức cha",
+        "childIds": "ID tổ chức con",
+        "childNames": "Tên tổ chức con",
+        "employeeIds": "ID nhân viên trực thuộc",
+        "employeeNames": "Tên nhân viên trực thuộc",
+        "employeeCount": "Số lượng nhân viên"
+    }
+  }
+}
