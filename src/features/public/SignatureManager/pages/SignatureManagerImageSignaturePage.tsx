@@ -98,7 +98,7 @@
 
 
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useGetSignatureByEmployeeIdQuery } from '../api/SignatureApi';
 import { useAppSelector } from '../../../../hooks/reduxHooks';

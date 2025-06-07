@@ -20,7 +20,7 @@ import { FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router';
 import { Fragment } from 'react/jsx-runtime';
 import { v4 as uuidv4 } from 'uuid';
-import { Menu, Item, useContextMenu, ItemParams } from 'react-contexify';
+import { Menu, Item, useContextMenu } from 'react-contexify';
 import 'react-contexify/ReactContexify.css';
 import { useDrawer } from '../../../ui/DrawerContext';
 
@@ -32,6 +32,7 @@ interface ContextMenuItem {
 interface TableProps<B, T> {
   title: string;
   slug: string;
+  leftHandle?: any,
   contextMenu: ContextMenuItem[];
   basicData: B[];
   basicListColumns: ColumnDef<B, any>[];
@@ -183,6 +184,7 @@ const MENU_ID = 'row-context-menu';
 export function ListTable<B, T = undefined>({
   title,
   slug,
+  leftHandle,
   contextMenu,
   basicData,
   basicListColumns,
@@ -193,9 +195,9 @@ export function ListTable<B, T = undefined>({
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 5 });
+  const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 50 });
 
-  const { toggleDrawer, isDrawerOpen } = useDrawer();
+  const { isDrawerOpen } = useDrawer();
 
   const { show } = useContextMenu({
     id: MENU_ID,
@@ -434,7 +436,7 @@ export function ListTable<B, T = undefined>({
             {table.getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                onClick={() => navigate(`/main/${slug}/${row.original.id}/edit`)}
+                onClick={() => leftHandle ? leftHandle(`${row.original.id}`) : navigate(`/main/${slug}/${row.original.id}/edit`)}
                 onContextMenu={(e) => handleContextMenu(e, row, row.original.id)}
                 className="cursor-pointer group"
               >

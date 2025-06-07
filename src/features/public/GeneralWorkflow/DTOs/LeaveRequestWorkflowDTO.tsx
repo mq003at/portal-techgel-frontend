@@ -1,7 +1,7 @@
 import { BaseDTO } from "../../../../types/DTOs/BaseDTO";
 import { DocumentDTO } from "../../DocumentsManagement/DTOs/DocumentDTO";
 import { GeneralWorkflowStatusType } from "../config/GeneralWorkflowTypes";
-import { LeaveApprovalStepType, LeaveAprrovalCategoryType } from "../config/LeaveRequestWorkflowTypes";
+import { LeaveAprrovalCategoryType } from "../config/LeaveRequestWorkflowTypes";
 import { LeaveRequestNodeDTO } from "./LeaveRequestNodeDTO";
 
 export interface BaseWorkflowDTO extends BaseDTO {

@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Signature from '@uiw/react-signature';
 import { FaMinus, FaUndo, FaDownload, FaSave, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router';
 import { useAppSelector } from '../../../../hooks/reduxHooks';
-import { useCreateSignatureMutation, useDeleteSignatureMutation } from '../api/SignatureApi';
+import { useCreateSignatureMutation } from '../api/SignatureApi';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,7 +15,6 @@ function SignatureManagerCreateImageSignaturePage() {
     const [streamline, setStreamline] = useState(0.5);
     const { user } = useAppSelector((state) => state.auth);
     const [createSignature] = useCreateSignatureMutation();
-    const [deleteSignature] = useDeleteSignatureMutation();
     const navigate = useNavigate();
     const [saving, setSaving] = useState(false);
 

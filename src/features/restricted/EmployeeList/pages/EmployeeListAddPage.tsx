@@ -31,6 +31,9 @@ export function EmployeeListAddPage() {
   };
 
   const handleSubmit = async (formData: CreateEmployeeDTO) => {
+    formData.avatar = `https://ui-avatars.com/api/?name=${
+      formData.middleName ? formData.middleName.trim().split(/\s+/).pop() : ''
+    }+${formData.firstName}&bold=true&background=random`;
     const promise = createEmployee(formData).unwrap();
 
     toast.promise(promise, {

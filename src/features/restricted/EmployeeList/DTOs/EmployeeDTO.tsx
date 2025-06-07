@@ -1,5 +1,5 @@
 import { EmploymentStatus, Gender } from '../../../../types/constants/EmployeeConstants';
-import { BaseCreateDTO, BaseDTO, BaseReadDTO } from '../../../../types/DTOs/BaseDTO';
+import { BaseCreateDTO, BaseReadDTO } from '../../../../types/DTOs/BaseDTO';
 import { MaritalStatus } from '../types/EmployeeTypes';
 
 export interface EmployeeDTO extends BaseReadDTO {
@@ -7,6 +7,7 @@ export interface EmployeeDTO extends BaseReadDTO {
   middleName?: string;
   lastName: string;
   avatar?: string;
+  password?: string;
 
   personalInfo: PersonalInfoDTO;
   companyInfo: CompanyInfoDTO;
@@ -59,9 +60,11 @@ export interface CreateEmployeeDTO extends BaseCreateDTO{
 
 export interface PersonalInfoDTO {
   gender: Gender;
-  address: string;
-  dateOfBirth: string; // ISO string
+  address?: string;
+  dateOfBirth: string;
   maritalStatus: MaritalStatus;
+  birthPlace?: string;
+  ethnicGroup?: string;
   nationality: string;
   personalEmail?: string;
   personalPhoneNumber?: string;
@@ -69,6 +72,7 @@ export interface PersonalInfoDTO {
   idCardNumber?: string;
   idCardExpiryDate?: string;
   idCardIssueDate?: string;
+  idCardIssuePlace?: string;
 }
 
 export interface CompanyInfoDTO {
@@ -81,6 +85,7 @@ export interface CompanyInfoDTO {
   endDate?: string;
   probationStartDate?: string;
   probationEndDate?: string;
+  annualLeaveTotalDays: number;
 }
 
 export interface CareerPathInfoDTO {
@@ -117,6 +122,10 @@ export interface ScheduleInfoDTO {
 }
 
 export interface RoleInfoDTO {
+  // Direct Supervisor
+  supervisorId?: string;
+  supervisorName?: string;
+
   // // Org structure
   organizationEntityIds?: string[];
   organizationEntityNames?: string[];
@@ -128,11 +137,7 @@ export interface RoleInfoDTO {
   // // Special Permission
   groupId?: string[];
 
-  // Direct Supervisor
-  supervisorId?: string;
-  supervisorName?: string;
-
   // Direct Subordinates
-  subordinateIds: string[];
-  subordinateNames: string[];
+  subordinateIds?: string[];
+  subordinateNames?: string[];
 }

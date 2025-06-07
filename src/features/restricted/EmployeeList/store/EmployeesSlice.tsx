@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { EmployeeDTO } from "../DTOs/EmployeeDTO";
 import { PhoneBookDTO } from "../DTOs/PhoneBookDTO";
 
 interface EmployeesState {

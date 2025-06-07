@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useGetEmployeesQuery } from '../../../restricted/EmployeeList/api/employeeListApi';
 import { SwitchBar } from '../../../../components/switchBar.tsx/SwitchBar';
 import { SignatureTabKey, signatureTabs } from '../configs/SignatureTabs';
 import SignatureManagerESignaturePage from './SignatureManagerESignaturePage';
@@ -8,13 +7,10 @@ import SignatureManagerImageSignaturePage from './SignatureManagerImageSignature
 
 export function SignatureManagerPage() {
   const [currentTab, setCurrentTab] = useState<SignatureTabKey>('eSignature');
-  const { data: signatureInfo = [] } = useGetEmployeesQuery();
 
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as SignatureTabKey);
   };
-
-  const handleAddSignature = () => {};
 
   const renderServiceArea = () => {
     switch (currentTab) {

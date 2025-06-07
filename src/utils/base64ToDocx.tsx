@@ -1,6 +1,6 @@
 
 
-export const base64ToDocx = ( base64: string, fileName = 'document.docx') => {
+export const base64ToDocx = ( base64: string) => {
     const byteCharacters = atob(base64);
     const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i));
     const byteArray = new Uint8Array(byteNumbers);

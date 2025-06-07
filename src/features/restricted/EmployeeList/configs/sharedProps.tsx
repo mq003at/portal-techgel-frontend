@@ -1,4 +1,6 @@
 import InputFieldProps from '../../../../components/Form/types/InputFieldProps';
+import { useAppSelector } from '../../../../hooks/reduxHooks';
+import { useGetOrganizationEntitiesQuery } from '../../../public/Organization/api/OrganizationEntityApi';
 import {
   employmentStatusOptions,
   maritalStatusOptions,
@@ -164,13 +166,59 @@ export const scheduleInfoFields: InputFieldProps[] = [
   },
   { label: 'Ca làm việc', name: 'shiftType' },
 ];
-export const roleInfoFields: InputFieldProps[] = [
-  { label: 'Khối (Divisions)', name: 'divisionNames', type: 'text' },
-  { label: 'Phòng (Departments)', name: 'departmentNames', type: 'text' },
-  { label: 'Tổ (Sections)', name: 'sectionNames', type: 'text' },
-  { label: 'Đơn vị (Units)', name: 'unitNames', type: 'text' },
-  { label: 'Nhóm (Teams)', name: 'teamNames', type: 'text' },
-  { label: 'Nhóm phân quyền (Groups)', name: 'groupNames', type: 'text' },
-  { label: 'Quản lý trực tiếp (Managers)', name: 'managerNames', type: 'text' },
-  { label: 'Người dưới quyền (Subordinates)', name: 'subordinateNames', type: 'text' },
-];
+// export const roleInfoFields: InputFieldProps[] = [
+//   { label: 'Đơn vị tổ chức (OrganizationEntities)', name: 'organizationEntityNames', type: 'text'},
+//   { label: 'Nhóm phân quyền (Groups)', name: 'groupNames', type: 'text', disabled: true },
+//   { 
+//     label: 'Quản lý trực tiếp (Supervisor)',
+//     name: 'supervisorName', 
+//     type: 'select-input',
+//     placeholder: "",
+//     required: true,
+//   },
+// ];
+
+
+export const useRoleInfoFields = (): InputFieldProps[] => {
+  const { employees } = useAppSelector((state) => state.phoneBook);
+  const { data: orgEntities, isLoading } = useGetOrganizationEntitiesQuery();
+
+  return [
+    {
+      label: 'Đơn vị tổ chức (OrganizationEntities)',
+      name: 'organizationEntityNames',
+      type: 'select-input',
+      placeholder: "",
+      disabled: isLoading,
+      multiple: true,
+      options: isLoading
+        ? [{ label: 'Đang tải...', value: '' }]
+        : orgEntities?.map((ent) => ({
+            label: ent.name,
+            value: String(ent.id),
+          })) || [],
+    },
+    {
+      label: 'Nhóm phân quyền (Groups)',
+      name: 'groupNames',
+      type: 'text',
+      disabled: true,
+    },
+    {
+      label: 'Quản lý trực tiếp id (Supervisor)',
+      name: 'supervisorId',
+      type: 'select-input',
+      required: true,
+      placeholder: '',
+      options:
+        employees?.map((emp) => ({
+          label: `${emp.mainId} - ${emp.firstName} ${emp.middleName} ${emp.lastName}`,
+          value: emp.id,
+        })) || [],
+    },
+    {
+      label: 'Quản lý trực tiếp name (Supervisor)',
+      name: 'supervisorName',
+    },
+  ]
+};

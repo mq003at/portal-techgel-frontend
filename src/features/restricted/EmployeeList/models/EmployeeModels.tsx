@@ -1,5 +1,5 @@
 import { Gender, EmploymentStatus } from '../../../../types/constants/EmployeeConstants';
-import { BaseModel } from '../../../../types/models/BaseModels';
+import { BaseModel } from '../../../../types/Models/BaseModels';
 
 export interface Employee extends BaseModel {
   userName: string; // same as mainId as string

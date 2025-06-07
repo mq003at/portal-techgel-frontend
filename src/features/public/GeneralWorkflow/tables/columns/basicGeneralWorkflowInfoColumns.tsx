@@ -1,8 +1,6 @@
 import { GeneralWorkflowStatusOptions } from '../../constants/GeneralWorkflowTypeOptions';
 import { StatusCell } from '../../../Table/components/StatusCell';
 import { ColumnDef } from "@tanstack/react-table";
-import { GeneralWorkflowStatusType } from '../../config/GeneralWorkflowTypes';
-import { Fragment } from 'react/jsx-runtime';
 import { DayNightOptions, LeaveApprovalCategoryOptions } from '../../constants/LeaveRequestWorkflowOptions';
 
 export interface BasicGeneralWorkflowInfo {

@@ -29,6 +29,7 @@ export const employeeFormInitialValues: CreateEmployeeDTO = {
     endDate: '',
     probationStartDate: '',
     probationEndDate: '',
+    annualLeaveTotalDays: 0
   },
 
   careerPathInfo: {

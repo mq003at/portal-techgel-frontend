@@ -15,6 +15,7 @@ export default function InputField({
   tags,
   files,
   disabled,
+  multiple,
 }: InputFieldProps) {
   const { setFieldValue } = useFormikContext();
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +54,7 @@ export default function InputField({
         ) : type === 'datetime' ? (
             <DatetimeInput name={name} required={required} disabled={disabled} />
         ): type === 'select-input' ? (
-            <SelectInput options={options} name={name} disabled={disabled} placeholder={placeholder} />
+            <SelectInput options={options} name={name} disabled={disabled} placeholder={placeholder} isMulti={multiple}/>
         ) : type === 'file' ? (
           <input
             name={name}

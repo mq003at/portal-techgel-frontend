@@ -6,6 +6,7 @@ export interface BasicEmployeeInfo {
   middleName?: string;
   firstName: string;
   avatar?: string;
+  password?: string;
 }
 
 export const employeeBasicListColumns: ColumnDef<BasicEmployeeInfo, any>[] = [

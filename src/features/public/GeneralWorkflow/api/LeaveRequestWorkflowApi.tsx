@@ -42,7 +42,7 @@ export const leaveRequestWorkflowApi = createApi({
         }),
 
         approveLeaveRequestNode: builder.mutation<string, {id: number; approverId: number; comment?: string}>({
-            query: ({id, approverId, comment}) => ({
+            query: ({id, approverId}) => ({
                 url: `leave-request-nodes/${id}/approve?approverId=${approverId}`,
                 method: 'PUT',
             }),
@@ -50,7 +50,7 @@ export const leaveRequestWorkflowApi = createApi({
         }),
 
         rejectLeaveRequestNode: builder.mutation<string, {id: number; approverId: number; comment?: string}>({
-            query: ({id, approverId, comment}) => ({
+            query: ({id, approverId}) => ({
                 url: `leave-request-nodes/${id}/reject?approverId=${approverId}`,
                 method: 'PUT',
             }),

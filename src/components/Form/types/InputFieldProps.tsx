@@ -8,4 +8,5 @@ export default interface InputFieldProps {
   tags?: { suggestions: any[]; allowNew: boolean };
   files?: {multiple: boolean, accept: string}
   disabled?: boolean;
+  multiple?: boolean;
 }

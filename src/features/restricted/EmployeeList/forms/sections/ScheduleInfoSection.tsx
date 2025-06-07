@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
-import InputField from '../../../../../components/form/InputField';
 import { scheduleInfoFields } from '../../configs/sharedProps';
 import { CreateEmployeeDTO } from '../../DTOs/EmployeeDTO';
+import InputField from '../../../../../components/Form/InputField';
 
 export default function ScheduleInfoSection() {
   useFormikContext<CreateEmployeeDTO>();

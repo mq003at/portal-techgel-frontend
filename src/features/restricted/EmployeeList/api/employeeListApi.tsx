@@ -9,7 +9,9 @@ export const employeeApi = createApi({
   endpoints: (builder) => ({
     // GET all employees
     getEmployees: builder.query<EmployeeDTO[], void>({
-      query: () => 'employees',
+      query: () => ({
+        url: 'employees',
+      }),
       providesTags: ['Employee'],
     }),
 

@@ -1,6 +1,5 @@
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate } from "react-router";
 import { useState } from "react";
-import { ColumnDef } from "@tanstack/react-table";
 import { ListTable } from "../../Table/listTable";
 import { BasicGeneralWorkflowInfo, generalWorkflowBasicColumns } from "../tables/columns/basicGeneralWorkflowInfoColumns";
 import { FaPlus } from "react-icons/fa";
@@ -8,12 +7,11 @@ import { SwitchBar } from "../../../../components/switchBar.tsx/SwitchBar";
 import { ItemParams } from "react-contexify";
 import { useGetLeaveRequestWorkflowsQuery } from "../api/LeaveRequestWorkflowApi";
 import { LeaveRequestWorkflowDTO } from "../DTOs/LeaveRequestWorkflowDTO";
-import { LeaveRequestWorkflowTabKey, leaveRequestWorkflowTabs, TabToDTOMap } from "../config/GeneralWorkflowTabs";
+import { LeaveRequestWorkflowTabKey, leaveRequestWorkflowTabs } from "../config/GeneralWorkflowTabs";
 
 
 export default function LeaveRequestWorkflowViewPage() {
     const [currentTab, setCurrentTab] = useState<LeaveRequestWorkflowTabKey>('');
-    const [searchParams] = useSearchParams();
 
     const { data: leaveRequestWorkflows = [], isLoading, isFetching } = useGetLeaveRequestWorkflowsQuery();
 
@@ -31,11 +29,23 @@ export default function LeaveRequestWorkflowViewPage() {
         navigate(`/main/leave-request/${props.id}/nodes`);
     }
 
+    const leftHandle = (id: number) => {
+        navigate(`/main/leave-request/${id}/nodes`);
+    }
+
     function renderNestedTable<T extends LeaveRequestWorkflowTabKey>(tabKey: T, leaveRequestWorkflows: LeaveRequestWorkflowDTO[], title: string){
         // const nestedData = leaveRequestWorkflows.map((g) => g[tabKey]) as TabToDTOMap[T][];
         // const columns = generalWorkflowColumnMap[tabKey] as ColumnDef<TabToDTOMap[T], any>[];
+        tabKey;
 
-        const basicData = leaveRequestWorkflows.map((g) => ({
+        const basicData = leaveRequestWorkflows
+        .slice()
+        .sort((a, b) => {
+            if (a.status.toUpperCase() === 'PENDING' && b.status.toUpperCase() !== 'PENDING') return -1;
+            if (a.status.toUpperCase() !== 'PENDING' && b.status.toUpperCase() === 'PENDING') return 1;
+            return 0;
+        })
+        .map((g) => ({
             id: g.id,
             mainId: g.mainId,
             name: g.name,
@@ -51,7 +61,7 @@ export default function LeaveRequestWorkflowViewPage() {
             endDate: g.endDate,
             employeeAnnualLeaveTotalDays: g.employeeAnnualLeaveTotalDays,
             leaveApprovalCategory: g.leaveAprrovalCategory,
-        }));
+        }))
 
         const contextMenu = [
             {label: 'Xem thứ tự quy trình', handle: handleViewApprovalNode}
@@ -61,6 +71,7 @@ export default function LeaveRequestWorkflowViewPage() {
             <ListTable<BasicGeneralWorkflowInfo>
                 title={`Bảng ${title}`}
                 slug={`leave-requests`}
+                leftHandle={leftHandle}
                 contextMenu={contextMenu}
                 basicData={basicData}
                 basicListColumns={generalWorkflowBasicColumns}
