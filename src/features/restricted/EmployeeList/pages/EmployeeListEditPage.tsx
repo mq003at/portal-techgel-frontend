@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik';
 import { EmployeeDTO, UpdateEmployeeDTO } from '../DTOs/EmployeeDTO';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useParams, useNavigate } from 'react-router';
 import { SwitchBar } from '../../../../components/switchBar.tsx/SwitchBar';
@@ -16,18 +16,16 @@ import ScheduleInfoSection from '../forms/sections/ScheduleInfoSection';
 import TaxInfoSection from '../forms/sections/TaxInfoSection';
 import InputField from '../../../../components/Form/InputField';
 import { toast, ToastContainer } from 'react-toastify';
-import { fetchEmployeeById, updateEmployee } from '../handlers/employeeService';
+import { formatDateValues } from '../../../../utils/formatDateValues';
 
 export function EmployeeListEditPage() {
   const { id = '' } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState<EmployeeTabKey>('personalInfo');
-  const [loading, setLoading] = useState(true);
-  const [updating, setUpdating] = useState(true);
-  const [isError, setError] = useState<string | null>(null);
-  const [isEmployee, setEmployee] = useState<EmployeeDTO>();
   const { data: employee, isLoading } = useGetEmployeeByIdQuery(id ?? '');
-  const [updateEmployee, { isLoading: isUpdating, isError: isUpdateError, error: updateError, isSuccess: isUpdateSuccess }] = useUpdateEmployeeMutation();
+  const [updateEmployee, { isLoading: isUpdating, }] = useUpdateEmployeeMutation();
+
+
 
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as EmployeeTabKey);
@@ -98,7 +96,7 @@ export function EmployeeListEditPage() {
 
       <SwitchBar tabs={employeeTabs} onTabChange={handleTabChange} initialTab={currentTab} />
 
-      <Formik<EmployeeDTO> initialValues={employee} onSubmit={handleSubmit} enableReinitialize>
+      <Formik<EmployeeDTO> initialValues={formatDateValues(employee)} onSubmit={handleSubmit} enableReinitialize>
         <Form className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <InputField name="mainId" label="Mã nhân viên" required disabled />

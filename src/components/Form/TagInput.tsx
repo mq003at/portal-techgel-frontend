@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { ReactTags, Tag } from 'react-tag-autocomplete';
 import TagsInputFieldProps from './types/TagInputFieldProps';
 import 'react-tag-autocomplete/example/src/styles.css';

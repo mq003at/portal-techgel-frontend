@@ -2,7 +2,7 @@ import { ApprovalWorkflow } from '../types/ApprovalWorkflowTypes';
 
 export const approvalWorkflowMockData: ApprovalWorkflow[] = [
   {
-    id: '1',
+    id: 1,
     mainId: '1',
     createdAt: "",
     updatedAt: "",
@@ -13,7 +13,7 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
     draftedByIds: ['1'],
     approvalNodes: [
       {
-        id: 'node-001',
+        id: 1,
         mainId: 'node-001',
         createdAt: "",
         updatedAt: "",
@@ -29,7 +29,7 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
         order: 1,
       },
       {
-        id: 'node-002',
+        id: 2,
         mainId: 'node-002',
         createdAt: "",
         updatedAt: "",
@@ -45,7 +45,7 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
     ],
   },
   {
-    id: 'wf-002',
+    id: 2,
     mainId: '2',
     createdAt: "",
     updatedAt: "",
@@ -61,8 +61,8 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
     draftedBySignatures: ['sign-g.png'],
     approvalNodes: [
       {
-        id: 'node-003',
-        mainId: 'node-003',
+        id: 1,
+        mainId: 'node-001',
         createdAt: "",
         updatedAt: "",
         name: 'Legal Review',
@@ -75,8 +75,8 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
         approvalComment: 'Reviewed from legal perspective.',
       },
       {
-        id: 'node-004',
-        mainId: 'node-004',
+        id: 2,
+        mainId: 'node-002',
         createdAt: "",
         updatedAt: "",
         name: 'Finance Review',
@@ -89,8 +89,8 @@ export const approvalWorkflowMockData: ApprovalWorkflow[] = [
         approvalComment: 'Budget aligned.',
       },
       {
-        id: 'node-005',
-        mainId: 'node-005',
+        id: 3,
+        mainId: 'node-003',
         createdAt: "",
         updatedAt: "",
         name: 'CTO Approval',

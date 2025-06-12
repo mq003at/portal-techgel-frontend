@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import LoginBox from "../components/LoginBox";
-import ImageWrapper from "../../../../components/wrapper/ImageWrapper";
+import ImageWrapper from "../../../../components/Wrapper/ImageWrapper";
 
 
 const backgrounds = [

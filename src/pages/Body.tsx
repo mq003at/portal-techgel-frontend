@@ -19,6 +19,8 @@ import LeaveRequestWorkflowViewPage from '../features/public/GeneralWorkflow/pag
 import LeaveRequestWorkflowViewStepsPage from '../features/public/GeneralWorkflow/pages/LeaveRequestWorkflowViewNodesPage';
 import { LeaveRequestWorkflowAddPage } from '../features/public/GeneralWorkflow/pages/LeaveRequestWorkflowAddPage';
 import { NavBarHeader } from '../features/public/NaviBar/ServiceBar/pages/NavBarHeader';
+import MeetingRoomCalendar from '../features/public/BookMeetingRoom/pages/BookMeetingRoomViewPage';
+import BookVehicleCalendar from '../features/public/BookVehicle/pages/BookVehicleViewPage';
 
 export default function Body() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -57,6 +59,9 @@ export default function Body() {
             <Route path="/leave-request" element={<LeaveRequestWorkflowViewPage />} />
             <Route path="/leave-request/add" element={<LeaveRequestWorkflowAddPage />} />
             <Route path="/leave-request/:id/nodes" element={<LeaveRequestWorkflowViewStepsPage />} />
+
+            <Route path="/book-meeting-room" element={<MeetingRoomCalendar />} />
+            <Route path="/book-vehicle" element={<BookVehicleCalendar />} />
 
             <Route path="*" element={<Navigate to="/main/general" />} />
           </Routes>

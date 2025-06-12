@@ -12,6 +12,7 @@ import GeneralDocumentInfoSection from '../forms/sections/GeneralDocumentInfoSec
 import LegalDocumentInfoSection from '../forms/sections/LegalDocumentInfoSection';
 import SecurityInfoSection from '../forms/sections/SecurityDocumentInfoSection';
 import AdditionalInfoSection from '../forms/sections/AdditionalInfoSection';
+import { formatDateValues } from '../../../../utils/formatDateValues';
 
 export function DocumentsManagementEditPage() {
   const { id = '' } = useParams<{ id: string }>();
@@ -19,7 +20,7 @@ export function DocumentsManagementEditPage() {
   const [currentTab, setCurrentTab] = useState<DocumentTabKey>('generalDocumentInfo');
 
   const { data: document, isLoading } = useGetDocumentByIdQuery(id ?? '');
-  const [updateDocument, { isLoading: isUpdating, isError: isUpdateError, error: updateError, isSuccess: isUpdateSuccess }] = useUpdateDocumentMutation();
+  const [updateDocument, { isLoading: isUpdating }] = useUpdateDocumentMutation();
 
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as DocumentTabKey);
@@ -82,7 +83,7 @@ export function DocumentsManagementEditPage() {
 
       <SwitchBar tabs={documentTabs} onTabChange={handleTabChange} initialTab={currentTab} />
 
-      <Formik<DocumentDTO> initialValues={document} onSubmit={handleSubmit} enableReinitialize>
+      <Formik<DocumentDTO> initialValues={formatDateValues(document)} onSubmit={handleSubmit} enableReinitialize>
         <Form className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
             <InputField name="mainId" label="Mã tài liệu" required disabled />

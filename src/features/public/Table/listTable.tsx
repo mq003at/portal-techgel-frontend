@@ -2,6 +2,8 @@ import {
   Column,
   ColumnDef,
   ColumnFiltersState,
+  ColumnResizeDirection,
+  ColumnResizeMode,
   flexRender,
   getCoreRowModel,
   getFacetedMinMaxValues,
@@ -196,6 +198,8 @@ export function ListTable<B, T = undefined>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 50 });
+  const [columnResizeMode, ] = useState<ColumnResizeMode>('onChange');
+  const [columnResizeDirection, ] = useState<ColumnResizeDirection>('ltr');
 
   const { isDrawerOpen } = useDrawer();
 
@@ -253,6 +257,8 @@ export function ListTable<B, T = undefined>({
     const table = useReactTable({
       data: combinedData,
       columns: combinedColumns,
+      columnResizeMode,
+      columnResizeDirection,
       getCoreRowModel: getCoreRowModel(),
       getSortedRowModel: getSortedRowModel(),
       getFilteredRowModel: getFilteredRowModel(),
@@ -398,6 +404,33 @@ export function ListTable<B, T = undefined>({
                           <Filter column={h.column} />
                         </div>
                       )}
+
+                      <div 
+                        {...{
+                          onDoubleClick: () => h.column.resetSize(),
+                          onMouseDown: h.getResizeHandler(),
+                          onTouchStart: h.getResizeHandler(),
+                          className: `resizer ${
+                            table.options.columnResizeDirection
+                          } ${
+                            h.column.getIsResizing() ? 'isResizing' : ''
+                          }`,
+                          style: {
+                            transform:
+                              columnResizeMode === 'onEnd' &&
+                              h.column.getIsResizing()
+                                ? `translateX(${
+                                    (table.options.columnResizeDirection ===
+                                    'rtl'
+                                      ? -1
+                                      : 1) *
+                                    (table.getState().columnSizingInfo
+                                      .deltaOffset ?? 0)
+                                  }px)`
+                                : '',
+                          },
+                        }}
+                      />
                     </th>
                   ))}
                 </Fragment>

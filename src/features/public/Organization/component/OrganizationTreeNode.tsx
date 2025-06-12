@@ -1,4 +1,4 @@
-import { OrganizationEntityDTO } from '../DTOs/OrganizationEntityDTO';
+import { OrganizationEntitySummaryDTO } from '../DTOs/OrganizationEntityDTO';
 import OrganizationTreeNodeUI from './OrganizationTreeNodeUI';
 
 export function OrganizationTreeNode({
@@ -6,9 +6,9 @@ export function OrganizationTreeNode({
   level,
   onSelect,
 }: {
-  entity: OrganizationEntityDTO;
+  entity: OrganizationEntitySummaryDTO;
   level: number;
-  onSelect: (e: OrganizationEntityDTO) => void;
+  onSelect: (e: OrganizationEntitySummaryDTO) => void;
 }) {
   return (
     <OrganizationTreeNodeUI label={entity.name} level={level} onClick={() => onSelect(entity)}>

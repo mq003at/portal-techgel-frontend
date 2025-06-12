@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import ImageWrapper from '../../../../components/wrapper/ImageWrapper';
+import ImageWrapper from '../../../../components/Wrapper/ImageWrapper';
 
 export default function SignatureManagerEmailSignaturePage() {
   const containerRef = useRef<HTMLDivElement>(null);

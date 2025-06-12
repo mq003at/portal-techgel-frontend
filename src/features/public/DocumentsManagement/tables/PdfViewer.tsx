@@ -205,14 +205,14 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@3.11.174/
 
 export function PDFPage() {
     const [searchParams] = useSearchParams();
-    const [fileUrl, setFileUrl] = useState<string>(searchParams.get('file') || '');
+    const [fileUrl, ] = useState<string>(searchParams.get('file') || '');
     const [pdfDoc, setPdfDoc] = useState<pdfjsLib.PDFDocumentProxy | null>(null);
     const [numPages, setNumPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageInput, setPageInput] = useState(currentPage);
     const [canvasSize, setCanvasSize] = useState<{ width: number; height: number } | null>(null);
     const [signatureImage, setSignatureImage] = useState<File | null>(null);
-    const [signedPdfUrl, setSignedPdfUrl] = useState<string | null>(null);
+    const [, setSignedPdfUrl] = useState<string | null>(null);
     const [signatureRect, setSignatureRect] = useState<{
         x: number;
         y: number;
@@ -347,10 +347,10 @@ export function PDFPage() {
                     <Rnd
                         size={{ width: signatureRect.width, height: signatureRect.height }}
                         position={{ x: signatureRect.x, y: signatureRect.y }}
-                        onDragStop={(e, d) => {
+                        onDragStop={(_, d) => {
                             setSignatureRect(prev => prev && { ...prev, x: d.x, y: d.y });
                         }}
-                        onResizeStop={(e, direction, ref, delta, position) => {
+                        onResizeStop={(_, __, ref, ___, position) => {
                             setSignatureRect({
                                 x: position.x,
                                 y: position.y,

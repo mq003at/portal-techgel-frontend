@@ -2,7 +2,7 @@ import { useField } from "formik";
 import TextareaInputFieldProps from "./types/TextareaInputFieldProps";
 
 export const TextareaInput = ({name, required, placeholder, disabled}: TextareaInputFieldProps) => {
-    const [field, meta, helpers] = useField(name);
+    const [field, meta, ] = useField(name);
 
     return(
         <div className="w-full">

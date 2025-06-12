@@ -207,7 +207,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
 
             return (
                 <>
-                    {values.map((value, index) => (
+                    {values.map((value, _) => (
                         <Fragment key={uuidv4()}>
                             <StatusCell getValue={() => value}/> 
                             &nbsp;
@@ -230,7 +230,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
 
             return (
                 <>
-                    {values.map((value, index) => (
+                    {values.map((value, _) => (
                         <Fragment key={uuidv4()}>
                             <StatusCell getValue={() => value}/> 
                             &nbsp;
@@ -254,7 +254,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
 
             return (
                 <>
-                    {values.map((value, index) => (
+                    {values.map((value, _) => (
                         <Fragment key={uuidv4()}>
                             <StatusCell getValue={() => value}/> 
                             &nbsp;
@@ -278,7 +278,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
 
             return (
                 <>
-                    {values.map((value, index) => (
+                    {values.map((value, _) => (
                         <Fragment key={uuidv4()}>
                             <StatusCell getValue={() => value}/> 
                             &nbsp;
@@ -302,7 +302,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
 
             return (
                 <>
-                    {values.map((value, index) => (
+                    {values.map((value, _) => (
                         <Fragment key={uuidv4()}>
                             <StatusCell getValue={() => value}/> 
                             &nbsp;
@@ -325,7 +325,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
 
             return (
                 <>
-                    {values.map((value, index) => (
+                    {values.map((value, _) => (
                         <Fragment key={uuidv4()}>
                             <StatusCell getValue={() => value}/> 
                             &nbsp;
@@ -348,7 +348,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
 
             return (
                 <>
-                    {values.map((value, index) => (
+                    {values.map((value, _) => (
                         <Fragment key={uuidv4()}>
                             <StatusCell getValue={() => value}/> 
                             &nbsp;
@@ -371,7 +371,7 @@ export const legalDocumentInfoColumns: TableColumnDef<LegalDocumentInfo>[] = [
 
             return (
                 <>
-                    {values.map((value, index) => (
+                    {values.map((value, _) => (
                         <Fragment key={uuidv4()}>
                             <StatusCell getValue={() => value}/> 
                             &nbsp;

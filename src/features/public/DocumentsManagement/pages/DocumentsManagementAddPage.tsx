@@ -19,7 +19,7 @@ export function DocumentsManagementAddPage() {
   const navigate = useNavigate();
 
   const [createDocumentMetadata] = useCreateDocumentMetadataMutation();
-  const [createDocument, { isLoading, isError, error, isSuccess }] = useCreateDocumentMutation();
+  const [createDocument, { isLoading }] = useCreateDocumentMutation();
 
   const handleTabChange = (tabName: string) => {
     setCurrentTab(tabName as DocumentTabKey);
@@ -128,7 +128,7 @@ export function DocumentsManagementAddPage() {
         initialValues={documentFormInitialValues} 
         // validationSchema={documentFormValidationSchema}
         onSubmit={handleSubmit}>
-        {(formik) => (
+        {() => (
           <Form className="space-y-6"
             onKeyDown={(e) => {
               if (

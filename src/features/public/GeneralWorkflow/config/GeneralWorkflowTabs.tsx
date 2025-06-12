@@ -1,5 +1,3 @@
-import { ApprovalWorkflowNode, GeneralInfo } from "../DTOs/GeneralWorkflowDTO";
-import { LeaveGeneralInfo } from "../DTOs/LeaveRequestWorkflowDTO";
 
 // export type GeneralWorkflowTabKey = 
 //     | 'generalInfo'
@@ -26,10 +24,6 @@ export type LeaveRequestWorkflowTabKey =
 export interface LeaveRequestWorkflowTab<T extends LeaveRequestWorkflowTabKey = LeaveRequestWorkflowTabKey> {
     name: T;
     label: string;
-}
-
-export interface TabToDTOMap {
-    generalInfo: LeaveGeneralInfo,
 }
 
 export const leaveRequestWorkflowTabs: LeaveRequestWorkflowTab[] = [

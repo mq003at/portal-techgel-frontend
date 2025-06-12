@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import InputField from '../../../../../components/form/InputField';
+import InputField from '../../../../../components/Form/InputField';
 import { taxInfoFields } from '../../configs/sharedProps';
 import { CreateEmployeeDTO } from '../../DTOs/EmployeeDTO';
 

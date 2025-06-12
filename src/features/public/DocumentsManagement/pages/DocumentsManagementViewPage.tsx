@@ -1,6 +1,6 @@
-import { useNavigate, useParams, useSearchParams } from "react-router";
-import { useGetDocumentsByCateQuery, useGetDocumentsQuery } from "../api/documentApi";
-import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router";
+import { useGetDocumentsByCateQuery } from "../api/documentApi";
+import { useState } from "react";
 import { DocumentTabKey, documentTabs, TabToDTOMap } from "../configs/documentTabs";
 import { DocumentDTO } from "../DTOs/DocumentDTO";
 import { documentColumnMap } from "../tables/tableTypes";
@@ -34,6 +34,7 @@ export default function DocumentsManagementViewPage(){
     };
     const handleViewPdf = ({ props }: ItemParams) => {
       const url = 'https://pdf-lib.js.org/assets/with_cropbox.pdf'
+      console.log(props);
       window.open(`/pdf-viewer?file=${url}`, '_blank');
     };
 
@@ -41,8 +42,8 @@ export default function DocumentsManagementViewPage(){
         const nestedData = documents.map((d) => d[tabKey]) as TabToDTOMap[T][];
         const columns = documentColumnMap[tabKey] as ColumnDef<TabToDTOMap[T], any>[];
 
-        const basicData = documents.map((d) => ({
-            id: d.id,
+        const basicData: BasicDocumentInfo[] = documents.map((d) => ({
+            id: String(d.id),
             mainId: d.mainId
         }));
 

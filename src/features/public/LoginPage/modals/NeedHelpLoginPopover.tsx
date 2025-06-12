@@ -1,4 +1,4 @@
-import ImageWrapper from "../../../../components/wrapper/ImageWrapper";
+import ImageWrapper from "../../../../components/Wrapper/ImageWrapper";
 
 interface NeedHelpLoginPopoverProps {
   onClose: () => void;

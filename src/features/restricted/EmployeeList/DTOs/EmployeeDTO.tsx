@@ -61,7 +61,7 @@ export interface CreateEmployeeDTO extends BaseCreateDTO{
 export interface PersonalInfoDTO {
   gender: Gender;
   address?: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   maritalStatus: MaritalStatus;
   birthPlace?: string;
   ethnicGroup?: string;
@@ -70,8 +70,8 @@ export interface PersonalInfoDTO {
   personalPhoneNumber?: string;
 
   idCardNumber?: string;
-  idCardExpiryDate?: string;
-  idCardIssueDate?: string;
+  idCardExpiryDate?: Date;
+  idCardIssueDate?: Date;
   idCardIssuePlace?: string;
 }
 
@@ -81,10 +81,10 @@ export interface CompanyInfoDTO {
   employmentStatus: EmploymentStatus;
   position?: string;
   department?: string;
-  startDate?: string; // ISO
-  endDate?: string;
-  probationStartDate?: string;
-  probationEndDate?: string;
+  startDate?: Date; // ISO
+  endDate?: Date;
+  probationStartDate?: Date;
+  probationEndDate?: Date;
   annualLeaveTotalDays: number;
 }
 
@@ -103,8 +103,8 @@ export interface TaxInfoDTO {
 export interface InsuranceInfoDTO {
   insuranceNumber?: string;
   provider?: string;
-  effectiveDate?: string;
-  expiryDate?: string;
+  effectiveDate?: Date;
+  expiryDate?: Date;
 }
 
 export interface EmergencyContactInfoDTO {
@@ -123,7 +123,7 @@ export interface ScheduleInfoDTO {
 
 export interface RoleInfoDTO {
   // Direct Supervisor
-  supervisorId?: string;
+  supervisorId?: number;
   supervisorName?: string;
 
   // // Org structure

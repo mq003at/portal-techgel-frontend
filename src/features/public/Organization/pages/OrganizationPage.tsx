@@ -1,43 +1,40 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import OrganizationViewPage from './OrganizationViewPage';
-import { useNavigate, Routes, Route } from 'react-router';
 // import AddOrEditOrganizationEntityPage from './AddOrEditOrganizationEntityPage';
-import { FaPlus } from 'react-icons/fa';
-import { useCreateOrganizationEntityMutation, useGetOrganizationEntitiesQuery } from '../api/OrganizationEntityApi';
-import { CreateOrganizationEntityDTO, UpdateOrganizationEntityDTO } from '../DTOs/OrganizationEntityDTO';
-import { toast } from 'react-toastify';
-import { useAppSelector } from '../../../../hooks/reduxHooks';
-import { useGetEmployeesQuery } from '../../../restricted/EmployeeList/api/employeeListApi';
+// import { useCreateOrganizationEntityMutation } from '../api/OrganizationEntityApi';
+// import { CreateOrganizationEntityDTO } from '../DTOs/OrganizationEntityDTO';
+// import { toast } from 'react-toastify';
+// import { useAppSelector } from '../../../../hooks/reduxHooks';
 
 export default function OrganizationPage() {
   const addModalRef = useRef<HTMLDialogElement>(null);
-  const [createOrganizationEntity] = useCreateOrganizationEntityMutation();
-  const organizationEntityselected = useAppSelector((state) => state.selectedOrganizationEntity.selected);
+  // const [createOrganizationEntity] = useCreateOrganizationEntityMutation();
+  // const organizationEntityselected = useAppSelector((state) => state.selectedOrganizationEntity.selected);
 
-  const openAddModal = () => addModalRef.current?.showModal();
+  // const openAddModal = () => addModalRef.current?.showModal();
 
-  const handleAdd = async (formData: CreateOrganizationEntityDTO) => {
-    formData.level = (organizationEntityselected && 'level' in organizationEntityselected) ? organizationEntityselected.level + 1 : 1;
-    formData.parentId = (organizationEntityselected && 'parentId' in organizationEntityselected) ? organizationEntityselected?.id?.toString() : "";
+  // const handleAdd = async (formData: CreateOrganizationEntityDTO) => {
+  //   formData.level = (organizationEntityselected && 'level' in organizationEntityselected) ? organizationEntityselected.level + 1 : 1;
+  //   formData.parentId = (organizationEntityselected && 'parentId' in organizationEntityselected) ? organizationEntityselected?.id?.toString() : "";
 
-    formData.managerId === "" ? delete formData.managerId : undefined;
-    formData.parentId === "" ? delete formData.parentId : undefined;
+  //   formData.managerId === "" ? delete formData.managerId : undefined;
+  //   formData.parentId === "" ? delete formData.parentId : undefined;
 
-    const promise = createOrganizationEntity(formData).unwrap();
+  //   const promise = createOrganizationEntity(formData).unwrap();
 
-    toast.promise(promise, {
-      pending: 'Đang tạo đơn vị...',
-      success: 'Tạo đơn vị thành công!',
-      error: 'Tạo đơn vị thất bại. Vui lòng thử lại!',
-    });
+  //   toast.promise(promise, {
+  //     pending: 'Đang tạo đơn vị...',
+  //     success: 'Tạo đơn vị thành công!',
+  //     error: 'Tạo đơn vị thất bại. Vui lòng thử lại!',
+  //   });
 
-    try {
-      await promise;
-      addModalRef.current?.close();
-    } catch (err) {
-      console.error('Failed to create Organization:', err);
-    }
-  };
+  //   try {
+  //     await promise;
+  //     addModalRef.current?.close();
+  //   } catch (err) {
+  //     console.error('Failed to create Organization:', err);
+  //   }
+  // };
 
   return (
     <div className="p-4 space-y-4">

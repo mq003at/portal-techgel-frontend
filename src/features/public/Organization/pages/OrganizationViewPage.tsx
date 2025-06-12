@@ -1,5 +1,4 @@
 // import OrganizationDetail from '../component/OrganizationTable/OrganizationDetail';
-import { useState } from 'react';
 import OrganizationTree from '../component/OrganizationTree';
 import OrganizationDetails from './OrganizationDetails';
 

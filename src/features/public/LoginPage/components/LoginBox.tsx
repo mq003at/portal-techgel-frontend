@@ -2,16 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import NeedHelpLoginPopover from "../modals/NeedHelpLoginPopover";
 import { useAppDispatch } from "../../../../hooks/reduxHooks";
-import { useGetEmployeeByIdQuery, useGetEmployeesQuery, useLoginMutation } from "../../../restricted/EmployeeList/api/employeeListApi";
+import { useLoginMutation } from "../../../restricted/EmployeeList/api/employeeListApi";
 import { loginSuccess } from "../../Organization/store/loginSlice";
-import { createPhoneBook } from "../../../restricted/EmployeeList/store/EmployeesSlice";
-import { EmployeeDTO } from "../../../restricted/EmployeeList/DTOs/EmployeeDTO";
-import { PhoneBookDTO } from "../../../restricted/EmployeeList/DTOs/PhoneBookDTO";
 
-const techgelTester = {
-  mainId: "techgel-test",
-  password: "Techgel.com",
-};
+// const techgelTester = {
+//   mainId: "techgel-test",
+//   password: "Techgel.com",
+// };
 
 export default function LoginBox() {
   const [showHelp, setShowHelp] = useState<boolean>(false);

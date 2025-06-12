@@ -1,5 +1,5 @@
-import IconWrapper from '../../../../../components/wrapper/IconWrapper';
-import { ServiceGroup } from '../../../../../types/models/Service/ServiceModal';
+import IconWrapper from '../../../../../components/Wrapper/IconWrapper';
+import { ServiceGroup } from '../../../../../types/Models/Service/ServiceModal';
 
 export const advancedServicesList: ServiceGroup[] = [
   {

@@ -1,4 +1,4 @@
-import { CreateEmployeeDTO, EmployeeDTO } from './EmployeeDTO';
+import { CreateEmployeeDTO } from './EmployeeDTO';
 
 export const employeeFormInitialValues: CreateEmployeeDTO = {
   mainId: '',
@@ -9,14 +9,16 @@ export const employeeFormInitialValues: CreateEmployeeDTO = {
   personalInfo: {
     gender: 'OTHER',
     address: '',
-    dateOfBirth: '',
+    dateOfBirth: new Date(),
     maritalStatus: 'SINGLE',
+    birthPlace: '',
+    ethnicGroup: '',
     nationality: '',
     personalEmail: '',
     personalPhoneNumber: '',
     idCardNumber: '',
-    idCardExpiryDate: '',
-    idCardIssueDate: '',
+    idCardExpiryDate: new Date(),
+    idCardIssueDate: new Date(),
   },
 
   companyInfo: {
@@ -25,10 +27,10 @@ export const employeeFormInitialValues: CreateEmployeeDTO = {
     employmentStatus: 'INACTIVE',
     position: '',
     department: '',
-    startDate: '',
-    endDate: '',
-    probationStartDate: '',
-    probationEndDate: '',
+    startDate: new Date(),
+    endDate: new Date(),
+    probationStartDate: new Date(),
+    probationEndDate: new Date(),
     annualLeaveTotalDays: 0
   },
 
@@ -47,8 +49,8 @@ export const employeeFormInitialValues: CreateEmployeeDTO = {
   insuranceInfo: {
     insuranceNumber: '',
     provider: '',
-    effectiveDate: '',
-    expiryDate: '',
+    effectiveDate: new Date(),
+    expiryDate: new Date(),
   },
 
   emergencyContactInfo: {

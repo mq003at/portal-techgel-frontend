@@ -1,25 +1,25 @@
-import { http, HttpResponse } from 'msw';
-import { EmployeeMockData } from '../data/employeeData';
-import { EmployeeDTO, CreateEmployeeDTO, UpdateEmployeeDTO } from '../DTOs/EmployeeDTO';
-import { uiAvatar } from '../../../../components/misc/uiAvatar';
-import { departmentsMockData, divisionsMockData, sectionMockData, teamMockData, unitMockData } from '../../../public/Organization/data/OrganizationEntityMockList';
-import { OrganizationEntitySummaryDTO } from '../../../public/Organization/DTOs/OrganizationEntityDTO';
+// import { http, HttpResponse } from 'msw';
+// import { EmployeeMockData } from '../data/employeeData';
+// import { EmployeeDTO, CreateEmployeeDTO, UpdateEmployeeDTO } from '../DTOs/EmployeeDTO';
+// import { uiAvatar } from '../../../../components/misc/uiAvatar';
+// import { departmentsMockData, divisionsMockData, sectionMockData, teamMockData, unitMockData } from '../../../public/Organization/data/OrganizationEntityMockList';
+// import { OrganizationEntitySummaryDTO } from '../../../public/Organization/DTOs/OrganizationEntityDTO';
 
 
-let employees = [...EmployeeMockData];
-let allOrg = [...divisionsMockData, ...departmentsMockData, ...sectionMockData, ...unitMockData, ...teamMockData]
+// let employees = [...EmployeeMockData];
+// let allOrg = [...divisionsMockData, ...departmentsMockData, ...sectionMockData, ...unitMockData, ...teamMockData]
 
-function getOrgInfoByLevel(level: number, allOrg: OrganizationEntitySummaryDTO[], employeeId: string) {
-  const relatedIds = allOrg
-    .filter((link) => link.level === level && link.employeeIds?.includes(employeeId))
-    .map((link) => link.id);
+// function getOrgInfoByLevel(level: number, allOrg: OrganizationEntitySummaryDTO[], employeeId: string) {
+//   const relatedIds = allOrg
+//     .filter((link) => link.level === level && link.employeeIds?.includes(employeeId))
+//     .map((link) => link.id);
 
-  const names = allOrg
-    .filter((org) => relatedIds.includes(org.id!))
-    .map((org) => org.name);
+//   const names = allOrg
+//     .filter((org) => relatedIds.includes(org.id!))
+//     .map((org) => org.name);
 
-  return { ids: relatedIds, names };
-}
+//   return { ids: relatedIds, names };
+// }
 
 export const employeeListHandlers = [
   // 🟢 GET all employees

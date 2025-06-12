@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
-import InputField from '../../../../../components/Form/InputField';
 import { CreateDocumentDTO } from '../../DTOs/DocumentDTO';
 import { generalDocumentInfoFields } from '../../configs/sharedProps';
+import InputField from '../../../../../components/Form/InputField';
 
 export default function GeneralDocumentInfoSection() {
   useFormikContext<CreateDocumentDTO>();

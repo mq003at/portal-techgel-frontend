@@ -1,30 +1,30 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   CreateOrganizationEntityDTO,
-  OrganizationEntityDTO,
+  OrganizationEntitySummaryDTO,
   UpdateOrganizationEntityDTO,
 } from '../DTOs/OrganizationEntityDTO';
 
 export const organizationEntityApi = createApi({
   reducerPath: 'organizationEntityApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:5001/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_BASE_URL + "/api" }),
   tagTypes: ['OrganizationEntity'],
 
   endpoints: (builder) => ({
     // 🔄 GET all organization entities (divisions, departments, etc.)
-    getOrganizationEntities: builder.query<OrganizationEntityDTO[], void>({
+    getOrganizationEntities: builder.query<OrganizationEntitySummaryDTO[], void>({
       query: () => 'organizationentities',
       providesTags: ['OrganizationEntity'],
     }),
 
     // 🔍 GET organization entity by ID
-    getOrganizationEntityById: builder.query<OrganizationEntityDTO, string>({
+    getOrganizationEntityById: builder.query<OrganizationEntitySummaryDTO, string>({
       query: (id) => `organizationentities/${id}`,
       providesTags: (_result, _error, id) => [{ type: 'OrganizationEntity', id }],
     }),
 
     // ➕ CREATE organization entity
-    createOrganizationEntity: builder.mutation<OrganizationEntityDTO, CreateOrganizationEntityDTO>({
+    createOrganizationEntity: builder.mutation<OrganizationEntitySummaryDTO, CreateOrganizationEntityDTO>({
       query: (body) => ({
         url: 'organizationentities',
         method: 'POST',
@@ -35,7 +35,7 @@ export const organizationEntityApi = createApi({
 
     // 📝 UPDATE organization entity
     updateOrganizationEntity: builder.mutation<
-      OrganizationEntityDTO,
+      OrganizationEntitySummaryDTO,
       { id: string; data: UpdateOrganizationEntityDTO }
     >({
       query: ({ id, data }) => ({

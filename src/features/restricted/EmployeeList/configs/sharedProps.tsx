@@ -33,6 +33,16 @@ export const personalInfoFields: InputFieldProps[] = [
     required: false,
   },
   {
+    label: 'Nơi sinh',
+    name: 'birthPlace',
+    required: false,
+  },
+  {
+    label: 'Dân tộc',
+    name: 'ethnicGroup',
+    required: false,
+  },
+  {
     label: 'Quốc tịch',
     name: 'nationality',
     required: false,

@@ -1,6 +1,6 @@
 import IconWrapper from '../../../../../components/Wrapper/IconWrapper';
-import { ServiceGroup } from '../../../../../types/models/Service/ServiceModal';
-import { documentServiceGroup } from '../../../DocumentsManagement/data/DocumentMockList';
+import { ServiceGroup } from '../../../../../types/Models/Service/ServiceModal';
+import { documentCategoryOptions } from '../../../DocumentsManagement/constants/DocumentTypeOptions';
 
 export const allGeneralServices: ServiceGroup[] = [
   {
@@ -201,8 +201,23 @@ export const allGeneralServices: ServiceGroup[] = [
     //     navigateTo: '/main/documents/archive',
     //   },
     // ],
-    ...documentServiceGroup
-  ,
+  {
+      group: 'Hệ Thống Quản Lý Tài Liệu',
+          items: [
+            {
+              title: 'Tất cả Tài Liệu',
+              icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+              navigateTo: '/main/documents',
+          },
+            ...documentCategoryOptions.map((doc, _) => (
+              {
+                title: `${doc.label}`,
+                icon: <IconWrapper src="../assets/icon/serviceBarIcons/document.svg" title="Document" />,
+                navigateTo: `/main/documents?cate=${doc.value}`,
+              }
+            ))
+        ]
+  }  ,
   {
     group: 'Thăm dò Ý kiến',
     items: [
@@ -223,17 +238,22 @@ export const allGeneralServices: ServiceGroup[] = [
         icon: <IconWrapper src="../assets/icon/serviceBarIcons/salary.svg" title="Bảng lương" />,
         navigateTo: '/main/salary',
       },
-    ],
-  },
-  {
-    group: 'Đặt Xe Và Phòng Họp',
-    items: [
       {
-        title: 'Đặt Xe Và Phòng Họp',
+        title: 'Đặt Phòng Họp',
         icon: (
           <IconWrapper
-            src="../assets/icon/serviceBarIcons/booking.svg"
-            title="Đặt Xe Và Phòng Họp"
+            src="../assets/icon/serviceBarIcons/booking-meeting-room.svg"
+            title="Đặt Phòng Họp"
+          />
+        ),
+        navigateTo: '/main/book-meeting-room',
+      },
+      {
+        title: 'Đặt Xe',
+        icon: (
+          <IconWrapper
+            src="../assets/icon/serviceBarIcons/booking-car.svg"
+            title="Đặt Xe"
           />
         ),
         navigateTo: '/main/booking',

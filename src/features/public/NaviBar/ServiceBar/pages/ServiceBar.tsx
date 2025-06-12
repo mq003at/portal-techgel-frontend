@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import ScrollableServiceSection from '../components/ScrollableServiceSection';
-import ImageWrapper from '../../../../../components/wrapper/ImageWrapper';
+import ImageWrapper from '../../../../../components/Wrapper/ImageWrapper';
 import { allGeneralServices } from '../constants/generalServiceList';
 import IconWrapper from '../../../../../components/Wrapper/IconWrapper';
 import { useDrawer } from '../../../../../ui/DrawerContext';
@@ -12,7 +12,7 @@ interface ServiceBarProps {
 
 export default function ServiceBar({ isExpanded, setIsExpanded }: ServiceBarProps) {
   const navigate = useNavigate();
-  const { toggleDrawer, isDrawerOpen } = useDrawer();
+  const { toggleDrawer } = useDrawer();
 
   const services = allGeneralServices;
 

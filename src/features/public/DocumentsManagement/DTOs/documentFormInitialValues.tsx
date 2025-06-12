@@ -1,4 +1,4 @@
-import { CreateDocumentDTO, DocumentDTO } from "./DocumentDTO";
+import { CreateDocumentDTO } from "./DocumentDTO";
 
 export const documentFormInitialValues: CreateDocumentDTO = {
   mainId: '',
@@ -11,14 +11,14 @@ export const documentFormInitialValues: CreateDocumentDTO = {
     category: 'GUIDELINE',
     ownerId: '',
     ownerName: '',
-    organizationEntityResponsibleId: '',
+    organizationEntityResponsibleId: 0,
     organizationEntityResponsibleName: '',
     tag: [],
     description: '',
     url: '',
     version: '',
-    workflowIds: [],
-    workflowNames: [],
+    generalWorkflowIds: [],
+    generalWorkflowNames: [],
   },
 
   legalDocumentInfo: {

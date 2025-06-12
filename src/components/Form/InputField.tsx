@@ -1,7 +1,7 @@
 import { Field, ErrorMessage, useFormikContext } from 'formik';
 import InputFieldProps from './types/InputFieldProps';
 import { TagInput } from './TagInput';
-import { DatetimeInput } from './DatetimeInput';
+import { DateInput, DatetimeInput } from './DatetimeInput';
 import { TextareaInput } from './TextareaInput';
 import { SelectInput } from './SelectInput';
 
@@ -51,6 +51,8 @@ export default function InputField({
           </Field>
         ) : type === 'tags' && tags ? (
           <TagInput name={name} suggestions={tags.suggestions} allowNew={tags.allowNew} />
+        ) : type === 'date' ? (
+          <DateInput name={name} required={required} disabled={disabled} />
         ) : type === 'datetime' ? (
             <DatetimeInput name={name} required={required} disabled={disabled} />
         ): type === 'select-input' ? (

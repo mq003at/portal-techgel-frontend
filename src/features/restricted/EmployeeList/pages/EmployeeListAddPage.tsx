@@ -17,12 +17,11 @@ import TaxInfoSection from '../forms/sections/TaxInfoSection';
 import InputField from '../../../../components/Form/InputField';
 import { useCreateEmployeeMutation } from '../api/employeeListApi';
 import { ToastContainer, toast } from 'react-toastify';
+import { convertDateFieldsToISO } from '../../../../utils/convertDateFieldsToISO';
 
 export function EmployeeListAddPage() {
   const [currentTab, setCurrentTab] = useState<EmployeeTabKey>('personalInfo');
   const navigate = useNavigate();
-
-  // const [createEmployee, { isLoading, isError, error, isSuccess }] = useCreateEmployeeMutation();
 
   const [createEmployee, { isLoading }] = useCreateEmployeeMutation();
 
@@ -34,7 +33,11 @@ export function EmployeeListAddPage() {
     formData.avatar = `https://ui-avatars.com/api/?name=${
       formData.middleName ? formData.middleName.trim().split(/\s+/).pop() : ''
     }+${formData.firstName}&bold=true&background=random`;
-    const promise = createEmployee(formData).unwrap();
+
+    const isoFormData = convertDateFieldsToISO(formData);
+    console.log(isoFormData);
+
+    const promise = createEmployee(isoFormData).unwrap();
 
     toast.promise(promise, {
       pending: 'Đang tạo nhân viên...',

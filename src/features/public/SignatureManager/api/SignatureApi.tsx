@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CreateSignatureDTO, SignatureDTO, UpdateSignatureDTO } from '../DTOs/SignatureDTO';
+import { SignatureDTO, UpdateSignatureDTO } from '../DTOs/SignatureDTO';
 
 export const signatureApi = createApi({
     reducerPath: 'SignatureApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://localhost:5001/api'}),
+    baseQuery: fetchBaseQuery({baseUrl: import.meta.env.VITE_API_BASE_URL + "/api"}),
     tagTypes: ['Signature'],
 
     endpoints: (builder) => ({

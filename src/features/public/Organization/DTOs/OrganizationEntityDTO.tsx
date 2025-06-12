@@ -1,5 +1,4 @@
 import { BaseDTO } from '../../../../types/DTOs/BaseDTO';
-import { EmployeeDTO } from '../../../restricted/EmployeeList/DTOs/EmployeeDTO';
 import { OrganizationStatus } from '../configs/OrganizationModelOptions';
 
 
@@ -20,6 +19,8 @@ export interface OrganizationEntitySummaryDTO extends BaseDTO {
 
   childrenIds?: string[];
   childrenNames?: string[];
+
+  children: OrganizationEntitySummaryDTO[];
 
   employeeIds?: string[];
   employeeNames?: string[];

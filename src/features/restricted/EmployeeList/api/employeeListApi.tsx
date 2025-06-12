@@ -4,7 +4,7 @@ import { LoginRequestDTO } from '../DTOs/loginRequestDTO';
 
 export const employeeApi = createApi({
   reducerPath: 'employeeApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:5001/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_BASE_URL + "/api" }),
   tagTypes: ['Employee'],
   endpoints: (builder) => ({
     // GET all employees

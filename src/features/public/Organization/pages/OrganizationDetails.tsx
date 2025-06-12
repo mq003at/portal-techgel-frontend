@@ -1,13 +1,12 @@
-import { useEffect, useMemo, useRef } from 'react';
-import IconWrapper from '../../../../components/Wrapper/IconWrapper';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
+import { useMemo, useRef } from 'react';
+import { useAppSelector } from '../../../../hooks/reduxHooks';
 import { safeNumber, safeString } from '../../../../utils/textUtils';
 import FunctionalityBar from '../component/OrganizationTable/FunctionalityBar';
-import { CreateOrganizationEntityDTO, UpdateOrganizationEntityDTO } from '../DTOs/OrganizationEntityDTO';
-import { organizationEntityApi, useGetOrganizationEntitiesQuery, useUpdateOrganizationEntityMutation } from '../api/OrganizationEntityApi';
-import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { clearSelectedOrganizationEntity } from '../store/selectedOrganizationEntitySlice';
+// import { CreateOrganizationEntityDTO, UpdateOrganizationEntityDTO } from '../DTOs/OrganizationEntityDTO';
+// import { organizationEntityApi, useGetOrganizationEntitiesQuery, useUpdateOrganizationEntityMutation } from '../api/OrganizationEntityApi';
+// import { toast } from 'react-toastify';
+// import { useDispatch } from 'react-redux';
+// import { clearSelectedOrganizationEntity } from '../store/selectedOrganizationEntitySlice';
 import { OrganizationStatusOptions } from '../constants/OrganizationPageOptions';
 import { OrganizationStatus } from '../configs/OrganizationModelOptions';
 
@@ -22,43 +21,43 @@ export default function OrganizationDetails() {
   //     dispatch(divisionApi.endpoints.getDivisions.initiate());
   //   };'
 
-  const [updateOrganizationEntity, {isSuccess: isUpdateOrganizationSuccess}] = useUpdateOrganizationEntityMutation();
+  // const [updateOrganizationEntity] = useUpdateOrganizationEntityMutation();
   const editModalRef = useRef<HTMLDialogElement>(null);
-  const openEditModal = () => editModalRef.current?.showModal();
+  // const openEditModal = () => editModalRef.current?.showModal();
   const { selected: organizationEntityselected } = useAppSelector((state) => state.selectedOrganizationEntity);
   const { employees } = useAppSelector((state) => state.phoneBook);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const manager = useMemo(() => {
-    return employees?.find(e => e.id === organizationEntityselected?.managerId);
+    return employees?.find(e => String(e.id) === organizationEntityselected?.managerId);
   }, [employees, organizationEntityselected?.managerId]);
 
-  const handleEdit = async (formData: UpdateOrganizationEntityDTO) => {  
-      formData.managerId === "" ? delete formData.managerId : undefined;
-      formData.parentId === "" ? delete formData.parentId : undefined;
+  // const handleEdit = async (formData: UpdateOrganizationEntityDTO) => {  
+  //     formData.managerId === "" ? delete formData.managerId : undefined;
+  //     formData.parentId === "" ? delete formData.parentId : undefined;
 
-      let promise;
-      const id = String(organizationEntityselected?.id ?? '');
-      if(organizationEntityselected && 'id' in organizationEntityselected && organizationEntityselected.id){
-        promise = updateOrganizationEntity({ id, data: formData }).unwrap();
-      }else {
-        return;
-      }
+  //     let promise;
+  //     const id = String(organizationEntityselected?.id ?? '');
+  //     if(organizationEntityselected && 'id' in organizationEntityselected && organizationEntityselected.id){
+  //       promise = updateOrganizationEntity({ id, data: formData }).unwrap();
+  //     }else {
+  //       return;
+  //     }
   
-      toast.promise(promise, {
-        pending: 'Đang cập nhật đơn vị...',
-        success: 'Cập nhật đơn vị thành công!',
-        error: 'Cập nhật đơn vị thất bại. Vui lòng thử lại!',
-      });
+  //     toast.promise(promise, {
+  //       pending: 'Đang cập nhật đơn vị...',
+  //       success: 'Cập nhật đơn vị thành công!',
+  //       error: 'Cập nhật đơn vị thất bại. Vui lòng thử lại!',
+  //     });
   
-      try {
-        await promise;
-        dispatch(clearSelectedOrganizationEntity());
-        editModalRef.current?.close();
-      } catch (err) {
-        console.error('Failed to create Organization:', err);
-      }
-    };
+  //     try {
+  //       await promise;
+  //       dispatch(clearSelectedOrganizationEntity());
+  //       editModalRef.current?.close();
+  //     } catch (err) {
+  //       console.error('Failed to create Organization:', err);
+  //     }
+  //   };
 
   
   return (

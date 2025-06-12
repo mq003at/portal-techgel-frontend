@@ -1,4 +1,4 @@
-import { InputFieldProps } from '../../../../components/form/types/InputFieldProps';
+// import { InputFieldProps } from '../../../../components/Form/types/InputFieldProps';
 
 // export const addingOrganizationEntityFields: InputFieldProps[] = [
 //   { label: 'Tên', name: 'name', placeholder: 'Type name', required: true },

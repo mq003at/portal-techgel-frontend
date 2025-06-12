@@ -67,6 +67,16 @@ export const employeePersonalInfoListColumns: TableColumnDef<PersonalInfoDTO>[] 
     },
   },
   {
+    accessorKey: 'birthPlace',
+    header: 'Nơi sinh',
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'ethnicGroup',
+    header: 'Dân tộc',
+    enableSorting: true,
+  },
+  {
     accessorKey: 'nationality',
     header: 'Quốc tịch',
     enableSorting: true,
@@ -94,8 +104,9 @@ export const employeePersonalInfoListColumns: TableColumnDef<PersonalInfoDTO>[] 
   },
   {
     accessorKey: 'idCardIssueDate',
-    header: 'Ngày cấp',
+    header: 'Ngày Cấp',
     enableSorting: true,
+    cell: DateCell,
     sortingFn: (rowA, rowB, columnId) => {
       const dateA = new Date(rowA.getValue(columnId));
       const dateB = new Date(rowB.getValue(columnId));
@@ -126,6 +137,7 @@ export const employeePersonalInfoListColumns: TableColumnDef<PersonalInfoDTO>[] 
     accessorKey: 'idCardExpiryDate',
     header: 'Ngày hết hạn',
     enableSorting: true,
+    cell: DateCell,
     sortingFn: (rowA, rowB, columnId) => {
       const dateA = new Date(rowA.getValue(columnId));
       const dateB = new Date(rowB.getValue(columnId));

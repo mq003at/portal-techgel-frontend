@@ -4,7 +4,7 @@ import { LeaveRequestNodeDTO } from '../DTOs/LeaveRequestNodeDTO';
 
 export const leaveRequestWorkflowApi = createApi({
     reducerPath: 'LeaveRequestWorkflowApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://localhost:5001/api'}),
+    baseQuery: fetchBaseQuery({baseUrl: import.meta.env.VITE_API_BASE_URL + "/api"}),
     tagTypes: ['LeaveRequestWorkflow'],
 
     endpoints: (builder) => ({

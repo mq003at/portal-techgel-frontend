@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import InputField from '../../../../../components/form/InputField';
+import InputField from '../../../../../components/Form/InputField';
 import { CreateEmployeeDTO } from '../../DTOs/EmployeeDTO';
 import { emergencyContactInfoFields } from '../../configs/sharedProps';
 
